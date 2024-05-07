@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-fit h-dvh sidebar-bg flex flex-col justify-evenly px-2 fixed left-0 top-0 bottom-0">
+    <div className="w-12 h-dvh sidebar-bg flex flex-col justify-evenly px-2 fixed left-0 top-0 bottom-0">
       <section className="flex flex-col justify-between h-40">
         <NavLink to="/">
           <EnvelopeSimple size={32} weight="regular" color="white" /> <span className="hidden">Messages</span>

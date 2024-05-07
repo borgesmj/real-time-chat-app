@@ -12,7 +12,7 @@ function App() {
   return (
     <div id="app" className=" ligth-theme w-dvw">
       <Sidebar />
-      <div className="ml-12">
+      <div className="ml-12 options-bar p-4">
       <Routes>
         <Route path="/" element={<Chats />}></Route>
       </Routes>
