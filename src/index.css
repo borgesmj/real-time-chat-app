@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.ligth-theme{
+    --primary-100:#6AB7FF;
+    --primary-200:#479ae0;
+    --primary-300:#005b9a;
+    --accent-100:#FFD700;
+    --accent-200:#917800;
+    --text-100:#333333;
+    --text-200:#5c5c5c;
+    --bg-100:#FFFFFF;
+    --bg-200:#f5f5f5;
+    --bg-300:#cccccc;   
+}

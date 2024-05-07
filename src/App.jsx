@@ -4,7 +4,7 @@ import Sidebar from "./Components/Sidebar/Sidebar"
 function App() {
 
   return (
-    <div className="w-dvw">
+    <div id="app" className=" ligth-theme w-dvw">
       <Sidebar/>
     </div>
   )
