@@ -17,12 +17,5 @@
 }
 
 .options-bar{
-    background: var(--text-200);
     width: calc(100dvw - 3rem);
-    font-weight: 500;
-}
-
-.options-bar > div > h3{
-    color: var(--primary-200);
-
 }

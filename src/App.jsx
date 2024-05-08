@@ -14,7 +14,7 @@ function App() {
   const [darkTheme, setDarkTheme] = useState(false);
 
   return (
-    <div id="app" className=" ligth-theme w-dvw">
+    <div id="app" className="w-dvw">
       <Sidebar darkTheme = {darkTheme} />
       <div className="ml-12 options-bar p-4">
         <Routes>
