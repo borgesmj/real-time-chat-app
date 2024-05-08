@@ -1,21 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-.ligth-theme{
-    --primary-100:#6AB7FF;
-    --primary-200:#479ae0;
-    --primary-300:#005b9a;
-    --accent-100:#FFD700;
-    --accent-200:#917800;
-    --text-100:#333333;
-    --text-200:#5c5c5c;
-    --bg-100:#FFFFFF;
-    --bg-200:#f5f5f5;
-    --bg-300:#cccccc;   
-}
-
 .options-bar{
     width: calc(100dvw - 3rem);
+}
+
+@media (width >= 720px){
+    .options-bar{
+        width: 350px;
+    }
 }

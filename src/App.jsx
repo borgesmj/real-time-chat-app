@@ -16,7 +16,7 @@ function App() {
   return (
     <div id="app" className="w-dvw">
       <Sidebar darkTheme = {darkTheme} />
-      <div className="ml-12 options-bar p-4">
+      <div className="ml-12 options-bar">
         <Routes>
           <Route path="/" element={<Chats />}></Route>
         </Routes>
