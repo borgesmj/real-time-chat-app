@@ -7,21 +7,13 @@ input[type='checkbox'] ~ #theme-toggle > div {
     width: 30px;
     background: #6AB7FF;
     right: 0;
+    transform: translateX(0);
+    box-shadow: 0px 0px 5px 1px #ccc6b9;
 }
 
 input[type='checkbox']:checked ~ #theme-toggle > div {
     background-color: #1b283f;
-    left: 0;
+    transform: translateX(-30px);
+    box-shadow: 0px 0px 5px 1px #c0c0c0;
 }
 
-input[type='checkbox']:checked ~ #theme-toggle > div > .toggle-sun{
-    display: none;
-}
-
-input[type='checkbox'] ~ #theme-toggle > div > .toggle-moon{
-    display: none;
-}
-
-input[type='checkbox']:checked ~ #theme-toggle > div > .toggle-moon{
-    display: block;
-}

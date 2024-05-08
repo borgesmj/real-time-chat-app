@@ -13,20 +13,20 @@ const Sidebar = ({darkTheme}) => {
     <div className={`w-12 h-dvh sidebar-bg flex flex-col justify-evenly px-2 fixed left-0 top-0 bottom-0 ${!darkTheme ? 'bg-[#5c5c5c]' : 'bg-[#0A192F]'}`}>
       <section className="flex flex-col justify-between h-40">
         <NavLink to="/">
-          <EnvelopeSimple size={32} weight="regular" color="white" /> <span className="hidden">Messages</span>
+          <EnvelopeSimple size={32} weight="regular" color={!darkTheme ? "#FFFFFF" : "#00997a"} /> <span className="hidden">Messages</span>
         </NavLink>
         <NavLink to="/favorites">
-          <HeartStraight size={32} weight="regular" color="white" />
+          <HeartStraight size={32} weight="regular" color={!darkTheme ? "#FFFFFF" : "#00997a"} />
         </NavLink>
         <NavLink to="groups">
-          <UsersThree size={32} weight="regular" color="white" />
+          <UsersThree size={32} weight="regular" color={!darkTheme ? "#FFFFFF" : "#00997a"} />
         </NavLink>
         <NavLink to="profile">
-          <User size={32} weight="regular" color="white" />
+          <User size={32} weight="regular" color={!darkTheme ? "#FFFFFF" : "#00997a"} />
         </NavLink>
       </section>
       <NavLink to="/settings">
-        <GearSix size={32} weight="regular" color="white" />
+        <GearSix size={32} weight="regular" color={!darkTheme ? "#FFFFFF" : "#00997a"} />
       </NavLink>
     </div>
   );
