@@ -7,6 +7,7 @@ import Chats from "./Components/Pages/Chats/Chats";
 import Favorites from "./Components/Pages/Favorites/Favorites";
 import Groups from "./Components/Pages/Groups/Groups";
 import PasswordSetting from "./Components/Pages/SettingsPage/PasswordSetting";
+import ProfileSettings from "./Components/Pages/SettingsPage/ProfileSettings";
 // React router
 import { Routes, Route } from "react-router-dom";
 // Hooks
@@ -29,6 +30,7 @@ function App() {
             }
           ></Route>
           <Route path="/settings/password" element={<PasswordSetting/>}></Route>
+          <Route path="/settings/profile" element={<ProfileSettings/>}></Route>
           <Route path="/profile" element={<Profile />}></Route>
         </Routes>
     </div>

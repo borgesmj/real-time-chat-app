@@ -15,6 +15,7 @@ const Settings = ({darkTheme, setDarkTheme}) => {
       <Section darkTheme = {darkTheme}>
       <h3 className='w-full text-center text-[2rem] uppercase font-[roboto]'>Settings</h3>
       <NavLink to="password">Contraseña</NavLink>
+      <NavLink to="profile">Perfil</NavLink>
       <ThemeToggle darkTheme={darkTheme} handleChange={handleChange}/>
       </Section>
     </div>
