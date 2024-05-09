@@ -6,6 +6,8 @@ import Settings from "./Components/Pages/SettingsPage/Settings";
 import Chats from "./Components/Pages/Chats/Chats";
 import Favorites from "./Components/Pages/Favorites/Favorites";
 import Groups from "./Components/Pages/Groups/Groups";
+import PasswordSetting from "./Components/Pages/SettingsPage/PasswordSetting";
+// React router
 import { Routes, Route } from "react-router-dom";
 // Hooks
 import { useState } from "react";
@@ -18,22 +20,15 @@ function App() {
       <Sidebar darkTheme = {darkTheme} />
         <Routes>
           <Route path="/" element={<Chats />}></Route>
-        </Routes>
-        <Routes>
           <Route path="/favorites" element={<Favorites />}></Route>
-        </Routes>
-        <Routes>
           <Route path="/groups" element={<Groups />}></Route>
-        </Routes>
-        <Routes>
           <Route
             path="/settings"
             element={
               <Settings darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
             }
           ></Route>
-        </Routes>
-        <Routes>
+          <Route path="/settings/password" element={<PasswordSetting/>}></Route>
           <Route path="/profile" element={<Profile />}></Route>
         </Routes>
     </div>
