@@ -1,12 +1,10 @@
 import Section from "../../Section/Section"
 
-const ProfileSettings = () => {
+const ProfileSettings = ({darkTheme}) => {
   return (
-    <div>
-      <Section>
+      <Section darkTheme={darkTheme}>
         profile
       </Section>
-    </div>
   )
 }
 

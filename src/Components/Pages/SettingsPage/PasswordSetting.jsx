@@ -1,13 +1,11 @@
 import Section from '../../Section/Section'
 import React from 'react'
 
-const PasswordSetting = () => {
+const PasswordSetting = ({darkTheme}) => {
   return (
-    <div>
-      <Section>
+      <Section darkTheme={darkTheme}>
         password
       </Section>
-    </div>
   )
 }
 

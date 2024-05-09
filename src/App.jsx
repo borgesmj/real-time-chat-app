@@ -29,8 +29,8 @@ function App() {
               <Settings darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
             }
           ></Route>
-          <Route path="/settings/password" element={<PasswordSetting/>}></Route>
-          <Route path="/settings/profile" element={<ProfileSettings/>}></Route>
+          <Route path="/settings/password" element={<PasswordSetting darkTheme={darkTheme}/>}></Route>
+          <Route path="/settings/profile" element={<ProfileSettings darkTheme={darkTheme}/>}></Route>
           <Route path="/profile" element={<Profile />}></Route>
         </Routes>
     </div>
