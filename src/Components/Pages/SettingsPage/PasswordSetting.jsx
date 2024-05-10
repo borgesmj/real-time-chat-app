@@ -12,6 +12,7 @@ const PasswordSetting = ({ darkTheme }) => {
 
   useEffect(() => {
     const strength = evalNewPassword(newPassword)
+    setPasswordError(evalRepeat())
     setStrengthSpans(Array(strength).fill('x'))
   }, [newPassword])
 

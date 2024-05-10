@@ -20,7 +20,7 @@ function App() {
     <div id="app" className="w-dvw">
       <Sidebar darkTheme = {darkTheme} />
         <Routes>
-          <Route path="/" element={<Chats />}></Route>
+          <Route path="/" element={<Chats  darkTheme={darkTheme} />}></Route>
           <Route path="/favorites" element={<Favorites />}></Route>
           <Route path="/groups" element={<Groups />}></Route>
           <Route

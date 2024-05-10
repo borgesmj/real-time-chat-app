@@ -1,13 +1,13 @@
-import React from 'react'
-import Section from '../../Section/Section'
+import React from "react";
+import Section from "../../Section/Section";
+import ChatAccess from "../../ChatAccess/ChatAccess";
 
-const Chats = () => {
+const Chats = ({darkTheme}) => {
   return (
-    <div>
-      <Section/>
-      chats
-    </div>
-  )
-}
+      <Section darkTheme = {darkTheme}>
+        <ChatAccess />
+      </Section>
+  );
+};
 
-export default Chats
+export default Chats;
