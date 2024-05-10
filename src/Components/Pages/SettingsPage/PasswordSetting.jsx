@@ -1,17 +1,33 @@
 import Section from "../../Section/Section";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ArrowLeft, Lock, Eye,EyeSlash  } from "@phosphor-icons/react";
 
 const PasswordSetting = ({ darkTheme }) => {
   const [revealedPassword, setRevealedPassword] = useState(false)
+  const [newPassword, setNewPassword] = useState('')
+  const [strengthSpans, setStrengthSpans] = useState([])
+
+  useEffect(() => {
+    const strength = evalNewPassword(newPassword)
+    setStrengthSpans(Array(strength).fill('x'))
+  }, [newPassword])
+
 
   const revealPassword = () => {
       setRevealedPassword(!revealedPassword)
   }
-  const evalRegex = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
+  const evalNewPassword = () => {
+    let strength = 0
+    // Evaluar la longitud
+    if (newPassword.length >= 8) strength++
+    // Evaluar mayuscular
+    if (/[A-Z]/.test(newPassword)) strength++
+    // Evaluar digitos numericos
+    if (/\d/.test(newPassword)) strength++
+    // Evalua caracteres especiales
+  if (/[.*/?&$+]/.test(newPassword)) strength++
+    return strength
   };
 
   const evalRepeat = () => {
@@ -43,7 +59,7 @@ const PasswordSetting = ({ darkTheme }) => {
           </div>
           <span className="text-xs text-center">
             Debe ser, al menos, una contraseña de 8 caracteres. Debe incluir
-            caracteres especiales */+?
+            caracteres especiales .*/?&$+
           </span>
           <div className="w-full flex flex-col my-2 py-2">
             <label
@@ -95,11 +111,18 @@ const PasswordSetting = ({ darkTheme }) => {
                     : "placeholder:text-[#e0e0e0]"
                 } hover:cursor-pointer absolute left-0 top-0 bottom-0 h-full`}
                 placeholder="Introduzca contraseña"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
               />
               <span onClick={revealPassword} className="absolute right-0 top-0 bottom-0 h-full flex items-center">
               {!revealedPassword ? <Eye size={28} /> : <EyeSlash size={28} />}
               </span>
             </p>
+            <div className=" w-full h-2 flex justify-start mt-1">
+                {strengthSpans.map((span, index) => (
+                  <span className={`w-1/4 h-full ${strengthSpans.length < 3 ? 'bg-[#FF0000]' : strengthSpans.length < 4 ? 'bg-[#fff23cf5]' : 'bg-[#00ff00]'} rounded-xl`} key={`span_${index}`}></span>
+                ))}
+            </div>
           </div>
           <div className="w-full flex flex-col my-2 py-2">
             <label
