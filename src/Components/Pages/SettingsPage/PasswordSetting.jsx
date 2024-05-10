@@ -65,7 +65,7 @@ const PasswordSetting = ({ darkTheme }) => {
                   !darkTheme
                     ? "placeholder:text-[#5c5c5c]"
                     : "placeholder:text-[#e0e0e0]"
-                } hover:cursor-pointer`}
+                } hover:cursor-pointer absolute left-0 top-0 bottom-0 h-full`}
                 placeholder="Introduzca contraseña"
               />
               <span onClick={revealPassword} className="absolute right-0 top-0 bottom-0 h-full flex items-center">
@@ -93,7 +93,7 @@ const PasswordSetting = ({ darkTheme }) => {
                   !darkTheme
                     ? "placeholder:text-[#5c5c5c]"
                     : "placeholder:text-[#e0e0e0]"
-                } hover:cursor-pointer`}
+                } hover:cursor-pointer absolute left-0 top-0 bottom-0 h-full`}
                 placeholder="Introduzca contraseña"
               />
               <span onClick={revealPassword} className="absolute right-0 top-0 bottom-0 h-full flex items-center">
