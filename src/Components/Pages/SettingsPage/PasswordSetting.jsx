@@ -6,6 +6,8 @@ import { ArrowLeft, Lock, Eye,EyeSlash  } from "@phosphor-icons/react";
 const PasswordSetting = ({ darkTheme }) => {
   const [revealedPassword, setRevealedPassword] = useState(false)
   const [newPassword, setNewPassword] = useState('')
+  const [confirmedPassword, setConfirmedPassword] = useState('')
+  const [passwordError, setPasswordError] =  useState(false)
   const [strengthSpans, setStrengthSpans] = useState([])
 
   useEffect(() => {
@@ -13,7 +15,17 @@ const PasswordSetting = ({ darkTheme }) => {
     setStrengthSpans(Array(strength).fill('x'))
   }, [newPassword])
 
-
+  useEffect(() => {
+    setPasswordError(evalRepeat())
+  }, [confirmedPassword])
+  
+  const evalRepeat = () => {
+    if (newPassword !== confirmedPassword){
+      return true
+    } else{
+      return false
+    }
+  };
   const revealPassword = () => {
       setRevealedPassword(!revealedPassword)
   }
@@ -30,9 +42,6 @@ const PasswordSetting = ({ darkTheme }) => {
     return strength
   };
 
-  const evalRepeat = () => {
-    console.log("repeat");
-  };
   return (
     <Section darkTheme={darkTheme}>
       <div className="flex flex-col w-full h-dvh">
@@ -146,11 +155,16 @@ const PasswordSetting = ({ darkTheme }) => {
                     : "placeholder:text-[#e0e0e0]"
                 } hover:cursor-pointer absolute left-0 top-0 bottom-0 h-full`}
                 placeholder="Introduzca contraseña"
+                value={confirmedPassword}
+                onChange={(e) => {setConfirmedPassword(e.target.value)}}
               />
               <span onClick={revealPassword} className="absolute right-0 top-0 bottom-0 h-full flex items-center">
               {!revealedPassword ? <Eye size={28} /> : <EyeSlash size={28} />}
               </span>
             </p>
+            <div className=" w-full h-2 flex justify-start mt-1">
+              {passwordError && <span className="text-xs text-center w-full font-bold text-[#ff0000] leading-[5px]">Las contraseñas deben coincidir</span>}
+            </div>
           </div>
           <div className="w-full flex flex-col my-2 py-2">
             <input type="submit" value="Cambiar contraseña" className={`relative flex justify-center items-center rouned-[5px] ${!darkTheme ? 'bg-[#479ae0]' : 'bg-[#3ce0bc]'} overflow-hidden cursor-pointer border-none h-[50px] rounded-[10px]`} />
