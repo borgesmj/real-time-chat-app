@@ -1,12 +1,14 @@
 import React from "react";
-import Section from "../../Section/Section";
-import ChatAccess from "../../ChatAccess/ChatAccess";
+import Section from "../../Components/Section/Section";
+import ChatsList from "../../Components/ChatsList/ChatsList";
 
-const Chats = ({darkTheme}) => {
+const Chats = ({ darkTheme }) => {
   return (
-      <Section darkTheme = {darkTheme}>
-        <ChatAccess />
+    <div className="h-[95dvh]">
+      <Section darkTheme={darkTheme}>
+        <ChatsList darkTheme={darkTheme} />
       </Section>
+    </div>
   );
 };
 

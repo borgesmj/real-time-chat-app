@@ -4,10 +4,6 @@
 @tailwind utilities;
 
 
-.options-bar{
-    width: calc(100dvw - 3rem);
-}
-
 @media (width >= 720px){
     .options-bar{
         width: 350px;

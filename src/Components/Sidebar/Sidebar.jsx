@@ -28,10 +28,10 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar, setSidebarOpen }) => {
       className={`${
         !sidebarOpen
           ? "w-12 transition-all duration-[0.5s] md:w-12"
-          : "transition-all duration-[0.5s] w-[70%] md:w-[30%] lg:w-[13rem] z-20 rounded-lg"
-      } h-[95%] sidebar-bg flex flex-col justify-evenly px-2 fixed left-2 ${
+          : "transition-all duration-[0.5s] w-[70%] md:w-[30%] lg:w-[13rem] rounded-lg"
+      } h-[95dvh] sidebar-bg flex flex-col justify-evenly px-2 fixed left-2 ${
         !darkTheme ? "bg-[#5c5c5c]" : "bg-[#0A192F]"
-      } rounded-l-lg items-start lg:hover:cursor-pointer`}
+      } rounded-l-lg items-start lg:hover:cursor-pointer  z-20`}
       onMouseEnter={() => {
         handleMouseEnter();
       }}

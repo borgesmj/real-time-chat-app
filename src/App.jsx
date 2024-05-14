@@ -2,8 +2,8 @@
 import Sidebar from "./Components/Sidebar/Sidebar";
 // Pages
 // import Profile from "./Pages/Profile/Profile";
-// import Settings from "./Pages/SettingsPage/Settings";
-// import Chats from "./Pages/Chats/Chats";
+import Settings from "./Pages/SettingsPage/Settings";
+import Chats from "./Pages/Chats/Chats";
 // import Favorites from "./Pages/Favorites/Favorites";
 // import Groups from "./Pages/Groups/Groups";
 // import PasswordSetting from "./Pages/SettingsPage/PasswordSetting";
@@ -34,21 +34,20 @@ function App() {
         openSidebar={openSidebar}
         setSidebarOpen={setSidebarOpen}
       />
-      dsfdskjdskfjslkjlk
-      {/* <Routes>
-          <Route path="/" element={<Chats  darkTheme={darkTheme} />}></Route>
+      <Routes>
+        <Route path="/" element={<Chats  darkTheme={darkTheme} />}></Route>
+        <Route
+          path="/settings"
+          element={
+            <Settings darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+          }
+        ></Route>
+      {/* 
           <Route path="/favorites" element={<Favorites />}></Route>
           <Route path="/groups" element={<Groups />}></Route>
-          <Route
-            path="/settings"
-            element={
-              <Settings darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
-            }
-          ></Route>
-          <Route path="/settings/password" element={<PasswordSetting darkTheme={darkTheme}/>}></Route>
-          <Route path="/settings/profile" element={<ProfileSettings darkTheme={darkTheme}/>}></Route>
           <Route path="/profile" element={<Profile />}></Route>
-        </Routes> */}
+        */}
+        </Routes> 
     </div>
   );
 }
