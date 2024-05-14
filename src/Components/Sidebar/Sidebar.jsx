@@ -16,13 +16,6 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar, setSidebarOpen }) => {
     openSidebar();
   };
 
-  const handleMouseEnter = () => {
-    setSidebarOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setSidebarOpen(false);
-  };
   return (
     <div
       className={`${
@@ -32,19 +25,12 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar, setSidebarOpen }) => {
       } h-[95dvh] sidebar-bg flex flex-col justify-evenly px-2 fixed left-2 ${
         !darkTheme ? "bg-[#5c5c5c]" : "bg-[#0A192F]"
       } rounded-l-lg items-start lg:hover:cursor-pointer  z-20`}
-      onMouseEnter={() => {
-        handleMouseEnter();
-      }}
-      onMouseLeave={() => {
-        handleMouseLeave();
-      }}
     >
       <button
         type="button"
         onClick={() => {
           handleClick();
         }}
-        className="lg:hidden"
       >
         {!sidebarOpen ? (
           <List
