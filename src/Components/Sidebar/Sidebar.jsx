@@ -11,20 +11,67 @@ import {
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 
-const Sidebar = ({ darkTheme, sidebarOpen, openSidebar, setSidebarOpen }) => {
+const Sidebar = ({ darkTheme, sidebarOpen, openSidebar }) => {
   const handleClick = () => {
     openSidebar();
   };
+
+  const links = [
+    {
+      href: "/",
+      icon: (
+        <EnvelopeSimple
+          size={32}
+          weight="regular"
+          color={!darkTheme ? "#FFFFFF" : "#00997a"}
+        />
+      ),
+      text: "Chats",
+    },
+    {
+      href: "/favorites",
+      icon: (
+        <HeartStraight
+          size={32}
+          weight="regular"
+          color={!darkTheme ? "#FFFFFF" : "#00997a"}
+        />
+      ),
+      text: "Favoritos",
+    },
+    {
+      href: "/contacts",
+      icon: (
+        <UsersThree
+          size={32}
+          weight="regular"
+          color={!darkTheme ? "#FFFFFF" : "#00997a"}
+        />
+      ),
+      text: "Contactos",
+    },
+    {
+      href: "/profile",
+      icon: (
+        <User
+          size={32}
+          weight="regular"
+          color={!darkTheme ? "#FFFFFF" : "#00997a"}
+        />
+      ),
+      text: "Mi perfil",
+    },
+  ];
 
   return (
     <div
       className={`${
         !sidebarOpen
-          ? "w-12 transition-all duration-[0.5s] md:w-12"
-          : "transition-all duration-[0.5s] w-[70%] md:w-[30%] lg:w-[13rem] rounded-lg"
+          ? "w-12 transition-all duration-[0.5s] md:w-12 z-0"
+          : "transition-all duration-[0.5s] w-[70%] md:w-[30%] lg:w-[13rem] rounded-lg z-20"
       } h-[95dvh] sidebar-bg flex flex-col justify-evenly px-2 fixed left-2 ${
         !darkTheme ? "bg-[#5c5c5c]" : "bg-[#0A192F]"
-      } rounded-l-lg items-start lg:hover:cursor-pointer  z-20`}
+      } rounded-l-lg items-start lg:hover:cursor-pointer`}
     >
       <button
         type="button"
@@ -47,90 +94,28 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar, setSidebarOpen }) => {
         )}
       </button>
       <section className="flex flex-col justify-between h-40 md:h-60 lg:h-[12rem]">
-        <NavLink
-          to="/"
-          className="flex flex-row w-full items-center justify-start hover:font-bold"
-        >
-          <EnvelopeSimple
-            size={32}
-            weight="regular"
-            color={!darkTheme ? "#FFFFFF" : "#00997a"}
-          />{" "}
-          <span
-            className={`ml-4 text-[1.3rem] ${
-              !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-            } ${
-              !sidebarOpen
-                ? "opacity-0 transition-all duration-[0.5s]"
-                : "opacity-100 transition-all duration-[0.5s]"
-            }`}
+        {links.map((item, index) => (
+          <NavLink
+            key={`link_${index}`}
+            to={item.href}
+            className="flex flex-row w-full items-center justify-start hover:font-bold"
           >
-            Chats
-          </span>
-        </NavLink>
-        <NavLink
-          to="/favorites"
-          className="flex flex-row w-full items-center justify-start hover:font-bold"
-        >
-          <HeartStraight
-            size={32}
-            weight="regular"
-            color={!darkTheme ? "#FFFFFF" : "#00997a"}
-          />{" "}
-          <span
-            className={`ml-4 text-[1.3rem] ${
-              !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-            } ${
-              !sidebarOpen
-                ? "opacity-0 transition-all duration-[0.5s]"
-                : "opacity-100 transition-all duration-[0.5s]"
-            }`}
-          >
-            Favoritos
-          </span>
-        </NavLink>
-        <NavLink
-          to="/contacts"
-          className="flex flex-row w-full items-center justify-start hover:font-bold"
-        >
-          <UsersThree
-            size={32}
-            weight="regular"
-            color={!darkTheme ? "#FFFFFF" : "#00997a"}
-          />{" "}
-          <span
-            className={`ml-4 text-[1.3rem] ${
-              !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-            } ${
-              !sidebarOpen
-                ? "opacity-0 transition-all duration-[0.5s]"
-                : "opacity-100 transition-all duration-[0.5s]"
-            }`}
-          >
-            Contactos
-          </span>
-        </NavLink>
-        <NavLink
-          to="profile"
-          className="flex flex-row w-full items-center justify-start hover:font-bold"
-        >
-          <User
-            size={32}
-            weight="regular"
-            color={!darkTheme ? "#FFFFFF" : "#00997a"}
-          />{" "}
-          <span
-            className={`ml-4 text-[1.3rem] ${
-              !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-            } ${
-              !sidebarOpen
-                ? "opacity-0 transition-all duration-[0.5s]"
-                : "opacity-100 transition-all duration-[0.5s]"
-            }`}
-          >
-            Mi perfil
-          </span>
-        </NavLink>
+            {item.icon}{" "}
+            {sidebarOpen && (
+              <span
+                className={`ml-4 text-[1.3rem] ${
+                  !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
+                } ${
+                  !sidebarOpen
+                    ? "opacity-0 transition-all duration-[0.5s]"
+                    : "opacity-100 transition-all duration-[0.5s]"
+                }`}
+              >
+                {item.text}
+              </span>
+            )}
+          </NavLink>
+        ))}
       </section>
       <div className="flex flex-col justify-between md:h-20">
         <NavLink
@@ -142,17 +127,19 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar, setSidebarOpen }) => {
             weight="regular"
             color={!darkTheme ? "#FFFFFF" : "#00997a"}
           />{" "}
-          <span
-            className={`ml-4 text-[1.3rem] ${
-              !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-            } ${
-              !sidebarOpen
-                ? "opacity-0 transition-all duration-[0.5s]"
-                : "opacity-100 transition-all duration-[0.5s]"
-            }`}
-          >
-            Configuración
-          </span>
+          {sidebarOpen && (
+            <span
+              className={`ml-4 text-[1.3rem] ${
+                !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
+              } ${
+                !sidebarOpen
+                  ? "opacity-0 transition-all duration-[0.5s]"
+                  : "opacity-100 transition-all duration-[0.5s]"
+              }`}
+            >
+              Configuración
+            </span>
+          )}
         </NavLink>
         <button className="flex flex-row w-full items-center justify-start hover:font-bold">
           <SignOut
@@ -160,17 +147,19 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar, setSidebarOpen }) => {
             weight="regular"
             color={!darkTheme ? "#FFFFFF" : "#00997a"}
           />{" "}
-          <span
-            className={`ml-4 text-[1.3rem] ${
-              !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-            } ${
-              !sidebarOpen
-                ? "opacity-0 transition-all duration-[0.5s]"
-                : "opacity-100 transition-all duration-[0.5s]"
-            }`}
-          >
-            Salir
-          </span>
+          {sidebarOpen && (
+            <span
+              className={`ml-4 text-[1.3rem] ${
+                !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
+              } ${
+                !sidebarOpen
+                  ? "opacity-0 transition-all duration-[0.5s]"
+                  : "opacity-100 transition-all duration-[0.5s]"
+              }`}
+            >
+              Salir
+            </span>
+          )}
         </button>
       </div>
     </div>
