@@ -1,8 +1,12 @@
 import React from "react";
 
-const ChatCard = ({darkTheme}) => {
+const ChatCard = ({darkTheme, openChat}) => {
+
+  const handleClick = () => {
+    openChat();
+  }
   return (
-    <li
+    <li onClick={handleClick}
       className={`w-full h-[70px] ${
         !darkTheme ? "bg-[#f5f5f5]" : "bg-[#1b283f]"
       } flex flex-row items-center justify-start rounded-[5px] relative hover:cursor-pointer p-2 mr-4`}

@@ -3,6 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+.chat-section{
+    opacity: 0;
+    display: block;
+    transform: translateX(150dvw);
+    transition: all 0.3s linear 0s;
+}
+
+#chat-section-cb:checked ~ .chat-section{
+    opacity: 1;
+    transform: translateX(0px)
+}
 
 @media (width >= 1024px){
     ::-webkit-scrollbar{
