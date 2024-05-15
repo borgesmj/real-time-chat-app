@@ -20,7 +20,7 @@ const Settings = ({ darkTheme, setDarkTheme }) => {
   };
 
   return (
-    <div className="h-[95dvh]">
+    <div className="h-[95dvh] md:flex lg:mx-8 xl:mx-20">
       {openPWSettings ? (
         <PasswordSetting setOpenPWSettings={setOpenPWSettings} />
       ) : openProfileSettings ? (
