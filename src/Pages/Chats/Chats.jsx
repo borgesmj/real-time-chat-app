@@ -16,7 +16,7 @@ const Chats = ({ darkTheme }) => {
       <Section darkTheme={darkTheme}>
         <ChatsList darkTheme={darkTheme} openChat={openChat} />
       </Section>
-      <ChatSection setChatOpened={setChatOpened} />
+      <ChatSection setChatOpened={setChatOpened} darkTheme={darkTheme} />
     </div>
   );
 };
