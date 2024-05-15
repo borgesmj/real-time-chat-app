@@ -7,6 +7,13 @@ import { useState } from "react";
 const Chats = ({ darkTheme }) => {
   const [chatOpened, setChatOpened] = useState(false);
 
+  document.addEventListener("keydown", (event) => {
+
+    if(event.key === 'Escape'){
+      setChatOpened(false)
+    }
+  })
+
   const openChat = () => {
     setChatOpened(true);
   };
