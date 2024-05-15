@@ -9,13 +9,19 @@ import Chats from "./Pages/Chats/Chats";
 // import PasswordSetting from "./Pages/SettingsPage/PasswordSetting";
 // import ProfileSettings from "./Pages/SettingsPage/ProfileSettings";
 // React router
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 // Hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  let location = useLocation()
+
+  useEffect(() => {
+    setSidebarOpen(false)
+  }, [location.pathname])
 
   const openSidebar = () => {
     setSidebarOpen(!sidebarOpen);
