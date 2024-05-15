@@ -17,11 +17,11 @@ function App() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  let location = useLocation()
+  let location = useLocation();
 
   useEffect(() => {
-    setSidebarOpen(false)
-  }, [location.pathname])
+    setSidebarOpen(false);
+  }, [location.pathname]);
 
   const openSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -40,20 +40,20 @@ function App() {
         openSidebar={openSidebar}
         setSidebarOpen={setSidebarOpen}
       />
-      <Routes>
-        <Route path="/" element={<Chats  darkTheme={darkTheme} />}></Route>
+      <Routes className="">
+        <Route path="/" element={<Chats darkTheme={darkTheme} />}></Route>
         <Route
           path="/settings"
           element={
             <Settings darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           }
         ></Route>
-      {/* 
+        {/* 
           <Route path="/favorites" element={<Favorites />}></Route>
           <Route path="/groups" element={<Groups />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
         */}
-        </Routes> 
+      </Routes>
     </div>
   );
 }

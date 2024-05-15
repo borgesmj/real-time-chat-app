@@ -11,7 +11,7 @@ const Chats = ({ darkTheme }) => {
     setChatOpened(true);
   };
   return (
-    <div className="h-[95dvh]">
+    <div className="h-[95dvh] md:flex lg:mx-8 xl:mx-20">
       <input type="checkbox" name="" id="chat-section-cb" checked={chatOpened} readOnly className="hidden"/>
       <Section darkTheme={darkTheme}>
         <ChatsList darkTheme={darkTheme} openChat={openChat} />
