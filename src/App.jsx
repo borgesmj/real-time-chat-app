@@ -31,7 +31,9 @@ function App() {
     <div
       id="app"
       className={`w-dvw h-dvh p-2 ${
-        !darkTheme ? "bg-[#6AB7FF]" : "bg-[#64FFDA]"
+        !darkTheme
+          ? "bg-gradient-to-tr from-[#EEEEEE] from-80% via-[#f5f5f5] to-[#c7c7c7]"
+          : "bg-gradient-to-tr from-[#263238] from-10% via-[#455a64] to-[#fafafa]"
       }`}
     >
       <Sidebar
