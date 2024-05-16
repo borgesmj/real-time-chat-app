@@ -7,9 +7,9 @@ const ChatCard = ({darkTheme, openChat}) => {
   }
   return (
     <li onClick={handleClick}
-      className={`w-full h-[70px] ${
+      className={`w-full h-[70px] transition-[background-color] ease-linear ${
         !darkTheme ? "bg-[#f5f5f5]" : "bg-[#1b283f]"
-      } flex flex-row items-center justify-start rounded-[5px] relative hover:cursor-pointer p-2 mr-4`}
+      } flex flex-row items-center justify-start rounded-[5px] relative hover:cursor-pointer p-2 mr-4 hover:bg-[#ffffff10]`}
     >
       <img
         src="https://thumbs.wbm.im/pw/medium/769696e34b3e45081d14212795d01414.avif"
