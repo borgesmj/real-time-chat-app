@@ -15,6 +15,10 @@
     transform: translateX(0px)
 }
 
+.search-bar> p > input[type="text"]:focus ~ span{
+    display: none;
+    opacity: 0;
+}
 @media (width >= 1024px){
     ::-webkit-scrollbar{
         width: 5px;
