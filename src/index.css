@@ -6,19 +6,26 @@
 .chat-section{
     opacity: 0;
     display: block;
-    transform: translateX(150dvw);
     transition: all 0.3s linear 0s;
 }
 
 #chat-section-cb:checked ~ .chat-section{
     opacity: 1;
-    transform: translateX(0px)
+    left:0
 }
 
 .search-bar> p > input[type="text"]:focus ~ span{
     display: none;
     opacity: 0;
 }
+
+@media (width >= 768px){
+    #chat-section-cb:checked ~ .chat-section{
+        opacity: 1;
+        left:23rem
+    }
+}
+
 @media (width >= 1024px){
     ::-webkit-scrollbar{
         width: 5px;
