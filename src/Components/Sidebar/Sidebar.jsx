@@ -69,12 +69,13 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar }) => {
         !sidebarOpen
           ? "w-12 transition-all duration-[0.5s] md:w-12 z-0"
           : "transition-all duration-[0.5s] w-[70%] md:w-[30%] lg:w-[13rem] rounded-lg z-20"
-      } h-[95dvh] sidebar-bg flex flex-col justify-evenly px-2 fixed left-2 lg:left-10 xl:left-[5.5rem] ${
+      } h-[95dvh] sidebar-bg flex flex-col justify-evenly px-2 absolute left-0 top-0 bottom-0 ${
         !darkTheme ? "bg-[#5c5c5c]" : "bg-[#0A192F]"
       } rounded-l-lg items-start lg:hover:cursor-pointer`}
     >
       <button
         type="button"
+        className={`${!sidebarOpen ? 'rotate-0' : 'rotate-6'} transition-[transform] `}
         onClick={() => {
           handleClick();
         }}

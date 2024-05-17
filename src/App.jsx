@@ -30,24 +30,18 @@ function App() {
   return (
     <div
       id="app"
-      className={`w-dvw h-dvh p-2 ${
+      className={`w-dvw h-dvh p-2 flex justify-center items-center ${
         !darkTheme
           ? "bg-gradient-to-tr from-[#EEEEEE] from-80% via-[#f5f5f5] to-[#c7c7c7]"
           : "bg-gradient-to-tr from-[#263238] from-10% via-[#455a64] to-[#fafafa]"
       }`}
     >
-      <Sidebar
-        darkTheme={darkTheme}
-        sidebarOpen={sidebarOpen}
-        openSidebar={openSidebar}
-        setSidebarOpen={setSidebarOpen}
-      />
       <Routes className="">
-        <Route path="/" element={<Chats darkTheme={darkTheme} />}></Route>
+        <Route path="/" element={<Chats darkTheme={darkTheme} openSidebar={openSidebar} sidebarOpen={sidebarOpen} />}></Route>
         <Route
           path="/settings"
           element={
-            <Settings darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+            <Settings darkTheme={darkTheme} setDarkTheme={setDarkTheme} sidebarOpen={sidebarOpen} />
           }
         ></Route>
         {/* 
