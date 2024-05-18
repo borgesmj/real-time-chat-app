@@ -64,7 +64,7 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar }) => {
   ];
 
   return (
-    <div
+    <nav
       className={`${
         !sidebarOpen
           ? "w-12 transition-all duration-[0.5s] md:w-12 z-0"
@@ -163,7 +163,7 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar }) => {
           )}
         </button>
       </div>
-    </div>
+    </nav>
   );
 };
 
