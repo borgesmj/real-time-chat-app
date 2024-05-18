@@ -4,19 +4,24 @@
 @tailwind utilities;
 
 .chat-section{
-    opacity: 0;
-    display: block;
+    opacity:1;
     transition: all 0.3s linear 0s;
+    left: 0;
+    transform: translateX(150dvw);
 }
 
 #chat-section-cb:checked ~ .chat-section{
     opacity: 1;
-    left:0
+    transform: translateX(0);
 }
 
 .search-bar> p > input[type="text"]:focus ~ span{
     display: none;
     opacity: 0;
+}
+
+.main-shadow{
+    box-shadow: -12px 19px 16px 0px #000000;
 }
 
 @media (width >= 768px){
