@@ -5,7 +5,7 @@ import ChatSection from "../../Components/ChatSection/ChatSection";
 import { useState } from "react";
 import PageTemplate from "../../Templates/PageTemplate";
 
-const Chats = ({ darkTheme, openSidebar, sidebarOpen }) => {
+const Chats = ({ darkTheme, setSidebarOpen, sidebarOpen }) => {
   const [chatOpened, setChatOpened] = useState(false);
 
   document.addEventListener("keydown", (event) => {
@@ -20,7 +20,7 @@ const Chats = ({ darkTheme, openSidebar, sidebarOpen }) => {
   return (
     <PageTemplate
       darkTheme={darkTheme}
-      openSidebar={openSidebar}
+      setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
     >
       <Section>
@@ -36,11 +36,6 @@ const Chats = ({ darkTheme, openSidebar, sidebarOpen }) => {
       />
       <ChatSection setChatOpened={setChatOpened} darkTheme={darkTheme} chatOpened = {chatOpened}/>
     </PageTemplate>
-    // <div className="h-[95dvh] md:flex lg:mx-8 xl:mx-20">
-    //   <Section darkTheme={darkTheme}>
-    // </Section>
-    //   <ChatSection />
-    // </div>
   );
 };
 

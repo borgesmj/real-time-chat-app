@@ -1,18 +1,15 @@
-import PageTemplate from "../../Templates/PageTemplate";
 import Section from "../../Components/Section/Section";
-
-const Groups = ({darkTheme, setSidebarOpen, sidebarOpen}) => {
-
-  console.log(darkTheme)
+import PageTemplate from "../../Templates/PageTemplate";
+const ContactList = ({ darkTheme, setSidebarOpen, sidebarOpen }) => {
   return (
     <PageTemplate
       darkTheme={darkTheme}
       setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
     >
-      <Section>Contacts</Section>
+      <Section>ContactList</Section>
     </PageTemplate>
   );
 };
 
-export default Groups;
+export default ContactList;

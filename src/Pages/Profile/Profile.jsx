@@ -1,11 +1,18 @@
-import React from 'react'
+import PageTemplate from "../../Templates/PageTemplate";
+import Section from "../../Components/Section/Section";
 
-const Profile = () => {
+const Profile = ({ darkTheme, setSidebarOpen, sidebarOpen }) => {
   return (
-    <div>
-      Profile
-    </div>
-  )
-}
+    <PageTemplate
+    darkTheme={darkTheme}
+    setSidebarOpen={setSidebarOpen}
+    sidebarOpen={sidebarOpen}
+    >
+      <Section>
+        profile
+      </Section>
+    </PageTemplate>
+  );
+};
 
-export default Profile
+export default Profile;

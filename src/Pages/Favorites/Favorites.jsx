@@ -1,11 +1,16 @@
-import React from 'react'
-
-const Favorites = () => {
+import PageTemplate from "../../Templates/PageTemplate";
+import Section from "../../Components/Section/Section";
+import ChatsList from "../../Components/ChatsList/ChatsList";
+const Favorites = ({darkTheme, setSidebarOpen, sidebarOpen}) => {
   return (
-    <div>
-      Favorites
-    </div>
-  )
-}
+    <PageTemplate
+      darkTheme={darkTheme}
+      setSidebarOpen={setSidebarOpen}
+      sidebarOpen={sidebarOpen}
+    >
+      <Section>Favorites</Section>
+    </PageTemplate>
+  );
+};
 
-export default Favorites
+export default Favorites;

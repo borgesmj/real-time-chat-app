@@ -1,13 +1,12 @@
 // Components
 import Sidebar from "./Components/Sidebar/Sidebar";
 // Pages
-// import Profile from "./Pages/Profile/Profile";
+import Profile from "./Pages/Profile/Profile";
 import Settings from "./Pages/SettingsPage/Settings";
 import Chats from "./Pages/Chats/Chats";
-// import Favorites from "./Pages/Favorites/Favorites";
-// import Groups from "./Pages/Groups/Groups";
-// import PasswordSetting from "./Pages/SettingsPage/PasswordSetting";
-// import ProfileSettings from "./Pages/SettingsPage/ProfileSettings";
+import Favorites from "./Pages/Favorites/Favorites";
+import Groups from "./Pages/Groups/Groups";
+import ContactList from "./Pages/ContactList/ContactList";
 // React router
 import { Routes, Route, useLocation } from "react-router-dom";
 // Hooks
@@ -23,9 +22,7 @@ function App() {
     setSidebarOpen(false);
   }, [location.pathname]);
 
-  const openSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  console.log(darkTheme);
 
   return (
     <div
@@ -37,18 +34,63 @@ function App() {
       }`}
     >
       <Routes className="">
-        <Route path="/" element={<Chats darkTheme={darkTheme} openSidebar={openSidebar} sidebarOpen={sidebarOpen} />}></Route>
+        <Route
+          path="/"
+          element={
+            <Chats
+              darkTheme={darkTheme}
+              setSidebarOpen={setSidebarOpen}
+              sidebarOpen={sidebarOpen}
+            />
+          }
+        ></Route>
         <Route
           path="/settings"
           element={
-            <Settings darkTheme={darkTheme} setDarkTheme={setDarkTheme} sidebarOpen={sidebarOpen} />
+            <Settings
+              setDarkTheme={setDarkTheme}
+              darkTheme={darkTheme}
+              setSidebarOpen={setSidebarOpen}
+              sidebarOpen={sidebarOpen}
+            />
           }
         ></Route>
-        {/* 
-          <Route path="/favorites" element={<Favorites />}></Route>
-          <Route path="/groups" element={<Groups />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-        */}
+        <Route
+          path="/favorites"
+          element={
+            <Favorites
+              darkTheme={darkTheme}
+              setSidebarOpen={setSidebarOpen}
+              sidebarOpen={sidebarOpen}
+            />
+          }
+          ></Route>
+          {/*
+        <Route
+          path="/contacts"
+          element={
+            // Este elemento es para la pagina de contactos
+            <Groups
+              darkTheme={darkTheme}
+              setSidebarOpen={setSidebarOpen}
+              sidebarOpen={sidebarOpen}
+            />
+          }
+        ></Route>
+      */}
+      <Route path="/contacts" element={<ContactList darkTheme={darkTheme}
+              setSidebarOpen={setSidebarOpen}
+              sidebarOpen={sidebarOpen}/>}></Route>
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              darkTheme={darkTheme}
+              setSidebarOpen={setSidebarOpen}
+              sidebarOpen={sidebarOpen}
+            />
+          }
+        ></Route>
       </Routes>
     </div>
   );

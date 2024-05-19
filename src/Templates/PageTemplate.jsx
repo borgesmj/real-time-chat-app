@@ -1,9 +1,20 @@
 import Sidebar from "../Components/Sidebar/Sidebar";
 
-const PageTemplate = ({children, openSidebar, sidebarOpen}) => {
+const PageTemplate = ({
+  children,
+  setSidebarOpen,
+  sidebarOpen,
+  darkTheme,
+  setDarkTheme,
+}) => {
   return (
     <div className="w-full h-full relative xl:w-4/5 2xl:w-3/4">
-      <Sidebar openSidebar = {openSidebar} sidebarOpen={sidebarOpen}/>
+      <Sidebar
+        setSidebarOpen={setSidebarOpen}
+        sidebarOpen={sidebarOpen}
+        darkTheme={darkTheme}
+        setDarkTheme={setDarkTheme}
+      />
       {children}
     </div>
   );

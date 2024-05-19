@@ -6,8 +6,9 @@ import { NavLink } from "react-router-dom";
 import { Password, UserGear, GearSix } from "@phosphor-icons/react";
 import PasswordSetting from "./PasswordSetting";
 import ProfileSettings from "./ProfileSettings";
+import PageTemplate from "../../Templates/PageTemplate";
 
-const Settings = ({ darkTheme, setDarkTheme }) => {
+const Settings = ({ setDarkTheme, darkTheme, setSidebarOpen, sidebarOpen }) => {
   const handleChange = () => {
     setDarkTheme(!darkTheme);
   };
@@ -20,11 +21,16 @@ const Settings = ({ darkTheme, setDarkTheme }) => {
   };
 
   return (
-    <div className="h-[95dvh] md:flex lg:mx-8 xl:mx-20">
+    <PageTemplate
+      darkTheme={darkTheme}
+      setDarkTheme={setDarkTheme}
+      setSidebarOpen={setSidebarOpen}
+      sidebarOpen={sidebarOpen}
+    >
       {openPWSettings ? (
         <PasswordSetting setOpenPWSettings={setOpenPWSettings} />
       ) : openProfileSettings ? (
-        <ProfileSettings setOpenProfileSettings = {setOpenProfileSettings} />
+        <ProfileSettings setOpenProfileSettings={setOpenProfileSettings} />
       ) : (
         <Section darkTheme={darkTheme}>
           <h3 className="w-full flex justify-center text-[2rem] uppercase font-[roboto]">
@@ -37,16 +43,17 @@ const Settings = ({ darkTheme, setDarkTheme }) => {
             >
               <Password /> <span className="ml-4">Contraseña</span>
             </button>
-            <button 
+            <button
               onClick={() => setOpenProfileSettings(true)}
-            className="w-full flex flex-row ml-4 text-xl items-center">
+              className="w-full flex flex-row ml-4 text-xl items-center"
+            >
               <UserGear /> <span className="ml-4">Perfil</span>
             </button>
             <ThemeToggle darkTheme={darkTheme} handleChange={handleChange} />
           </div>
         </Section>
       )}
-    </div>
+    </PageTemplate>
   );
 };
 
