@@ -8,7 +8,6 @@ import {
   SignOut,
   X,
 } from "@phosphor-icons/react";
-import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ darkTheme, sidebarOpen, openSidebar }) => {
