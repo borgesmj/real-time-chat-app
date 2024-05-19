@@ -60,3 +60,13 @@
         width: 7px;
     }
 }
+
+@media (min-width: 1536px) {
+    #chat-section-cb:unchecked ~ .chat-section {
+        left: 28rem/* 448px */;
+    }
+
+    #chat-section-cb:checked ~ .chat-section {
+        left: 28rem/* 448px */;
+    }
+}
