@@ -67,11 +67,11 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar }) => {
     <nav
       className={`${
         !sidebarOpen
-          ? "w-12 transition-all duration-[0.5s] md:w-12 z-0"
-          : "transition-all duration-[0.5s] w-[70%] md:w-[30%] lg:w-[13rem] rounded-lg z-20"
-      } h-[95dvh] sidebar-bg flex flex-col justify-evenly px-2 absolute left-0 top-0 bottom-0 ${
+          ? "w-[15%] transition-all duration-[0.5s] md:w-12 z-0"
+          : "transition-all duration-[0.5s] w-[70%] md:w-[30%] lg:w-[13rem] z-20"
+      } h-full sidebar-bg flex flex-col justify-evenly px-2 absolute left-0 top-0 bottom-0 ${
         !darkTheme ? "bg-[#5c5c5c]" : "bg-[#0A192F]"
-      } rounded-l-lg items-start lg:hover:cursor-pointer`}
+      } items-start lg:hover:cursor-pointer`}
     >
       <button
         type="button"
