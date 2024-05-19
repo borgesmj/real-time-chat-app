@@ -3,11 +3,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.nav-width{
+    width: 3rem;
+}
+
+.section-width{
+    width: calc(100% - 3rem);
+}
+
 .chat-section{
     opacity:1;
     transition: all 0.3s linear 0s;
     left: 0;
-    transform: translateX(150dvw);
+    transform: translateX(150dvw);  
 }
 
 #chat-section-cb:checked ~ .chat-section{
@@ -25,6 +33,10 @@
 }
 
 @media (width >= 768px){
+
+    .chat-section{
+        width: calc(100% - 23rem);
+    }
     #chat-section-cb:checked ~ .chat-section{
         opacity: 1;
         left:23rem

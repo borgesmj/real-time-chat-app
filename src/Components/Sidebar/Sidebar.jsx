@@ -66,7 +66,7 @@ const Sidebar = ({ darkTheme, sidebarOpen, openSidebar }) => {
     <nav
       className={`${
         !sidebarOpen
-          ? "w-[15%] transition-all duration-[0.5s] md:w-12 z-0"
+          ? "nav-width transition-all duration-[0.5s] md:w-12 z-0"
           : "transition-all duration-[0.5s] w-[70%] md:w-[30%] lg:w-[13rem] z-20"
       } h-full sidebar-bg flex flex-col justify-evenly px-2 absolute left-0 top-0 bottom-0 ${
         !darkTheme ? "bg-[#5c5c5c]" : "bg-[#0A192F]"
