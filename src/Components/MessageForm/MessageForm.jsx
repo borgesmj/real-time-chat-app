@@ -27,7 +27,7 @@ const MessageForm = () => {
           ref={textareaRef}
           value={text}
           onChange={handleChange}
-          className='w-full max-h-32 resize-none border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500 overflow-y-auto'
+          className='w-full max-h-32 resize-none border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500 overflow-y-scroll'
           placeholder='Escribe tu mensaje...'
           rows={1}
         ></textarea>
