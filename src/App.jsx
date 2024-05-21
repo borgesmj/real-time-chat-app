@@ -4,7 +4,7 @@ import Settings from "./Pages/SettingsPage/Settings";
 import Chats from "./Pages/Chats/Chats";
 import Favorites from "./Pages/Favorites/Favorites";
 import ContactList from "./Pages/ContactList/ContactList";
-import LoginSignin from "./Pages/LoginSignin/LoginSignin";
+import RegisterLogin from "./Pages/RegisterLogin/RegisterLogin";
 // React router
 import { Routes, Route, useLocation } from "react-router-dom";
 // Hooks
@@ -81,7 +81,7 @@ function App() {
             />
           }
         ></Route>
-        <Route path="/" element={<LoginSignin/>}></Route>
+        <Route path="/" element={<RegisterLogin/>}></Route>
       </Routes>
     </div>
   );
