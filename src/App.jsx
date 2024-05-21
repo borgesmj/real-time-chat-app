@@ -1,11 +1,8 @@
-// Components
-import Sidebar from "./Components/Sidebar/Sidebar";
 // Pages
 import Profile from "./Pages/Profile/Profile";
 import Settings from "./Pages/SettingsPage/Settings";
 import Chats from "./Pages/Chats/Chats";
 import Favorites from "./Pages/Favorites/Favorites";
-import Groups from "./Pages/Groups/Groups";
 import ContactList from "./Pages/ContactList/ContactList";
 // React router
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -21,8 +18,6 @@ function App() {
   useEffect(() => {
     setSidebarOpen(false);
   }, [location.pathname]);
-
-  console.log(darkTheme);
 
   return (
     <div
@@ -64,23 +59,17 @@ function App() {
               sidebarOpen={sidebarOpen}
             />
           }
-          ></Route>
-          {/*
+        ></Route>
         <Route
           path="/contacts"
           element={
-            // Este elemento es para la pagina de contactos
-            <Groups
+            <ContactList
               darkTheme={darkTheme}
               setSidebarOpen={setSidebarOpen}
               sidebarOpen={sidebarOpen}
             />
           }
         ></Route>
-      */}
-      <Route path="/contacts" element={<ContactList darkTheme={darkTheme}
-              setSidebarOpen={setSidebarOpen}
-              sidebarOpen={sidebarOpen}/>}></Route>
         <Route
           path="/profile"
           element={
