@@ -1,7 +1,7 @@
 import ProfileBar from "../Profilebar/ProfileBar";
 import ChatClosedMsg from "../ChatClosedMsg/ChatClosedMsg";
 import MessageForm from "../MessageForm/MessageForm";
-import ChatBubbles from "../ChatBubbles/ChatBubbles";
+import ChatLayout from "../ChatLayout/ChatLayout"
 
 const ChatSection = ({ setChatOpened, darkTheme, chatOpened }) => {
   return (
@@ -9,7 +9,7 @@ const ChatSection = ({ setChatOpened, darkTheme, chatOpened }) => {
       {chatOpened ? (
         <>
           <ProfileBar setChatOpened={setChatOpened} darkTheme={darkTheme} />
-          <ChatBubbles/>
+          <ChatLayout/>
           <MessageForm/>
         </>
       ) : (
