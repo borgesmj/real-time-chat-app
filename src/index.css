@@ -1,97 +1,144 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.nav-width{
-    width: 3rem;
+.nav-width {
+  width: 3rem;
 }
 
-.section-width{
-    width: calc(100% - 3rem);
+.section-width {
+  width: calc(100% - 3rem);
 }
 
-.chat-section{
-    opacity:1;
-    transition: all 0.3s linear 0s;
-    left: 0;
-    transform: translateX(150dvw);  
+.chat-section {
+  opacity: 1;
+  transition: all 0.3s linear 0s;
+  left: 0;
+  transform: translateX(150dvw);
 }
 
-#chat-section-cb:checked ~ .chat-section{
-    opacity: 1;
-    transform: translateX(0);
+#chat-section-cb:checked ~ .chat-section {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.search-bar> p > input[type="text"]:focus ~ span{
+.search-bar > p > input[type="text"]:focus ~ span {
+  display: none;
+  opacity: 0;
+}
+
+.main-shadow {
+  box-shadow: -12px 19px 16px 0px #000000;
+}
+
+.sender::before {
+  content: "";
+  width: 0;
+  display: block;
+  height: 0;
+  bottom: 0;
+  position: absolute;
+  right: -10px;
+  border-right: 10px solid transparent;
+  /* border-bottom: 10px solid red; */
+}
+
+.receiver::before {
+  content: "";
+  width: 0;
+  display: block;
+  height: 0;
+  bottom: 0;
+  position: absolute;
+  left: -10px;
+  border-left: 10px solid transparent;
+}
+
+.campo > label,
+.campo > input {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  padding-inline: 10px;
+}
+
+.campo > label {
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.campo > input:focus + label,
+.campo > input:active + label,
+.campo > input:not(:placeholder-shown) + label {
+  transform: translate(-12px, -25px);
+  font-size: 0.8em;
+}
+
+
+  #register {
     display: none;
-    opacity: 0;
-}
+  }
 
-.main-shadow{
-    box-shadow: -12px 19px 16px 0px #000000;
-}
-
-.sender::before{
-    content: "";
-    width: 0;
+  #login {
     display: block;
-    height: 0;
-    bottom: 0;
-    position: absolute;
-    right: -10px;
-    border-right: 10px solid transparent;
-    /* border-bottom: 10px solid red; */
+  }
 
-}
-
-.receiver::before{
-    content: "";
-    width: 0;
+  #login-cb:checked ~ #register {
     display: block;
-    height: 0;
-    bottom: 0;
-    position: absolute;
-    left: -10px;
-    border-left: 10px solid transparent;
+  }
+
+  #login-cb:checked ~ #login {
+    display: none;
+  }
+
+@media (width >= 768px) {
+  .chat-section {
+    width: calc(100% - 23rem);
+  }
+  #chat-section-cb:checked ~ .chat-section {
+    opacity: 1;
+    left: 23rem;
+  }
+
+  #register,
+  #login-cb:not(:checked) ~ #login {
+    display: flex;
+  }
+
+  #login-cb:checked ~ .cover {
+    transform: translateX(100%) skew(-10deg);
+  }
 }
 
+@media (width >= 1024px) {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
 
-@media (width >= 768px){
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 
-    .chat-section{
-        width: calc(100% - 23rem);
-    }
-    #chat-section-cb:checked ~ .chat-section{
-        opacity: 1;
-        left:23rem
-    }
-}
-
-@media (width >= 1024px){
-    ::-webkit-scrollbar{
-        width: 5px;
-    }
-
-    ::-webkit-scrollbar-track{
-        background-color: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb{
-        background: #cccccc;
-        border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover{
-        width: 7px;
-    }
+  ::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    width: 7px;
+  }
 }
 
 @media (min-width: 1536px) {
-    #chat-section-cb:unchecked ~ .chat-section {
-        left: 28rem/* 448px */;
-    }
+  #chat-section-cb:unchecked ~ .chat-section {
+    left: 28rem /* 448px */;
+  }
 
-    #chat-section-cb:checked ~ .chat-section {
-        left: 28rem/* 448px */;
-    }
+  #chat-section-cb:checked ~ .chat-section {
+    left: 28rem /* 448px */;
+  }
 }

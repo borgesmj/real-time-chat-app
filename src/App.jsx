@@ -4,6 +4,7 @@ import Settings from "./Pages/SettingsPage/Settings";
 import Chats from "./Pages/Chats/Chats";
 import Favorites from "./Pages/Favorites/Favorites";
 import ContactList from "./Pages/ContactList/ContactList";
+import LoginSignin from "./Pages/LoginSignin/LoginSignin";
 // React router
 import { Routes, Route, useLocation } from "react-router-dom";
 // Hooks
@@ -30,7 +31,7 @@ function App() {
     >
       <Routes className="">
         <Route
-          path="/"
+          path="/chats"
           element={
             <Chats
               darkTheme={darkTheme}
@@ -80,6 +81,7 @@ function App() {
             />
           }
         ></Route>
+        <Route path="/" element={<LoginSignin/>}></Route>
       </Routes>
     </div>
   );
