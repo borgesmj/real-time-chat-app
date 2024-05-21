@@ -79,22 +79,48 @@
   font-size: 0.8em;
 }
 
+.formheader > h2:nth-child(1):before,
+.formheader > h2:nth-child(2):before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 0%;
+  background-color: #ffffff10;
+  transition: all ease 0.3s;
+}
 
-  #register {
+#mainChxbox:not(:checked) ~ .formheader > h2:nth-child(1):before {
+  width: 100%;
+}
+
+#mainChxbox:checked ~ .formheader > h2:nth-child(2):before {
+  width: 100%;
+}
+/* Screens */
+/* Para trabajar con las transiciones entre formualrios */
+/* Cuando el Checkbox no está seleccionado */
+/* Muestra El formulario de login *
+/* de lo contrario, el forrmulario de registro/ */
+@media (width < 768px) {
+
+  #mainChxbox:not(:checked) ~ #LoginForm {
+    background-color: red;
+  }
+
+  #mainChxbox:checked ~ #LoginForm {
     display: none;
   }
 
-  #login {
-    display: block;
+  #mainChxbox:checked ~ #RegisterForm {
+    background-color: red;
   }
 
-  #login-cb:checked ~ #register {
-    display: block;
-  }
-
-  #login-cb:checked ~ #login {
+  #mainChxbox:not(:checked) ~ #RegisterForm {
     display: none;
   }
+}
 
 @media (width >= 768px) {
   .chat-section {

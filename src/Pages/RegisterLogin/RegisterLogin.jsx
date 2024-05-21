@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Formulario from "./Formulario";
 import FormHeader from "../../Components/FormHeader/FormHeader";
+import LoginForm from "../../Components/LoginForm/LoginForm";
+import RegisterForm from "../../Components/RegisterForm/RegisterForm";
 
 const RegisterLogin = () => {
   const [registerOpen, setRegisterOpen] = useState(false);
@@ -10,7 +11,7 @@ const RegisterLogin = () => {
         <input
           type="checkbox"
           name="registerOpen"
-          id=""
+          id="mainChxbox"
           readOnly
           checked={registerOpen}
           className="hidden"
@@ -19,8 +20,8 @@ const RegisterLogin = () => {
           registerOpen={registerOpen}
           setRegisterOpen={setRegisterOpen}
         />
-        <Formulario className="login" />
-        <Formulario className="register" />
+        <LoginForm id="LoginForm" btnText="Entrar"/>
+        <RegisterForm id="RegisterForm" btnText="Registrar"/>
       </div>
     </div>
   );
