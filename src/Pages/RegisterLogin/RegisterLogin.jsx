@@ -21,8 +21,16 @@ const RegisterLogin = () => {
           registerOpen={registerOpen}
           setRegisterOpen={setRegisterOpen}
         />
-        <LoginForm id="LoginForm" btnText="Entrar"/>
-        <RegisterForm id="RegisterForm" btnText="Registrar"/>
+        <LoginForm
+          id="LoginForm"
+          btnText="Entrar"
+          setRegisterOpen={setRegisterOpen}
+        />
+        <RegisterForm
+          id="RegisterForm"
+          btnText="Registrar"
+          setRegisterOpen={setRegisterOpen}
+        />
       </div>
     </div>
   );

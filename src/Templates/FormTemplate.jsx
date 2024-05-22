@@ -1,6 +1,6 @@
 const FormTemplate = ({children, id}) => {
   return (
-    <form id={id}>
+    <form id={id} className="w-full flex flex-col items-center">
       {children}
     </form>
   )
