@@ -4,12 +4,18 @@ import FormTemplate from "../../Templates/FormTemplate";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import FormField from "../FormField/FormField";
 // Iconos
-import { At, User, Lock, Password } from "@phosphor-icons/react";
+import { At, User, Lock } from "@phosphor-icons/react";
 // FIrebase
-import { auth } from "../../Process/Firebase";
+import { auth, db } from "../../Process/Firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import "react-toastify/dist/ReactToastify.css";
-const RegisterForm = ({ id, btnText, setRegisterOpen, openToastSuccess, openToastError }) => {
+import { collection, getDocs, addDoc } from "firebase/firestore";
+const RegisterForm = ({
+  id,
+  btnText,
+  setRegisterOpen,
+  openToastSuccess,
+  openToastError,
+}) => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [username, setUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -22,7 +28,6 @@ const RegisterForm = ({ id, btnText, setRegisterOpen, openToastSuccess, openToas
     setPasswordStrength(strength);
   }, [newPassword]);
 
-  
   const evalNewPassword = () => {
     let strength = 0;
     // Evaluar la longitud
@@ -56,6 +61,16 @@ const RegisterForm = ({ id, btnText, setRegisterOpen, openToastSuccess, openToas
       await updateProfile(results.user, {
         displayName: username,
       });
+      try {
+        const docRef = await addDoc(collection(db, "users"), {
+          first: "Miguel",
+          last: "Borges",
+          born: 1991,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
       setUsername("");
       setNewPassword("");
       setRepeatPassword("");
@@ -67,13 +82,13 @@ const RegisterForm = ({ id, btnText, setRegisterOpen, openToastSuccess, openToas
       }, 3000);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        setCreatingUser(false)
+        setCreatingUser(false);
         openToastError("Este correo ya esta en uso");
       } else if (error.code === "auth/invalid-email") {
-        setCreatingUser(false)
+        setCreatingUser(false);
         openToastError("El correo no es valido");
       } else if (error.code) {
-        setCreatingUser(false)
+        setCreatingUser(false);
         openToastError("Ups! Algo salió mal.");
       }
       console.log(error.code);
