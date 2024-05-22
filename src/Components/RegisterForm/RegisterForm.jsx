@@ -9,7 +9,7 @@ import { At, User, Lock, Password } from "@phosphor-icons/react";
 import { auth } from "../../Process/Firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 // Toastyfy
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
   const [passwordStrength, setPasswordStrength] = useState(0);
@@ -17,11 +17,41 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
   const [newPassword, setNewPassword] = useState("");
   const [email, setEmail] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [creatingUser, setCreatingUser] = useState(false);
 
   useEffect(() => {
     let strength = evalNewPassword(newPassword);
     setPasswordStrength(strength);
   }, [newPassword]);
+
+  const openToastSuccess = () => {
+    toast.success("Usuario creado con exito", {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+
+  const openToastError = (message) => {
+    setCreatingUser(false)
+    toast.error(message, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+  };
 
   const evalNewPassword = () => {
     let strength = 0;
@@ -37,35 +67,17 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
   };
 
   const handleSubmit = async () => {
-    if (newPassword !== repeatPassword) {
-      toast.error("Las contraseñas no coiciden", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      return;
-    } else if (passwordStrength < 3) {
-      toast.error(
-        "La contraseña es muy debil\nDebe tener:\n* Al menos 8 caracteres\n* 1 carácter en mayuscula\n* 1 carácter numérico\n* 1 carácter especial .*/?&$+",
-        {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        }
+    if (passwordStrength < 3) {
+      openToastError(
+        "La contraseña es muy debil\nDebe tener:\n* Al menos 8 caracteres\n* 1 carácter en mayuscula\n* 1 carácter numérico\n* 1 carácter especial .*/?&$+"
       );
-      return
+      return;
+    } else if (newPassword !== repeatPassword) {
+      openToastError("Las contraseñas deben coincidir");
+      return;
     }
     try {
+      setCreatingUser(true);
       const results = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -78,21 +90,20 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
       setNewPassword("");
       setRepeatPassword("");
       setEmail("");
-      toast.success('Usuario creado con exito', {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+      openToastSuccess();
       setTimeout(() => {
         setRegisterOpen(false);
+        setCreatingUser(false);
       }, 3000);
     } catch (error) {
-      console.log(error);
+      if (error.code === "auth/email-already-in-use") {
+        openToastError("Este correo ya esta en uso");
+      } else if (error.code === "auth/invalid-email") {
+        openToastError("El correo no es valido");
+      } else if (error.code) {
+        openToastError("Ups! Algo salió mal.");
+      }
+      console.log(error.code);
     }
   };
   return (
@@ -170,7 +181,10 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
         </div>
       </FormField>
       <FormField>
-        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} />
+        <SubmitBtn
+          btnText={!creatingUser ? btnText : "Registrando"}
+          handleSubmit={handleSubmit}
+        />
         <p className="ml-8 font-bold text-[#2a288f] cursor-pointer underline ">
           o{" "}
           <span
@@ -183,16 +197,17 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
         </p>
       </FormField>
       <ToastContainer
-       position="bottom-right"
-       autoClose={5000}
-       hideProgressBar={false}
-       newestOnTop={false}
-       closeOnClick
-       rtl={false}
-       pauseOnFocusLoss
-       draggable
-       pauseOnHover
-       theme="dark"
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
       />
     </FormTemplate>
   );
