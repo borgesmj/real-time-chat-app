@@ -1,11 +1,16 @@
 import FormTemplate from "../../Templates/FormTemplate";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import FormField from "../FormField/FormField";
-import { At, User, Lock } from "@phosphor-icons/react";
+import { At, User, Lock, Password } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
+import {auth} from '../../Process/Firebase'
+import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
+  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [username, setUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [passwordStrength, setPasswordStrength] = useState(0)
+  const [email, setEmail] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState('')
 
   useEffect(() => {
     let strength = evalNewPassword(newPassword);
@@ -25,9 +30,23 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
     return strength;
   };
 
-  const handleSubmit = () => {
-    console.log("rEgister");
-  }
+  const handleSubmit = async () => {
+    console.log(email, newPassword, username);
+    try{
+      const results = await createUserWithEmailAndPassword(auth, email, newPassword)
+      await updateProfile(results.user, {
+        displayName: username
+      })
+      setUsername('')
+      setNewPassword('')
+      setRepeatPassword('')
+      setEmail('')
+      setRegisterOpen(false)
+      console.log(results)
+    } catch(error){
+      console.log(error)
+    }
+  };
   return (
     <FormTemplate id={id}>
       <FormField>
@@ -42,6 +61,8 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
             className="bg-transparent focus:outline-none ml-4"
             placeholder="Username"
             required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
       </FormField>
@@ -57,6 +78,8 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
             className="bg-transparent focus:outline-none ml-4"
             placeholder="Email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
       </FormField>
@@ -91,6 +114,8 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
             className="bg-transparent focus:outline-none ml-4"
             placeholder="Repita su contraseña"
             required
+            value={repeatPassword}
+            onChange={(e)=> {setRepeatPassword(e.target.value)}}
           />
         </div>
       </FormField>
