@@ -1,16 +1,22 @@
+import { useEffect, useState } from "react";
+// componentes y plantillas
 import FormTemplate from "../../Templates/FormTemplate";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import FormField from "../FormField/FormField";
+// Iconos
 import { At, User, Lock, Password } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
-import {auth} from '../../Process/Firebase'
-import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
+// FIrebase
+import { auth } from "../../Process/Firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+// Toastyfy
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [username, setUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState('')
+  const [repeatPassword, setRepeatPassword] = useState("");
 
   useEffect(() => {
     let strength = evalNewPassword(newPassword);
@@ -31,20 +37,62 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(email, newPassword, username);
-    try{
-      const results = await createUserWithEmailAndPassword(auth, email, newPassword)
+    if (newPassword !== repeatPassword) {
+      toast.error("Las contraseñas no coiciden", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    } else if (passwordStrength < 3) {
+      toast.error(
+        "La contraseña es muy debil\nDebe tener:\n* Al menos 8 caracteres\n* 1 carácter en mayuscula\n* 1 carácter numérico\n* 1 carácter especial .*/?&$+",
+        {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
+      return
+    }
+    try {
+      const results = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        newPassword
+      );
       await updateProfile(results.user, {
-        displayName: username
-      })
-      setUsername('')
-      setNewPassword('')
-      setRepeatPassword('')
-      setEmail('')
-      setRegisterOpen(false)
-      console.log(results)
-    } catch(error){
-      console.log(error)
+        displayName: username,
+      });
+      setUsername("");
+      setNewPassword("");
+      setRepeatPassword("");
+      setEmail("");
+      toast.success('Usuario creado con exito', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      setTimeout(() => {
+        setRegisterOpen(false);
+      }, 3000);
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -115,7 +163,9 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
             placeholder="Repita su contraseña"
             required
             value={repeatPassword}
-            onChange={(e)=> {setRepeatPassword(e.target.value)}}
+            onChange={(e) => {
+              setRepeatPassword(e.target.value);
+            }}
           />
         </div>
       </FormField>
@@ -132,6 +182,18 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
           </span>
         </p>
       </FormField>
+      <ToastContainer
+       position="bottom-right"
+       autoClose={5000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick
+       rtl={false}
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover
+       theme="dark"
+      />
     </FormTemplate>
   );
 };
