@@ -6,8 +6,9 @@ import RegisterForm from "../../Components/RegisterForm/RegisterForm";
 const RegisterLogin = () => {
   const [registerOpen, setRegisterOpen] = useState(false);
   return (
-    <div className="bg-transparent w-dvw h-dvh flex justify-center items-center flex-col">
-      <div className="bg-gray-600 h-[90%] w-[90%] rounded-xl">
+    <div className="bg-transparent w-dvw h-dvh flex justify-around items-center flex-col">
+      <div className="w-[120px] h-[120px] bg-red-400">Aqui va un logo</div>
+      <div className="bg-gray-600 h-[70%] w-[90%] rounded-xl">
         <input
           type="checkbox"
           name="registerOpen"

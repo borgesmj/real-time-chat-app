@@ -98,6 +98,27 @@
 #mainChxbox:checked ~ .formheader > h2:nth-child(2):before {
   width: 100%;
 }
+
+.formField > .button {
+  --font-color: #fefefe;
+  --bg-color: #111;
+  --main-color: #fefefe;
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--font-color);
+  cursor: pointer;
+}
+
+.button:active {
+  box-shadow: 0px 0px var(--main-color);
+  transform: translate(3px, 3px);
+}
 /* Screens */
 /* Para trabajar con las transiciones entre formualrios */
 /* Cuando el Checkbox no está seleccionado */
@@ -106,7 +127,6 @@
 @media (width < 768px) {
 
   #mainChxbox:not(:checked) ~ #LoginForm {
-    background-color: red;
   }
 
   #mainChxbox:checked ~ #LoginForm {
@@ -114,7 +134,6 @@
   }
 
   #mainChxbox:checked ~ #RegisterForm {
-    background-color: red;
   }
 
   #mainChxbox:not(:checked) ~ #RegisterForm {

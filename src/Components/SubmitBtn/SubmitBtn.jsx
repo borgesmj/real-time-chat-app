@@ -1,8 +1,6 @@
-import React from 'react'
-
 const SubmitBtn = ({btnText}) => {
   return (
-    <button>
+    <button className="button">
       {btnText}
     </button>
   )

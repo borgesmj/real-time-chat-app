@@ -1,11 +1,14 @@
-import FormTemplate from "../../Templates/FormTemplate"
-import SubmitBtn from "../SubmitBtn/SubmitBtn"
-const RegisterForm = ({id, btnText}) => {
+import FormTemplate from "../../Templates/FormTemplate";
+import SubmitBtn from "../SubmitBtn/SubmitBtn";
+import FormField from "../FormField/FormField";
+const RegisterForm = ({ id, btnText }) => {
   return (
     <FormTemplate id={id}>
-      <SubmitBtn btnText={btnText}/>
+      <FormField>
+        <SubmitBtn btnText={btnText} />
+      </FormField>
     </FormTemplate>
-  )
-}
+  );
+};
 
-export default RegisterForm
+export default RegisterForm;

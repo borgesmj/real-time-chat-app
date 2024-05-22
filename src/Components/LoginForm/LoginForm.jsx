@@ -1,12 +1,15 @@
-import FormTemplate from "../../Templates/FormTemplate"
-import SubmitBtn from "../SubmitBtn/SubmitBtn"
+import FormTemplate from "../../Templates/FormTemplate";
+import FormField from "../FormField/FormField";
+import SubmitBtn from "../SubmitBtn/SubmitBtn";
 
-const LoginForm = ({id, btnText}) => {
+const LoginForm = ({ id, btnText }) => {
   return (
     <FormTemplate id={id}>
-      <SubmitBtn btnText={btnText}/>
+      <FormField>
+        <SubmitBtn btnText={btnText} />
+      </FormField>
     </FormTemplate>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;
