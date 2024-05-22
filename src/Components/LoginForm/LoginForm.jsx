@@ -14,9 +14,10 @@ const LoginForm = ({ id, btnText, setRegisterOpen }) => {
           <input
             type="text"
             name=""
-            id=""
+            id="login-email"
             className="bg-transparent focus:outline-none ml-4"
             placeholder="Email"
+            required
           />
         </div>
       </FormField>
@@ -28,9 +29,10 @@ const LoginForm = ({ id, btnText, setRegisterOpen }) => {
           <input
             type="password"
             name=""
-            id=""
+            id="login-password"
             className="bg-transparent focus:outline-none ml-4"
             placeholder="Password"
+            required
           />
         </div>
       </FormField>

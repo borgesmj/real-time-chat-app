@@ -119,6 +119,9 @@
   box-shadow: 0px 0px var(--main-color);
   transform: translate(3px, 3px);
 }
+.validationBar{
+  transition: all 0.3s ease;
+}
 /* Screens */
 /* Para trabajar con las transiciones entre formualrios */
 /* Cuando el Checkbox no está seleccionado */

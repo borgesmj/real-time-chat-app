@@ -2,9 +2,9 @@
 
 const FormField = ({children}) => {
   return (
-    <p className="formField w-full py-2 my-2 flex justify-center items-center">
+    <div className="formField w-full py-2 my-1 flex justify-center items-center">
       {children}
-    </p>
+    </div>
   )
 }
 
