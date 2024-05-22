@@ -4,6 +4,10 @@ import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import { At, Lock } from "@phosphor-icons/react";
 
 const LoginForm = ({ id, btnText, setRegisterOpen }) => {
+
+  const handleSubmit = () => {
+    console.log('login')
+  }
   return (
     <FormTemplate id={id}>
       <FormField>
@@ -37,7 +41,7 @@ const LoginForm = ({ id, btnText, setRegisterOpen }) => {
         </div>
       </FormField>
       <FormField>
-        <SubmitBtn btnText={btnText} />
+        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} />
         <p className="ml-8 font-bold text-[#2a288f] cursor-pointer underline ">
           o{" "}
           <span

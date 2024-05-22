@@ -24,6 +24,10 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
     if (/[.*/?&$+]/.test(newPassword)) strength++;
     return strength;
   };
+
+  const handleSubmit = () => {
+    console.log("rEgister");
+  }
   return (
     <FormTemplate id={id}>
       <FormField>
@@ -91,7 +95,7 @@ const RegisterForm = ({ id, btnText, setRegisterOpen }) => {
         </div>
       </FormField>
       <FormField>
-        <SubmitBtn btnText={btnText} />
+        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} />
         <p className="ml-8 font-bold text-[#2a288f] cursor-pointer underline ">
           o{" "}
           <span
