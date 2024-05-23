@@ -22,6 +22,7 @@ const RegisterForm = ({
   const [email, setEmail] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [creatingUser, setCreatingUser] = useState(false);
+  const [allUsersList, setAllUserList] = useState([]);
 
   useEffect(() => {
     let strength = evalNewPassword(newPassword);
@@ -44,7 +45,18 @@ const RegisterForm = ({
   const handleSubmit = async () => {
     if (passwordStrength < 3) {
       openToastError(
-        "La contraseña es muy debil\nDebe tener:\n* Al menos 8 caracteres\n* 1 carácter en mayuscula\n* 1 carácter numérico\n* 1 carácter especial .*/?&$+"
+        <>
+          La contraseña es muy débil
+          <br />
+          Debe tener:
+          <br />
+          * Al menos 8 caracteres
+          <br />
+          * 1 carácter en mayúscula
+          <br />
+          * 1 carácter numérico
+          <br />* 1 carácter especial (.*/?&$+)
+        </>
       );
       return;
     } else if (newPassword !== repeatPassword) {
