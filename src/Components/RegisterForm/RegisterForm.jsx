@@ -9,6 +9,7 @@ import { At, User, Lock } from "@phosphor-icons/react";
 import { auth, db } from "../../Process/Firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, getDocs, addDoc } from "firebase/firestore";
+import { setUserProperties } from "firebase/analytics";
 const RegisterForm = ({
   id,
   btnText,
@@ -42,8 +43,34 @@ const RegisterForm = ({
     return strength;
   };
 
+  useEffect(() => {
+      const fetchUsers = async () => {
+        try{
+          const querySnapShot = await getDocs(collection(db, "users"));
+          const userList = [];
+          querySnapShot.forEach((doc) => {
+            userList.push(doc.data().username);
+          })
+          setAllUserList(userList)
+        }
+        catch(error){
+          console.log(error)
+        }
+      }
+      fetchUsers()
+  }, [])
+
   const handleSubmit = async () => {
-    if (passwordStrength < 3) {
+    if (allUsersList.includes(username)){
+      openToastError(
+      <>
+        Ese nombre de usuario ya está en uso
+        <br/>
+        Intente con uno distinto
+      </>
+    )
+      return
+    } else if (passwordStrength < 3) {
       openToastError(
         <>
           La contraseña es muy débil
@@ -75,9 +102,23 @@ const RegisterForm = ({
       });
       try {
         const docRef = await addDoc(collection(db, "users"), {
-          first: "Miguel",
-          last: "Borges",
-          born: 1991,
+          username: username.toLowerCase(),
+          fullname: "",
+          profile_pic: "/default-pfp.png",
+          email: email,
+          bio: "",
+          rrssUsernames:{
+            twitter: "",
+            instagram: "",
+            tiktok: "",
+            threads: ""
+          },
+          location: "",
+          dateOfBirth: "",
+          friends: 0,
+          interests: [],
+          active: false,
+          createAt: results.user.metadata.createdAt
         });
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -106,6 +147,7 @@ const RegisterForm = ({
       console.log(error.code);
     }
   };
+  console.log(allUsersList)
   return (
     <FormTemplate id={id}>
       <FormField>
