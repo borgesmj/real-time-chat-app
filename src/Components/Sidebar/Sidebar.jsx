@@ -17,7 +17,7 @@ const Sidebar = ({ darkTheme, sidebarOpen, setSidebarOpen }) => {
 
   const links = [
     {
-      href: "/",
+      href: "/chats",
       icon: (
         <EnvelopeSimple
           size={32}
