@@ -66,9 +66,21 @@ const RegisterForm = ({
     };
     fetchUsers();
   }, []);
+  const validateUsername = (username) => {
+    const usernameRegex = /^[a-zA-Z0-9_]+$/;
+    return usernameRegex.test(username)
+  }
 
   const handleSubmit = async () => {
-    if (allUsersList.includes(username)) {
+    const registerUsername = username.toLowerCase().trim()
+    if (!validateUsername(registerUsername)){
+        openToastError(<>
+        El nombre de usuario no es válido
+        <br />
+        Solo puede contener letras, numeros y _
+        </>)
+        return
+    } else  if (allUsersList.includes(username)) {
       openToastError(
         <>
           Ese nombre de usuario ya está en uso
