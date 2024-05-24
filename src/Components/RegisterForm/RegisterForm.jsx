@@ -10,6 +10,7 @@ import { auth, db } from "../../Process/Firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { setUserProperties } from "firebase/analytics";
+import { toast } from "react-toastify";
 const RegisterForm = ({
   id,
   btnText,
@@ -43,33 +44,39 @@ const RegisterForm = ({
     return strength;
   };
 
+  const createId = () => {
+    const numero = Math.random().toString(36).substring(2);
+    const fecha = Date.now().toString(36).substring(2);
+
+    return numero + fecha;
+  };
+
   useEffect(() => {
-      const fetchUsers = async () => {
-        try{
-          const querySnapShot = await getDocs(collection(db, "users"));
-          const userList = [];
-          querySnapShot.forEach((doc) => {
-            userList.push(doc.data().username);
-          })
-          setAllUserList(userList)
-        }
-        catch(error){
-          console.log(error)
-        }
+    const fetchUsers = async () => {
+      try {
+        const querySnapShot = await getDocs(collection(db, "users"));
+        const userList = [];
+        querySnapShot.forEach((doc) => {
+          userList.push(doc.data().username);
+        });
+        setAllUserList(userList);
+      } catch (error) {
+        console.log(error);
       }
-      fetchUsers()
-  }, [])
+    };
+    fetchUsers();
+  }, []);
 
   const handleSubmit = async () => {
-    if (allUsersList.includes(username)){
+    if (allUsersList.includes(username)) {
       openToastError(
-      <>
-        Ese nombre de usuario ya está en uso
-        <br/>
-        Intente con uno distinto
-      </>
-    )
-      return
+        <>
+          Ese nombre de usuario ya está en uso
+          <br />
+          Intente con uno distinto
+        </>
+      );
+      return;
     } else if (passwordStrength < 3) {
       openToastError(
         <>
@@ -102,52 +109,58 @@ const RegisterForm = ({
       });
       try {
         const docRef = await addDoc(collection(db, "users"), {
+          userId: createId(),
           username: username.toLowerCase(),
           fullname: "",
           profile_pic: "/default-pfp.png",
           email: email,
           bio: "",
-          rrssUsernames:{
+          rrssUsernames: {
             twitter: "",
             instagram: "",
             tiktok: "",
-            threads: ""
+            threads: "",
           },
           location: "",
           dateOfBirth: "",
-          friends: 0,
+          friendsList: [],
+          friendRequests: {
+            sent: [],
+            recieved: [],
+          },
           interests: [],
           active: false,
-          createAt: results.user.metadata.createdAt
+          createAt: results.user.metadata.createdAt,
         });
-        console.log("Document written with ID: ", docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
+      };
+        setUsername("");
+        setNewPassword("");
+        setRepeatPassword("");
+        setEmail('')
+        setTimeout(() => {
+          setRegisterOpen(false);
+          setCreatingUser(false);
+        }, 3000);
+      try {
+        openToastSuccess();
+      } catch (error) {
+        console.log("toast error: ", error);
       }
-      setUsername("");
-      setNewPassword("");
-      setRepeatPassword("");
-      setEmail("");
-      openToastSuccess();
-      setTimeout(() => {
-        setRegisterOpen(false);
-        setCreatingUser(false);
-      }, 3000);
     } catch (error) {
+      setCreatingUser(false);
       if (error.code === "auth/email-already-in-use") {
-        setCreatingUser(false);
         openToastError("Este correo ya esta en uso");
       } else if (error.code === "auth/invalid-email") {
-        setCreatingUser(false);
         openToastError("El correo no es valido");
       } else if (error.code) {
-        setCreatingUser(false);
         openToastError("Ups! Algo salió mal.");
       }
       console.log(error.code);
     }
   };
-  console.log(allUsersList)
+  console.log(allUsersList);
   return (
     <FormTemplate id={id}>
       <FormField>
