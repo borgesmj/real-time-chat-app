@@ -2,40 +2,55 @@ import FormTemplate from "../../Templates/FormTemplate";
 import FormField from "../FormField/FormField";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import { At, Lock } from "@phosphor-icons/react";
-import {auth} from '../../Process/Firebase'
+import { auth } from "../../Process/Firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 // Toastyfy
 import { ToastContainer, toast, Bounce } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
-const LoginForm = ({ id, btnText, setRegisterOpen, openToastError }) => {
-
-  const [loginEmail, setLoginEmail] = useState('')
-  const [loginPW, setLoginPW] = useState('')
+const LoginForm = ({
+  id,
+  btnText,
+  setRegisterOpen,
+  openToastError,
+  setLoading,
+}) => {
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPW, setLoginPW] = useState("");
 
   const handleSubmit = async () => {
-    
-    try{
-      const results = await signInWithEmailAndPassword(auth, loginEmail, loginPW)
-      console.log("login sucess")
-      setLoginEmail('')
-      setLoginPW('')
-    } catch(error){
-      console.log(error)
-      if (error.code === "auth/invalid-credential"){
-        openToastError('Email y/o contraseña incorrecto')
-        return
-      } else if (error.code === "mail is not defined" ){
-        openToastError('Usuario no existe')
-        return
-      } else if (error.code === "auth/user-disabled"){
-        openToastError("Usuario Inhabilitado")
-      } else if (error.code){
-        openToastError('Ups!! Algo salio mal')
+    const lowercaseEmail = loginPW.toLowerCase()
+    setLoading(true);
+    try {
+      const results = await signInWithEmailAndPassword(
+        auth,
+        lowercaseEmail,
+        loginPW
+      );
+      setLoading(false);
+      console.log("login sucess");
+      setLoginEmail("");
+      setLoginPW("");
+    } catch (error) {
+      console.log(error);
+      if (error.code === "auth/invalid-credential") {
+        setLoading(false);
+        openToastError("Email y/o contraseña incorrecto");
+        return;
+      } else if (error.code === "mail is not defined") {
+        setLoading(false);
+        openToastError("Usuario no existe");
+        return;
+      } else if (error.code === "auth/user-disabled") {
+        setLoading(false);
+        openToastError("Usuario Inhabilitado");
+      } else if (error.code) {
+        setLoading(false);
+        openToastError("Ups!! Algo salio mal");
       }
     }
-  }
+  };
 
   return (
     <FormTemplate id={id}>
@@ -86,7 +101,12 @@ const LoginForm = ({ id, btnText, setRegisterOpen, openToastError }) => {
           </span>
         </p>
       </FormField>
-      <a href="" className="w-full text-center font-bold text-[#2a288f] cursor-pointer underline">Olvidé mi contraseña</a>
+      <a
+        href=""
+        className="w-full text-center font-bold text-[#2a288f] cursor-pointer underline"
+      >
+        Olvidé mi contraseña
+      </a>
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

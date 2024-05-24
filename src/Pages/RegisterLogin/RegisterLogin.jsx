@@ -2,11 +2,13 @@ import { useState } from "react";
 import FormHeader from "../../Components/FormHeader/FormHeader";
 import LoginForm from "../../Components/LoginForm/LoginForm";
 import RegisterForm from "../../Components/RegisterForm/RegisterForm";
+import Loader from "../../Components/Loader/Loader";
 // Toastyfy
 import { ToastContainer, toast, Bounce } from "react-toastify";
 
 const RegisterLogin = () => {
   const [registerOpen, setRegisterOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const openToastSuccess = () => {
     const toastId = toast.success("Usuario registrado con éxito", {
@@ -44,6 +46,7 @@ const RegisterLogin = () => {
 
   return (
     <div className="bg-transparent w-dvw h-dvh flex justify-around items-center flex-col md:relative">
+      {loading && <Loader/>}
       <div className="w-[120px] h-[120px] bg-red-400 md:absolute md:top-1/4 md:left-1/4 md:w-[180px] md:h-[180px] 2xl:w-[250px] 2xl:h-[250px]">
         Aqui va un logo
       </div>
@@ -65,6 +68,7 @@ const RegisterLogin = () => {
           btnText="Entrar"
           setRegisterOpen={setRegisterOpen}
           openToastError={openToastError}
+          setLoading = {setLoading}
         />
         <RegisterForm
           id="RegisterForm"
@@ -72,6 +76,7 @@ const RegisterLogin = () => {
           setRegisterOpen={setRegisterOpen}
           openToastError={openToastError}
           openToastSuccess={openToastSuccess}
+          setLoading = {setLoading}
         />
         <ToastContainer
           position="bottom-right"

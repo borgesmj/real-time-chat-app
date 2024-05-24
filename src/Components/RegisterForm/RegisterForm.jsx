@@ -17,14 +17,15 @@ const RegisterForm = ({
   setRegisterOpen,
   openToastSuccess,
   openToastError,
+  setLoading
 }) => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [username, setUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [email, setEmail] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [creatingUser, setCreatingUser] = useState(false);
   const [allUsersList, setAllUserList] = useState([]);
+
 
   useEffect(() => {
     let strength = evalNewPassword(newPassword);
@@ -72,13 +73,16 @@ const RegisterForm = ({
   }
 
   const handleSubmit = async () => {
+    setLoading(true)
     const registerUsername = username.toLowerCase().trim()
+    const registerEmail = email.toLocaleLowerCase().trim()
     if (!validateUsername(registerUsername)){
         openToastError(<>
         El nombre de usuario no es válido
         <br />
         Solo puede contener letras, numeros y _
         </>)
+        setLoading(false)
         return
     } else  if (allUsersList.includes(username)) {
       openToastError(
@@ -88,6 +92,7 @@ const RegisterForm = ({
           Intente con uno distinto
         </>
       );
+      setLoading(false)
       return;
     } else if (passwordStrength < 3) {
       openToastError(
@@ -104,28 +109,29 @@ const RegisterForm = ({
           <br />* 1 carácter especial (.*/?&$+)
         </>
       );
+      setLoading(false)
       return;
     } else if (newPassword !== repeatPassword) {
       openToastError("Las contraseñas deben coincidir");
+      setLoading(false)
       return;
     }
     try {
-      setCreatingUser(true);
       const results = await createUserWithEmailAndPassword(
         auth,
-        email,
+        registerEmail,
         newPassword
       );
       await updateProfile(results.user, {
-        displayName: username,
+        displayName: registerUsername,
       });
       try {
         const docRef = await addDoc(collection(db, "users"), {
           userId: createId(),
-          username: username.toLowerCase(),
+          username: registerUsername,
           fullname: "",
           profile_pic: "/default-pfp.png",
-          email: email,
+          email: registerEmail,
           bio: "",
           rrssUsernames: {
             twitter: "",
@@ -153,7 +159,7 @@ const RegisterForm = ({
         setEmail('')
         setTimeout(() => {
           setRegisterOpen(false);
-          setCreatingUser(false);
+          setLoading(false);
         }, 3000);
       try {
         openToastSuccess();
@@ -161,7 +167,6 @@ const RegisterForm = ({
         console.log("toast error: ", error);
       }
     } catch (error) {
-      setCreatingUser(false);
       if (error.code === "auth/email-already-in-use") {
         openToastError("Este correo ya esta en uso");
       } else if (error.code === "auth/invalid-email") {
@@ -175,6 +180,7 @@ const RegisterForm = ({
   console.log(allUsersList);
   return (
     <FormTemplate id={id}>
+      
       <FormField>
         <div className="bg-[#1a5cf1] w-3/4 flex flex-row px-4 py-2 rounded-[10px]">
           <span>
@@ -249,7 +255,7 @@ const RegisterForm = ({
       </FormField>
       <FormField>
         <SubmitBtn
-          btnText={!creatingUser ? btnText : "Registrando"}
+          btnText={btnText}
           handleSubmit={handleSubmit}
         />
         <p className="ml-8 font-bold text-[#2a288f] cursor-pointer underline ">
