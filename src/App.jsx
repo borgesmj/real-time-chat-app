@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentUser, setCurentUser] = useState({})
 
   let location = useLocation();
 
@@ -29,6 +30,7 @@ function App() {
           : "bg-gradient-to-tr from-[#263238] from-10% via-[#455a64] to-[#fafafa]"
       }`}
     >
+      {/* Páginas Privadas */}
       <Routes className="">
         <Route
           path="/chats"
@@ -37,6 +39,7 @@ function App() {
               darkTheme={darkTheme}
               setSidebarOpen={setSidebarOpen}
               sidebarOpen={sidebarOpen}
+              currentUser={currentUser}
             />
           }
         ></Route>
@@ -48,6 +51,7 @@ function App() {
               darkTheme={darkTheme}
               setSidebarOpen={setSidebarOpen}
               sidebarOpen={sidebarOpen}
+              currentUser={currentUser}
             />
           }
         ></Route>
@@ -58,6 +62,7 @@ function App() {
               darkTheme={darkTheme}
               setSidebarOpen={setSidebarOpen}
               sidebarOpen={sidebarOpen}
+              currentUser={currentUser}
             />
           }
         ></Route>
@@ -68,19 +73,22 @@ function App() {
               darkTheme={darkTheme}
               setSidebarOpen={setSidebarOpen}
               sidebarOpen={sidebarOpen}
+              currentUser={currentUser}
             />
           }
         ></Route>
         <Route
-          path="/profile"
+          path="/user/:username"
           element={
             <Profile
               darkTheme={darkTheme}
               setSidebarOpen={setSidebarOpen}
               sidebarOpen={sidebarOpen}
+              currentUser={currentUser}
             />
           }
         ></Route>
+        {/* Página Pública */}
         <Route path="/" element={<RegisterLogin/>}></Route>
       </Routes>
     </div>

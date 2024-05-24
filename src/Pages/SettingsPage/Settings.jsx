@@ -8,7 +8,7 @@ import PasswordSetting from "./PasswordSetting";
 import ProfileSettings from "./ProfileSettings";
 import PageTemplate from "../../Templates/PageTemplate";
 
-const Settings = ({ setDarkTheme, darkTheme, setSidebarOpen, sidebarOpen }) => {
+const Settings = ({ setDarkTheme, darkTheme, setSidebarOpen, sidebarOpen, currentUser }) => {
   const handleChange = () => {
     setDarkTheme(!darkTheme);
   };
@@ -26,6 +26,7 @@ const Settings = ({ setDarkTheme, darkTheme, setSidebarOpen, sidebarOpen }) => {
       setDarkTheme={setDarkTheme}
       setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
+      currentUser={currentUser}
     >
       {openPWSettings ? (
         <PasswordSetting setOpenPWSettings={setOpenPWSettings} />

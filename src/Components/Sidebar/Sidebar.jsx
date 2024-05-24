@@ -10,10 +10,12 @@ import {
 } from "@phosphor-icons/react";
 import { NavLink } from "react-router-dom";
 
-const Sidebar = ({ darkTheme, sidebarOpen, setSidebarOpen }) => {
+const Sidebar = ({ darkTheme, sidebarOpen, setSidebarOpen, currentUser }) => {
   const handleClick = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  console.log(currentUser)
 
   const links = [
     {
@@ -50,7 +52,7 @@ const Sidebar = ({ darkTheme, sidebarOpen, setSidebarOpen }) => {
       text: "Contactos",
     },
     {
-      href: "/profile",
+      href: `/user/${currentUser.username}`,
       icon: (
         <User
           size={32}
