@@ -9,11 +9,13 @@ import RegisterLogin from "./Pages/RegisterLogin/RegisterLogin";
 import { Routes, Route, useLocation } from "react-router-dom";
 // Hooks
 import { useEffect, useState } from "react";
+// Components
+import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentUser, setCurentUser] = useState({})
+  const [currentUser, setCurentUser] = useState(null);
 
   let location = useLocation();
 
@@ -30,66 +32,68 @@ function App() {
           : "bg-gradient-to-tr from-[#263238] from-10% via-[#455a64] to-[#fafafa]"
       }`}
     >
-      {/* Páginas Privadas */}
       <Routes className="">
-        <Route
-          path="/chats"
-          element={
-            <Chats
-              darkTheme={darkTheme}
-              setSidebarOpen={setSidebarOpen}
-              sidebarOpen={sidebarOpen}
-              currentUser={currentUser}
-            />
-          }
-        ></Route>
-        <Route
-          path="/settings"
-          element={
-            <Settings
-              setDarkTheme={setDarkTheme}
-              darkTheme={darkTheme}
-              setSidebarOpen={setSidebarOpen}
-              sidebarOpen={sidebarOpen}
-              currentUser={currentUser}
-            />
-          }
-        ></Route>
-        <Route
-          path="/favorites"
-          element={
-            <Favorites
-              darkTheme={darkTheme}
-              setSidebarOpen={setSidebarOpen}
-              sidebarOpen={sidebarOpen}
-              currentUser={currentUser}
-            />
-          }
-        ></Route>
-        <Route
-          path="/contacts"
-          element={
-            <ContactList
-              darkTheme={darkTheme}
-              setSidebarOpen={setSidebarOpen}
-              sidebarOpen={sidebarOpen}
-              currentUser={currentUser}
-            />
-          }
-        ></Route>
-        <Route
-          path="/user/:username"
-          element={
-            <Profile
-              darkTheme={darkTheme}
-              setSidebarOpen={setSidebarOpen}
-              sidebarOpen={sidebarOpen}
-              currentUser={currentUser}
-            />
-          }
-        ></Route>
+        {/* Páginas Privadas */}
+        <Route element={<ProtectedRoutes currentUser={currentUser} />}>
+          <Route
+            path="/chats"
+            element={
+              <Chats
+                darkTheme={darkTheme}
+                setSidebarOpen={setSidebarOpen}
+                sidebarOpen={sidebarOpen}
+                currentUser={currentUser}
+              />
+            }
+          ></Route>
+          <Route
+            path="/settings"
+            element={
+              <Settings
+                setDarkTheme={setDarkTheme}
+                darkTheme={darkTheme}
+                setSidebarOpen={setSidebarOpen}
+                sidebarOpen={sidebarOpen}
+                currentUser={currentUser}
+              />
+            }
+          ></Route>
+          <Route
+            path="/favorites"
+            element={
+              <Favorites
+                darkTheme={darkTheme}
+                setSidebarOpen={setSidebarOpen}
+                sidebarOpen={sidebarOpen}
+                currentUser={currentUser}
+              />
+            }
+          ></Route>
+          <Route
+            path="/contacts"
+            element={
+              <ContactList
+                darkTheme={darkTheme}
+                setSidebarOpen={setSidebarOpen}
+                sidebarOpen={sidebarOpen}
+                currentUser={currentUser}
+              />
+            }
+          ></Route>
+          <Route
+            path="/user/:username"
+            element={
+              <Profile
+                darkTheme={darkTheme}
+                setSidebarOpen={setSidebarOpen}
+                sidebarOpen={sidebarOpen}
+                currentUser={currentUser}
+              />
+            }
+          ></Route>
+        </Route>
         {/* Página Pública */}
-        <Route path="/" element={<RegisterLogin/>}></Route>
+        <Route path="/" element={<RegisterLogin />}></Route>
       </Routes>
     </div>
   );
