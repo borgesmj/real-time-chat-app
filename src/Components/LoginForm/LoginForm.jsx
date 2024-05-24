@@ -20,7 +20,7 @@ const LoginForm = ({
   const [loginPW, setLoginPW] = useState("");
 
   const handleSubmit = async () => {
-    const lowercaseEmail = loginPW.toLowerCase()
+    const lowercaseEmail = loginEmail.toLowerCase()
     setLoading(true);
     try {
       const results = await signInWithEmailAndPassword(
@@ -29,9 +29,9 @@ const LoginForm = ({
         loginPW
       );
       setLoading(false);
-      console.log("login sucess");
       setLoginEmail("");
       setLoginPW("");
+      console.log("login sucess");
     } catch (error) {
       console.log(error);
       if (error.code === "auth/invalid-credential") {
