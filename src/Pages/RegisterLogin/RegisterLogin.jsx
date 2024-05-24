@@ -6,7 +6,7 @@ import Loader from "../../Components/Loader/Loader";
 // Toastyfy
 import { ToastContainer, toast, Bounce } from "react-toastify";
 
-const RegisterLogin = () => {
+const RegisterLogin = ({setCurrentUser, currentUser}) => {
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loading, setLoading] = useState(false)
 
@@ -69,6 +69,9 @@ const RegisterLogin = () => {
           setRegisterOpen={setRegisterOpen}
           openToastError={openToastError}
           setLoading = {setLoading}
+          setCurrentUser = {setCurrentUser}
+          currentUser={currentUser}
+          openToastSuccess={openToastSuccess}
         />
         <RegisterForm
           id="RegisterForm"

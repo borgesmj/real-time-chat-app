@@ -169,10 +169,13 @@ const RegisterForm = ({
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         openToastError("Este correo ya esta en uso");
+        setLoading(false)
       } else if (error.code === "auth/invalid-email") {
         openToastError("El correo no es valido");
+        setLoading(false)
       } else if (error.code) {
         openToastError("Ups! Algo salió mal.");
+        setLoading(false)
       }
       console.log(error.code);
     }

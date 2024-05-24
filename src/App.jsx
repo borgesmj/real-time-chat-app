@@ -15,7 +15,7 @@ import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentUser, setCurentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   let location = useLocation();
 
@@ -93,7 +93,15 @@ function App() {
           ></Route>
         </Route>
         {/* Página Pública */}
-        <Route path="/" element={<RegisterLogin />}></Route>
+        <Route
+          path="/"
+          element={
+            <RegisterLogin
+              setCurrentUser={setCurrentUser}
+              currentUser={currentUser}
+            />
+          }
+        ></Route>
       </Routes>
     </div>
   );
