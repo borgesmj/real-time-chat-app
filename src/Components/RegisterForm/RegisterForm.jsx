@@ -149,6 +149,7 @@ const RegisterForm = ({
           interests: [],
           active: false,
           createAt: results.user.metadata.createdAt,
+          userUID: results.user.uid
         });
       } catch (e) {
         console.error("Error adding document: ", e);
