@@ -35,6 +35,7 @@ const LoginForm = ({
         lowercaseEmail,
         loginPW
       );
+      window.localStorage.setItem("userUID", results.user.uid)
       const fetchUserDataByUsername = async () => {
         const usersRef = collection(db, "users");
         const q = query(usersRef, where("email", "==", lowercaseEmail));
