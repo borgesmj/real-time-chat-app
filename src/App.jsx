@@ -10,17 +10,65 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 // Components
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
+// Firebase
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "./Process/Firebase";
+//loader
+import Loader from "./Components/Loader/Loader";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userUID, setUserUID] = useState(() => {
+    try {
+      const userUID = localStorage.getItem("userUID");
+      return userUID;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    const fetchUserByUserUID = async () => {
+      setIsLoading(true);
+      const usersRef = collection(db, "users");
+      const filteredUser = [];
+      try{
+        const q = query(usersRef, where("userUID", "==", userUID));
+        const querySnapShot = await getDocs(q);
+        querySnapShot.forEach((doc) => {
+          filteredUser.push(doc.data());
+        });
+
+      }catch(error){
+        console.log(error)
+      }
+      console.log(filteredUser[0])
+      setCurrentUser(filteredUser[0]);
+      setIsLoading(false);
+    };
+
+    if (userUID) {
+      fetchUserByUserUID();
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
 
   let location = useLocation();
 
   useEffect(() => {
     setSidebarOpen(false);
   }, [location.pathname]);
+
+  console.log(currentUser)
+
+  if (isLoading) {
+    return <Loader/>;
+  }
 
   return (
     <div
