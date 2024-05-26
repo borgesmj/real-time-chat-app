@@ -10,11 +10,16 @@ import {
 } from "@phosphor-icons/react";
 import { NavLink } from "react-router-dom";
 
-const Sidebar = ({ darkTheme, sidebarOpen, setSidebarOpen, currentUser }) => {
+const Sidebar = ({
+  darkTheme,
+  sidebarOpen,
+  setSidebarOpen,
+  currentUser,
+  setModalIsOpen,
+}) => {
   const handleClick = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
 
   const links = [
     {
@@ -75,7 +80,9 @@ const Sidebar = ({ darkTheme, sidebarOpen, setSidebarOpen, currentUser }) => {
     >
       <button
         type="button"
-        className={`${!sidebarOpen ? 'rotate-0' : 'rotate-6'} transition-[transform] `}
+        className={`${
+          !sidebarOpen ? "rotate-0" : "rotate-6"
+        } transition-[transform] `}
         onClick={() => {
           handleClick();
         }}
@@ -142,7 +149,12 @@ const Sidebar = ({ darkTheme, sidebarOpen, setSidebarOpen, currentUser }) => {
             </span>
           )}
         </NavLink>
-        <button className="flex flex-row w-full items-center justify-start hover:font-bold">
+        <button
+          className="flex flex-row w-full items-center justify-start hover:font-bold"
+          onClick={() => {
+            setModalIsOpen(true);
+          }}
+        >
           <SignOut
             size={32}
             weight="regular"

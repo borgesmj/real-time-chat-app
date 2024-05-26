@@ -5,7 +5,7 @@ import Favorites from "./Pages/Favorites/Favorites";
 import ContactList from "./Pages/ContactList/ContactList";
 import RegisterLogin from "./Pages/RegisterLogin/RegisterLogin";
 // React router
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate, useNavigate } from "react-router-dom";
 // Hooks
 import { useEffect, useState } from "react";
 // Components
@@ -13,8 +13,12 @@ import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
 // Firebase
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "./Process/Firebase";
-//loader
+// Loader
 import Loader from "./Components/Loader/Loader";
+// Modal
+import Modal from "./Components/Modal/Modal";
+// Process
+import { LogOut } from './Process/Auth';
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -30,23 +34,27 @@ function App() {
       return null;
     }
   });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  useEffect(() => {
+  const navigate = useNavigate(); 
+  const location = useLocation(); 
+
+
+  useEffect(() => { 
     const fetchUserByUserUID = async () => {
       setIsLoading(true);
       const usersRef = collection(db, "users");
       const filteredUser = [];
-      try{
+      try {
         const q = query(usersRef, where("userUID", "==", userUID));
         const querySnapShot = await getDocs(q);
         querySnapShot.forEach((doc) => {
           filteredUser.push(doc.data());
         });
-
-      }catch(error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
-      console.log(filteredUser[0])
+      console.log(filteredUser[0]);
       setCurrentUser(filteredUser[0]);
       setIsLoading(false);
     };
@@ -56,18 +64,31 @@ function App() {
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, [userUID]); 
 
-  let location = useLocation();
-
-  useEffect(() => {
+  useEffect(() => { 
     setSidebarOpen(false);
   }, [location.pathname]);
 
-  console.log(currentUser)
+  const closeModal = () => {
+    const modal = document.querySelector(".modalContent");
+    modal.classList.add("scale-out-vertical");
+    setTimeout(() => {
+      setModalIsOpen(false);
+    }, 500);
+  };
+
+  const handleLogOut = () => {
+    closeModal();
+    LogOut();
+    setTimeout(() => {
+      
+      navigate("/login");
+    }, 500);
+  };
 
   if (isLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (
@@ -79,10 +100,22 @@ function App() {
           : "bg-gradient-to-tr from-[#263238] from-10% via-[#455a64] to-[#fafafa]"
       }`}
     >
-      <Routes className="">
-        <Route path="/" element={currentUser ? <Navigate to="/chats"/> : <Navigate to="/login"/>}></Route>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            currentUser ? <Navigate to="/chats" /> : <Navigate to="/login" />
+          }
+        />
         {/* Páginas Privadas */}
-        <Route element={<ProtectedRoutes currentUser={currentUser} setCurrentUser={setCurrentUser}/>}>
+        <Route
+          element={
+            <ProtectedRoutes
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
+        >
           <Route
             path="/chats"
             element={
@@ -91,9 +124,10 @@ function App() {
                 setSidebarOpen={setSidebarOpen}
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
+                setModalIsOpen={setModalIsOpen}
               />
             }
-          ></Route>
+          />
           <Route
             path="/settings"
             element={
@@ -103,9 +137,10 @@ function App() {
                 setSidebarOpen={setSidebarOpen}
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
+                setModalIsOpen={setModalIsOpen}
               />
             }
-          ></Route>
+          />
           <Route
             path="/favorites"
             element={
@@ -114,9 +149,10 @@ function App() {
                 setSidebarOpen={setSidebarOpen}
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
+                setModalIsOpen={setModalIsOpen}
               />
             }
-          ></Route>
+          />
           <Route
             path="/contacts"
             element={
@@ -125,9 +161,10 @@ function App() {
                 setSidebarOpen={setSidebarOpen}
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
+                setModalIsOpen={setModalIsOpen}
               />
             }
-          ></Route>
+          />
           <Route
             path="/user/:username"
             element={
@@ -136,9 +173,10 @@ function App() {
                 setSidebarOpen={setSidebarOpen}
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
+                setModalIsOpen={setModalIsOpen}
               />
             }
-          ></Route>
+          />
         </Route>
         {/* Página Pública */}
         <Route
@@ -149,8 +187,29 @@ function App() {
               currentUser={currentUser}
             />
           }
-        ></Route>
+        />
       </Routes>
+      {modalIsOpen && (
+        <Modal>
+          <div className="modalContent scale-in-ver-center bg-white w-[350px] p-8 flex flex-col justify-center items-center shadow-xl">
+            <p className="text-[28px] font-medium">¿Desea cerrar sesión?</p>
+            <div className="w-full flex justify-between mt-4">
+              <button
+                className="w-[100px] bg-white p-4 rounded-xl border-solid border-2 border-[#FF0000]"
+                onClick={handleLogOut}
+              >
+                Aceptar
+              </button>
+              <button
+                className="w-[100px] bg-red-400 p-4 rounded-xl border-solid border-2 border-[#FF0000] text-white font-semibold"
+                onClick={closeModal}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

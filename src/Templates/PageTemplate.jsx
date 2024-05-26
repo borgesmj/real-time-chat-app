@@ -6,7 +6,8 @@ const PageTemplate = ({
   sidebarOpen,
   darkTheme,
   setDarkTheme,
-  currentUser
+  currentUser,
+  setModalIsOpen
 }) => {
   return (
     <div className="w-full h-full relative xl:w-4/5 2xl:w-3/4">
@@ -16,6 +17,7 @@ const PageTemplate = ({
         darkTheme={darkTheme}
         setDarkTheme={setDarkTheme}
         currentUser = {currentUser}
+        setModalIsOpen={setModalIsOpen}
       />
       {children}
     </div>
