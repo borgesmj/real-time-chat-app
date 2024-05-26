@@ -15,7 +15,6 @@ const Sidebar = ({ darkTheme, sidebarOpen, setSidebarOpen, currentUser }) => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  console.log(currentUser)
 
   const links = [
     {
