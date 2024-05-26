@@ -1,4 +1,3 @@
-// Pages
 import Profile from "./Pages/Profile/Profile";
 import Settings from "./Pages/SettingsPage/Settings";
 import Chats from "./Pages/Chats/Chats";
@@ -6,7 +5,7 @@ import Favorites from "./Pages/Favorites/Favorites";
 import ContactList from "./Pages/ContactList/ContactList";
 import RegisterLogin from "./Pages/RegisterLogin/RegisterLogin";
 // React router
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 // Hooks
 import { useEffect, useState } from "react";
 // Components
@@ -33,8 +32,9 @@ function App() {
       }`}
     >
       <Routes className="">
+        <Route path="/" element={currentUser ? <Navigate to="/chats"/> : <Navigate to="/login"/>}></Route>
         {/* Páginas Privadas */}
-        <Route element={<ProtectedRoutes currentUser={currentUser} />}>
+        <Route element={<ProtectedRoutes currentUser={currentUser} setCurrentUser={setCurrentUser}/>}>
           <Route
             path="/chats"
             element={
@@ -94,7 +94,7 @@ function App() {
         </Route>
         {/* Página Pública */}
         <Route
-          path="/"
+          path="/login"
           element={
             <RegisterLogin
               setCurrentUser={setCurrentUser}
