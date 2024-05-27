@@ -22,6 +22,8 @@ const Settings = ({
     setDarkTheme(!darkTheme);
   };
 
+  console.log(currentUser)
+
   const [openPWSettings, setOpenPWSettings] = useState(false);
   const [openProfileSettings, setOpenProfileSettings] = useState(false);
   const [openSettingsSection, setOpenSettingsSection] = useState(false);
