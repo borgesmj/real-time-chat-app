@@ -39,7 +39,6 @@ function App() {
   const navigate = useNavigate(); 
   const location = useLocation(); 
 
-  console.log('probando')
 
   useEffect(() => { 
     const fetchUserByUserUID = async () => {
