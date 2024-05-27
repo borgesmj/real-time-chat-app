@@ -11,13 +11,13 @@
   width: calc(100% - 3rem);
 }
 
-.chat-section {
+.chat-section, .settings-section {
   opacity: 1;
   transition: all 0.3s linear 0s;
   left: 0;
   transform: translateX(150dvw);
 }
-
+#settings-chbx:checked ~ .settings-section,
 #chat-section-cb:checked ~ .chat-section {
   opacity: 1;
   transform: translateX(0);

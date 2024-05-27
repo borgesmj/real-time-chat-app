@@ -4,9 +4,8 @@ import Section from "../../Components/Section/Section";
 import ThemeToggle from "../../Components/Theme-toggle/ThemeToggle";
 import { NavLink } from "react-router-dom";
 import { Password, UserGear, GearSix } from "@phosphor-icons/react";
-import PasswordSetting from "./PasswordSetting";
-import ProfileSettings from "./ProfileSettings";
 import PageTemplate from "../../Templates/PageTemplate";
+import SettingsSection from "../../Components/SettingsSection/SettingsSection";
 
 const Settings = ({
   setDarkTheme,
@@ -22,9 +21,10 @@ const Settings = ({
 
   const [openPWSettings, setOpenPWSettings] = useState(false);
   const [openProfileSettings, setOpenProfileSettings] = useState(false);
+  const [openSettingsSection, setOpenSettingsSection] = useState(false)
 
   const handleOpenPasswordSettings = () => {
-    setOpenPWSettings(true);
+    setOpenSettingsSection(true)
   };
 
   return (
@@ -36,11 +36,6 @@ const Settings = ({
       currentUser={currentUser}
       setModalIsOpen={setModalIsOpen}
     >
-      {openPWSettings ? (
-        <PasswordSetting setOpenPWSettings={setOpenPWSettings} />
-      ) : openProfileSettings ? (
-        <ProfileSettings setOpenProfileSettings={setOpenProfileSettings} />
-      ) : (
         <Section darkTheme={darkTheme}>
           <h3 className="w-full flex justify-center text-[2rem] uppercase font-[roboto]">
             <GearSix size={52} weight="bold" />
@@ -61,7 +56,8 @@ const Settings = ({
             <ThemeToggle darkTheme={darkTheme} handleChange={handleChange} />
           </div>
         </Section>
-      )}
+        <input type="checkbox" name="" id="settings-chbx" checked={openSettingsSection} readOnly />
+        <SettingsSection></SettingsSection>
     </PageTemplate>
   );
 };
