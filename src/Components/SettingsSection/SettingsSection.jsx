@@ -2,7 +2,7 @@ import { ArrowLeft } from "@phosphor-icons/react";
 
 const SettingsSection = ({setOpenSettingsSection, children}) => {
   return (
-    <main className="settings-section relative md:left-[23rem] w-dvw h-full  top-0 md:w-[23rem] md:opacity-100 md:transform-none block lg:w-[60dvw] 2xl:left-[28rem] bg-white">
+    <main className="settings-section relative md:left-[23rem] w-dvw h-full  top-0 md:w-[23rem] md:opacity-100 md:transform-none lg:w-[60dvw] 2xl:left-[28rem] bg-white flex items-center flex-col justify-center">
       <div
         className={` bg-blue-500 flex justify-start items-center w-full h-12 md:h-20 absolute top-0`}
       >
