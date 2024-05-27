@@ -64,6 +64,8 @@ const Settings = ({
     }, 2000);
   };
 
+  console.log(currentUser)
+
   return (
     <PageTemplate
       darkTheme={darkTheme}
@@ -114,7 +116,7 @@ const Settings = ({
             openToastSuccess={openToastSuccess}
           />
         ) : (
-          <ChangeProfile />
+          <ChangeProfile currentUser={currentUser} />
         )}
       </SettingsSection>
       <ToastContainer
