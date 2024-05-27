@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import Loader from "../Loader/Loader";
 
-const ChangePassword = () => {
+const ChangePassword = ({openToastError, openToastSuccess}) => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -39,16 +39,13 @@ const ChangePassword = () => {
       return results;
     } catch (error) {
       if (error.code === "auth/invalid-credential") {
-        alert("Contraseña incorrecta");
-        return;
-      } else if (error.code === "auth/user-not-found") {
-        alert("Usuario no existe");
-        return;
+        openToastError("Contraseña incorrecta");
+        return null;
       } else if (error.code === "auth/user-disabled") {
-        alert("Usuario Inhabilitado");
-        return;
+        openToastError("Usuario Inhabilitado");
+        return null;
       } else {
-        alert("Ups!! Algo salió mal");
+        openToastError("Ups!! Algo salió mal");
         return null;
       }
     }
@@ -56,10 +53,10 @@ const ChangePassword = () => {
 
   const handleSubmit = async () => {
     if (newPassword !== confirmPassword) {
-      alert("Las contraseñas no coinciden");
+      openToastError("Las contraseñas no coinciden");
       return;
     } else if (passwordStrength < 3) {
-      alert("La contraseña no cumple con los requisitos");
+      openToastError("La contraseña no cumple con los requisitos");
       return;
     }
     const user = await loginWithEmail();
@@ -69,14 +66,14 @@ const ChangePassword = () => {
       try {
         await updatePassword(currentUser, newPassword);
       } catch (error) {
-        alert("Ups!! Algo salió mal");
+        openToastError("Ups!! Algo salió mal");
       } finally {
         setTimeout(() => {
           setPassword("");
           setNewPassword("");
           setConfirmPassword("");
           setLoading(false);
-          alert("Contraseña Actualizada");
+          openToastSuccess("Contraseña Actualizada");
         }, 2000);
       }
     } else {
