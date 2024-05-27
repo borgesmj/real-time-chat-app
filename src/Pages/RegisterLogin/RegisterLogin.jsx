@@ -50,7 +50,7 @@ const RegisterLogin = ({setCurrentUser, currentUser}) => {
       <div className="w-[120px] h-[120px] bg-red-400 md:absolute md:top-1/4 md:left-1/4 md:w-[180px] md:h-[180px] 2xl:w-[250px] 2xl:h-[250px]">
         Aqui va un logo
       </div>
-      <div className="bg-gray-600 h-[70%] w-[90%] rounded-xl md:absolute md:bottom-4 md:right-4 md:w-[450px] md:h-[450px] 2xl:w-[700px] 2xl:h-[700px] 2xl:bottom-40 2xl:right-40">
+      <div className="flex flex-col justify-between items-center bg-gray-600 h-[70%] w-[90%] rounded-xl md:absolute md:bottom-4 md:right-4 md:w-[450px] md:h-[450px] 2xl:w-[700px] 2xl:h-[700px] 2xl:bottom-40 2xl:right-40">
         <input
           type="checkbox"
           name="registerOpen"
