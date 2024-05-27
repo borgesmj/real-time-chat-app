@@ -91,6 +91,8 @@ function App() {
     return <Loader />;
   }
 
+  console.log('loading')
+
   return (
     <div
       id="app"
