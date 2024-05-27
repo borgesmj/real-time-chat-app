@@ -56,8 +56,8 @@ const Settings = ({
             <ThemeToggle darkTheme={darkTheme} handleChange={handleChange} />
           </div>
         </Section>
-        <input type="checkbox" name="" id="settings-chbx" checked={openSettingsSection} readOnly />
-        <SettingsSection></SettingsSection>
+        <input type="checkbox" name="" id="settings-chbx" checked={openSettingsSection} readOnly className="hidden" />
+        <SettingsSection setOpenSettingsSection={setOpenSettingsSection}></SettingsSection>
     </PageTemplate>
   );
 };
