@@ -6,7 +6,8 @@ import { NavLink } from "react-router-dom";
 import { Password, UserGear, GearSix } from "@phosphor-icons/react";
 import PageTemplate from "../../Templates/PageTemplate";
 import SettingsSection from "../../Components/SettingsSection/SettingsSection";
-
+import ChangePassword from "../../Components/Forms/ChangePassword";
+import ChangeProfile from "../../Components/Forms/ChangeProfile";
 const Settings = ({
   setDarkTheme,
   darkTheme,
@@ -23,7 +24,7 @@ const Settings = ({
   const [openProfileSettings, setOpenProfileSettings] = useState(false);
   const [openSettingsSection, setOpenSettingsSection] = useState(false)
 
-  const handleOpenPasswordSettings = () => {
+  const handleOpenSettings = () => {
     setOpenSettingsSection(true)
   };
 
@@ -42,22 +43,22 @@ const Settings = ({
           </h3>
           <div className="w-full flex flex-col justify-between h-40 mt-8">
             <button
-              onClick={() => handleOpenPasswordSettings()}
-              className="w-full flex flex-row ml-4 text-xl items-center"
-            >
-              <Password /> <span className="ml-4">Contraseña</span>
-            </button>
-            <button
-              onClick={() => setOpenProfileSettings(true)}
+              onClick={() => {setOpenPWSettings(false); handleOpenSettings()}}
               className="w-full flex flex-row ml-4 text-xl items-center"
             >
               <UserGear /> <span className="ml-4">Perfil</span>
+            </button>
+            <button
+              onClick={() => {setOpenPWSettings(true); handleOpenSettings()}}
+              className="w-full flex flex-row ml-4 text-xl items-center"
+            >
+              <Password /> <span className="ml-4">Contraseña</span>
             </button>
             <ThemeToggle darkTheme={darkTheme} handleChange={handleChange} />
           </div>
         </Section>
         <input type="checkbox" name="" id="settings-chbx" checked={openSettingsSection} readOnly className="hidden" />
-        <SettingsSection setOpenSettingsSection={setOpenSettingsSection}></SettingsSection>
+        <SettingsSection setOpenSettingsSection={setOpenSettingsSection}>{openPWSettings ? <ChangePassword/> : <ChangeProfile/>}</SettingsSection>
     </PageTemplate>
   );
 };
