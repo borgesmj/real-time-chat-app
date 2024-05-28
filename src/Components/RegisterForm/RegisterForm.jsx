@@ -137,7 +137,7 @@ const RegisterForm = ({
             twitter: "",
             instagram: "",
             tiktok: "",
-            threads: "",
+            facebook: "",
           },
           location: "",
           dateOfBirth: "",
