@@ -1,0 +1,74 @@
+.form-field {
+  margin: 10px 20px;
+  width: 300px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-block: 10px;
+}
+.label-field {
+  transition: all ease 0.3s;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1rem;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
+
+.input-field {
+  transition: all ease 0.3s;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.form-field input:focus,
+.form-field input:not(:placeholder-shown) {
+  outline: none;
+  border-bottom: 1px solid blue;
+}
+
+.form-field input:focus + .label-field,
+.form-field input:not(:placeholder-shown) + .label-field {
+  transform: translate(-15px, -10px);
+  font-size: 10px;
+  width: 100px;
+  height: 20px;
+}
+
+.form-field textarea {
+  resize: none;
+  padding-block: 15px;
+  height: 180px;
+  transition: all ease 0.3s;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.form-field textarea:focus {
+  outline: none;
+  border-bottom: 1px solid blue;
+}
+
+.form-field textarea:focus + .label-field,
+.form-field textarea:not(:placeholder-shown) + .label-field {
+  transform: translate(-15px, -10px);
+  font-size: 10px;
+  width: 100px;
+  height: 20px;
+}
