@@ -8,6 +8,31 @@
   position: relative;
   margin-block: 10px;
 }
+
+.rrss-form-field {
+  margin: 10px 20px;
+  width: 240px;
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-block: 10px;
+}
+
+.rrss-form-field input, .rrss-form-field label{
+  width: 50%;
+}
+
+.rrss-form-field label{
+  text-align: right;
+}
+
+.rrss-form-field input:focus{
+  outline: none;
+  border-bottom: 1px solid blue;
+}
+
+
 .label-field {
   transition: all ease 0.3s;
   position: absolute;

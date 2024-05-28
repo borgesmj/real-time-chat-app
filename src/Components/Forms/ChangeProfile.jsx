@@ -1,10 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormTemplate from "../../Templates/FormTemplate";
 import FormField from "../FormField/FormField";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import "./ChangeProfile.css";
+import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { db } from "../../Process/Firebase";
+
 const ChangeProfile = ({ currentUser }) => {
-  const interestsList = [
+  const [profile_pic, setProfilePic] = useState(currentUser?.profile_pic ?? "");
+  const [fullname, setFullname] = useState(currentUser?.fullname ?? "");
+  const [bio, setBio] = useState(currentUser?.bio ?? "");
+  const [username, setUsername] = useState(currentUser?.username ?? "");
+  const [location, setLocation] = useState(currentUser?.location ?? "");
+  const [birthdate, setBirthdate] = useState(currentUser?.dateOfBirth ?? "");
+  const [instagram, setInstagram] = useState(
+    currentUser?.rrssUsernames.instagram ?? ""
+  );
+  const [facebook, setFacebook] = useState(
+    currentUser?.rrssUsernames.facebook ?? ""
+  );
+  const [twitter, setTwitter] = useState(
+    currentUser?.rrssUsernames.twitter ?? ""
+  );
+  const [tiktok, setTiktok] = useState(currentUser?.rrssUsernames.thread ?? "");
+  const [userInterests, setUserInterests] = useState(
+    currentUser?.interests || []
+  );
+  const [interestsList, setInterestsList] = useState([
     "Tecnología",
     "Deportes",
     "Música",
@@ -15,22 +37,70 @@ const ChangeProfile = ({ currentUser }) => {
     "Fotografía",
     "Moda",
     "Salud y Bienestar",
-  ];
-  const [profile_pic, setProfilePic] = useState(currentUser?.profile_pic);
-  const [fullname, setFullname] = useState(currentUser?.fullname);
-  const [bio, setBio] = useState(currentUser?.bio);
-  const [username, setUsername] = useState(currentUser?.username);
-  const [location, setLocation] = useState(currentUser?.location);
-  const [birthdate, setBirthdate] = useState(currentUser?.dateOfBirth);
-  const [instagram, setInstagram] = useState(
-    currentUser?.rrssUsernames.instagram
-  );
-  const [facebook, setFacebook] = useState(currentUser?.rrssUsernames.facebook);
-  const [twitter, setTwitter] = useState(currentUser?.rrssUsernames.twitter);
-  const [tiktok, setTiktok] = useState(currentUser?.rrssUsernames.threads);
-  const [interests, setInterests] = useState(
-    currentUser?.rrssUsernames.interests
-  );
+  ]);
+
+  useEffect(() => {
+    const filteredList = interestsList.filter((item) => {
+      return !userInterests.includes(item);
+    })
+    setInterestsList(filteredList)
+  }, [])
+
+  const handleAddInterest = (interest) => {
+    if (userInterests.length < 5) {
+      const updatedInterestsList = interestsList.filter(
+        (item) => item !== interest
+      );
+      setInterestsList(updatedInterestsList);
+      setUserInterests([interest, ...userInterests]);
+    } else {
+      return;
+    }
+  };
+
+  const handleRemoveInterest = (interest) => {
+    const updatedInterestsList = userInterests.filter(
+      (item) => item !== interest
+    );
+    setUserInterests(updatedInterestsList);
+    setInterestsList([interest, ...interestsList]);
+  };
+
+  const handleSubmit = async () => {
+    const userId = currentUser?.userId;
+    console.log("User ID:", userId);
+    try {
+      const userCollectionRef = collection(db, "users")
+      const q = query(userCollectionRef, where("userId", "==", userId))
+      const querySnapShot = await getDocs(q);
+      let docId = ''
+      querySnapShot.forEach((doc) => {
+        docId = doc.id
+      })
+      console.log(docId)
+      const userRef = doc(db, "users", docId)
+      const updateProfile = await updateDoc(userRef, {
+        "fullname": fullname,
+        "username": username,
+        "bio": bio,
+        "location": location,
+        "dateOfBirth": birthdate,
+        "rrssUsernames": {
+          "instagram": instagram,
+          "facebook": facebook,
+          "twitter": twitter,
+          "thread": tiktok,
+        },
+        "interests": userInterests
+      })
+    } catch (error) {
+      console.log(error);
+      return
+    } finally{
+      console.log('usuario actualizado')
+    }
+  };
+
   return (
     <div className="w-full absolute top-12 md:top-20 bottom-12 bg-white flex flex-col pb-10 overflow-y-auto">
       <FormTemplate>
@@ -119,7 +189,7 @@ const ChangeProfile = ({ currentUser }) => {
           </label>
         </p>
         <h3>Redes Sociales</h3>
-        <p className="form-field">
+        <p className="rrss-form-field">
           <label htmlFor="instagram" className="rrss-field">
             instragram.com/
           </label>
@@ -135,7 +205,7 @@ const ChangeProfile = ({ currentUser }) => {
             }}
           />
         </p>
-        <p className="form-field">
+        <p className="rrss-form-field">
           <label htmlFor="facebook" className="rrss-field">
             facebook.com/
           </label>
@@ -151,7 +221,7 @@ const ChangeProfile = ({ currentUser }) => {
             }}
           />
         </p>
-        <p className="form-field">
+        <p className="rrss-form-field">
           <label htmlFor="tiktok" className="rrss-field">
             tiktok.com/
           </label>
@@ -167,7 +237,7 @@ const ChangeProfile = ({ currentUser }) => {
             }}
           />
         </p>
-        <p className="form-field">
+        <p className="rrss-form-field">
           <label htmlFor="twitter" className="rrss-field">
             twitter.com/
           </label>
@@ -183,8 +253,54 @@ const ChangeProfile = ({ currentUser }) => {
             }}
           />
         </p>
+        <h3>Intereses</h3>
+        <div className="w-full p-4 flex flex-wrap gap-5">
+          {userInterests.length > 0 &&
+            userInterests.map((interest) => (
+              <div key={interest}>
+                <label htmlFor={interest}>
+                  <span className="cursor-pointer rounded-2xl bg-blue-500 p-2 ">
+                    {interest}
+                  </span>
+                </label>
+                <input
+                  type="checkbox"
+                  name=""
+                  id={interest}
+                  checked={userInterests.includes(interest)}
+                  onChange={() => {
+                    handleRemoveInterest(interest);
+                  }}
+                  className="hidden"
+                />
+              </div>
+            ))}
+        </div>
+        <span>Puedes añadir hasta 5 intereses</span>
+        <div className="w-full p-4 flex flex-wrap gap-5">
+          {interestsList.map((interest) => (
+            <div key={interest}>
+              <label htmlFor={interest} key={interest}>
+                <span className="cursor-pointer rounded-2xl bg-blue-500 p-2 ">
+                  {interest}
+                </span>
+              </label>
+              <input
+                type="checkbox"
+                name=""
+                id={interest}
+                className="hidden"
+                value={userInterests.includes(interest)}
+                onChange={() => {
+                  handleAddInterest(interest);
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
         <FormField>
-            <SubmitBtn btnText="Guardar" />
+          <SubmitBtn btnText="Guardar" handleSubmit={handleSubmit} />
         </FormField>
       </FormTemplate>
     </div>
