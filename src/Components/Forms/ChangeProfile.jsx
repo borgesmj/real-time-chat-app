@@ -3,12 +3,20 @@ import FormTemplate from "../../Templates/FormTemplate";
 import FormField from "../FormField/FormField";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import "./ChangeProfile.css";
-import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../../Process/Firebase";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
-const ChangeProfile = ({ currentUser, openToastSuccess }) => {
+const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
   const [loading, setLoading] = useState(false);
   const [profile_pic, setProfilePic] = useState(currentUser?.profile_pic ?? "");
   const [fullname, setFullname] = useState(currentUser?.fullname ?? "");
@@ -45,11 +53,11 @@ const ChangeProfile = ({ currentUser, openToastSuccess }) => {
   useEffect(() => {
     const filteredList = interestsList.filter((item) => {
       return !userInterests.includes(item);
-    })
-    setInterestsList(filteredList)
-  }, [])
+    });
+    setInterestsList(filteredList);
+  }, []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleAddInterest = (interest) => {
     if (userInterests.length < 5) {
@@ -71,49 +79,60 @@ const ChangeProfile = ({ currentUser, openToastSuccess }) => {
     setInterestsList([interest, ...interestsList]);
   };
 
+  const validateUsername = (username) => {
+    const usernameRegex = /^[a-zA-Z0-9_]+$/;
+    return usernameRegex.test(username);
+  };
+
   const handleSubmit = async () => {
-    setLoading(true)
+    setLoading(true);
+    const newUsername = username.toLowerCase().trim();
+    if (!validateUsername(newUsername)) {
+      openToastError("El nombre de usuario no cumple con los requisitos");
+      setLoading(false);
+      return;
+    }
     const userId = currentUser?.userId;
     console.log("User ID:", userId);
     try {
-      const userCollectionRef = collection(db, "users")
-      const q = query(userCollectionRef, where("userId", "==", userId))
+      const userCollectionRef = collection(db, "users");
+      const q = query(userCollectionRef, where("userId", "==", userId));
       const querySnapShot = await getDocs(q);
-      let docId = ''
+      let docId = "";
       querySnapShot.forEach((doc) => {
-        docId = doc.id
-      })
-      console.log(docId)
-      const userRef = doc(db, "users", docId)
+        docId = doc.id;
+      });
+      console.log(docId);
+      const userRef = doc(db, "users", docId);
       const updateProfile = await updateDoc(userRef, {
-        "fullname": fullname,
-        "username": username,
-        "bio": bio,
-        "location": location,
-        "dateOfBirth": birthdate,
-        "rrssUsernames": {
-          "instagram": instagram,
-          "facebook": facebook,
-          "twitter": twitter,
-          "thread": tiktok,
+        fullname: fullname,
+        username: username,
+        bio: bio,
+        location: location,
+        dateOfBirth: birthdate,
+        rrssUsernames: {
+          instagram: instagram,
+          facebook: facebook,
+          twitter: twitter,
+          thread: tiktok,
         },
-        "interests": userInterests
-      })
+        interests: userInterests,
+      });
     } catch (error) {
       console.log(error);
-      return
-    } finally{
-      setLoading(false)
-      openToastSuccess('Usuario actualizado con exito')
+      return;
+    } finally {
+      setLoading(false);
+      openToastSuccess("Usuario actualizado con exito");
       setTimeout(() => {
-        navigate(`/user/${currentUser.username}`)
+        navigate(`/user/${currentUser.username}`);
       }, 3000);
     }
   };
 
   return (
     <div className="w-full absolute top-12 md:top-20 bottom-12 bg-white flex flex-col pb-10 overflow-y-auto">
-      {loading && <Loader/>}
+      {loading && <Loader />}
       <FormTemplate>
         <FormField>
           <img src={profile_pic} alt="" />

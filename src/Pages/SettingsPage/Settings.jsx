@@ -22,7 +22,7 @@ const Settings = ({
     setDarkTheme(!darkTheme);
   };
 
-  console.log(currentUser)
+  console.log(currentUser);
 
   const [openPWSettings, setOpenPWSettings] = useState(false);
   const [openProfileSettings, setOpenProfileSettings] = useState(false);
@@ -65,7 +65,6 @@ const Settings = ({
       toast.dismiss(toastId);
     }, 2000);
   };
-
 
   return (
     <PageTemplate
@@ -117,7 +116,11 @@ const Settings = ({
             openToastSuccess={openToastSuccess}
           />
         ) : (
-          <ChangeProfile currentUser={currentUser} openToastSuccess={openToastSuccess} />
+          <ChangeProfile
+            currentUser={currentUser}
+            openToastSuccess={openToastSuccess}
+            openToastError={openToastError}
+          />
         )}
       </SettingsSection>
       <ToastContainer
