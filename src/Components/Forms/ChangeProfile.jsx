@@ -33,7 +33,7 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
   const [twitter, setTwitter] = useState(
     currentUser?.rrssUsernames.twitter ?? ""
   );
-  const [tiktok, setTiktok] = useState(currentUser?.rrssUsernames.thread ?? "");
+  const [tiktok, setTiktok] = useState(currentUser?.rrssUsernames.tiktok ?? "");
   const [userInterests, setUserInterests] = useState(
     currentUser?.interests || []
   );
@@ -120,7 +120,7 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
           instagram: instagram,
           facebook: facebook,
           twitter: twitter,
-          thread: tiktok,
+          tiktok: tiktok,
         },
         interests: userInterests,
       });
@@ -290,7 +290,7 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
           />
         </p>
         <h3>Intereses</h3>
-        <div className="w-full p-4 flex flex-wrap gap-5">
+        <div className="w-full p-4 flex flex-wrap justify-center gap-5">
           {userInterests.length > 0 &&
             userInterests.map((interest) => (
               <div key={interest}>
@@ -313,7 +313,7 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
             ))}
         </div>
         <span>Puedes añadir hasta 5 intereses</span>
-        <div className="w-full p-4 flex flex-wrap gap-5">
+        <div className="w-full p-4 flex flex-wrap justify-center gap-5">
           {interestsList.map((interest) => (
             <div key={interest}>
               <label htmlFor={interest} key={interest}>
