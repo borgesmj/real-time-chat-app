@@ -5,8 +5,11 @@ import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import "./ChangeProfile.css";
 import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../../Process/Firebase";
+import { useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
-const ChangeProfile = ({ currentUser }) => {
+const ChangeProfile = ({ currentUser, openToastSuccess }) => {
+  const [loading, setLoading] = useState(false);
   const [profile_pic, setProfilePic] = useState(currentUser?.profile_pic ?? "");
   const [fullname, setFullname] = useState(currentUser?.fullname ?? "");
   const [bio, setBio] = useState(currentUser?.bio ?? "");
@@ -46,6 +49,8 @@ const ChangeProfile = ({ currentUser }) => {
     setInterestsList(filteredList)
   }, [])
 
+  const navigate = useNavigate()
+
   const handleAddInterest = (interest) => {
     if (userInterests.length < 5) {
       const updatedInterestsList = interestsList.filter(
@@ -67,6 +72,7 @@ const ChangeProfile = ({ currentUser }) => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true)
     const userId = currentUser?.userId;
     console.log("User ID:", userId);
     try {
@@ -97,12 +103,17 @@ const ChangeProfile = ({ currentUser }) => {
       console.log(error);
       return
     } finally{
-      console.log('usuario actualizado')
+      setLoading(false)
+      openToastSuccess('Usuario actualizado con exito')
+      setTimeout(() => {
+        navigate(`/user/${currentUser.username}`)
+      }, 3000);
     }
   };
 
   return (
     <div className="w-full absolute top-12 md:top-20 bottom-12 bg-white flex flex-col pb-10 overflow-y-auto">
+      {loading && <Loader/>}
       <FormTemplate>
         <FormField>
           <img src={profile_pic} alt="" />

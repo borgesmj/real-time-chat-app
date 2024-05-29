@@ -66,7 +66,6 @@ const Settings = ({
     }, 2000);
   };
 
-  console.log(currentUser)
 
   return (
     <PageTemplate
@@ -118,7 +117,7 @@ const Settings = ({
             openToastSuccess={openToastSuccess}
           />
         ) : (
-          <ChangeProfile currentUser={currentUser} />
+          <ChangeProfile currentUser={currentUser} openToastSuccess={openToastSuccess} />
         )}
       </SettingsSection>
       <ToastContainer
