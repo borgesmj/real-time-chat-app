@@ -128,10 +128,10 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
       console.log(error);
       return;
     } finally {
-      setLoading(false);
       openToastSuccess("Usuario actualizado con exito");
       setTimeout(() => {
-        navigate(`/user/${currentUser.username}`);
+        setLoading(false);
+        window.location.href = `/user/${newUsername}`
       }, 3000);
     }
   };
