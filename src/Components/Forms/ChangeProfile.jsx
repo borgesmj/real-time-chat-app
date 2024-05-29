@@ -88,7 +88,13 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
     setLoading(true);
     const newUsername = username.toLowerCase().trim();
     if (!validateUsername(newUsername)) {
-      openToastError("El nombre de usuario no cumple con los requisitos");
+      openToastError(
+        <>
+          El nombre de usuario no es válido
+          <br />
+          Solo puede contener letras, numeros y _
+        </>
+      );
       setLoading(false);
       return;
     }
