@@ -15,12 +15,12 @@ const Profile = ({
   currentUser,
   setModalIsOpen,
 }) => {
-  const [loading, setLoading] = useState(false);
   const username = useParams().username;
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    setLoading(true)
     const fetchUserData = async () => {
       try {
         const userRef = collection(db, "users");
@@ -31,6 +31,7 @@ const Profile = ({
       } catch (error) {
         console.log(error);
       } finally {
+        setLoading(false)
         console.log("finalizado");
       }
     };
@@ -155,21 +156,6 @@ const Profile = ({
               }
             </p>
           </div>
-          {/*
-            <div className="w-full flex flex-col items-center justify-center my-2">
-              <p>Intereses</p>
-              <p className="flex flex-wrap justify-center items-center w-full gap-4">
-                {userData.interests.map((item) => (
-                  <span
-                    className="p-2 rounded-full border-solid border-black border-[1px]"
-                    key={item}
-                  >
-                    {item}
-                  </span>
-                ))}
-            </div>
-          </div>
-        </p>*/}
         </div>
       )}
     </PageTemplate>
