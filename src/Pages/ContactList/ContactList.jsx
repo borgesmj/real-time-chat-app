@@ -15,7 +15,11 @@ const ContactList = ({
       currentUser={currentUser}
       setModalIsOpen={setModalIsOpen}
     >
-      <Section>ContactList</Section>
+      <Section>Amigos
+        <div>Agregados</div>
+        <div>Solicitudes Enviadas</div>
+        <div>Solicitudes Recibidas</div>
+      </Section>
     </PageTemplate>
   );
 };
