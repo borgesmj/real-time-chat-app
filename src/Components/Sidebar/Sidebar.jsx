@@ -45,7 +45,7 @@ const Sidebar = ({
       text: "Favoritos",
     },
     {
-      href: "/contacts",
+      href: "/friends",
       icon: (
         <UsersThree
           size={32}

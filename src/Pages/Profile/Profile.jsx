@@ -18,6 +18,7 @@ const Profile = ({
   const username = useParams().username;
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [friendList, setFriendList] = useState([])
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,11 +30,15 @@ const Profile = ({
         setUserData(data);
       } catch (error) {
         console.log(error);
-      } 
+      }
     };
     fetchUserData();
   }, []);
-  const createAt = userData?.createAt;
+
+  useEffect(() => {
+    setFriendList(currentUser?.friendsList)
+  }, [currentUser])
+  console.log(friendList)
   const rrssLinks = [
     {
       base: "https://www.instagram.com/",
@@ -53,7 +58,7 @@ const Profile = ({
     },
   ];
 
-  console.log(rrssLinks);
+  
 
   return (
     <PageTemplate
@@ -103,6 +108,13 @@ const Profile = ({
               </a>
             </div>
           </div>
+          {username !== currentUser.username && (
+            <div className="bio max-w-[300px] text-center my-4 mx-auto">
+              <button className="bg-red-200 w-[150px] h-[30px] rounded-md">
+                Agregar Amigo
+              </button>
+            </div>
+          )}
           <p className="bio max-w-[300px] text-center my-4 mx-auto">
             {userData?.bio}
           </p>
@@ -140,16 +152,14 @@ const Profile = ({
           <div className="w-full flex flex-col items-center justify-center my-2">
             <p>Intereses</p>
             <p className="flex flex-wrap justify-center items-center w-full gap-4">
-              {
-                userData.interests.map((item) => (
-                  <span
-                    className="p-2 rounded-full border-solid border-black border-[1px]"
-                    key={item}
-                  >
-                    {item}
-                  </span>
-                ))
-              }
+              {userData.interests.map((item) => (
+                <span
+                  className="p-2 rounded-full border-solid border-black border-[1px]"
+                  key={item}
+                >
+                  {item}
+                </span>
+              ))}
             </p>
           </div>
         </div>

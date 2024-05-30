@@ -156,7 +156,7 @@ function App() {
             }
           />
           <Route
-            path="/contacts"
+            path="/friends"
             element={
               <ContactList
                 darkTheme={darkTheme}
