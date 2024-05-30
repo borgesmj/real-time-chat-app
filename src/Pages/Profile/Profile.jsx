@@ -86,7 +86,7 @@ const Profile = ({
               </button>
             )}
           </div>
-          <div className="profile-header w-full flex flex-row  justify-between items-center md:flex-col py-4 px-4 md:px-12">
+          <div className="profile-header w-full flex flex-row  justify-around items-center md:flex-col py-4 px-4 md:px-12">
             <NavLink to={userData?.profile_pic}>
               <img
                 src={userData?.profile_pic}
@@ -95,11 +95,11 @@ const Profile = ({
               />
             </NavLink>
             <div className="flex flex-col items-start md:items-center">
-              <h1 className="text-3xl md:text-[3rem] font-bold">
+              <h1 className="text-[1rem] md:text-[3rem] font-bold">
                 {userData?.fullname}
               </h1>
               <a href={`/user/${username}`}>
-                <span className="text-[1.5rem]">@{userData?.username} </span>
+                <span className="text-[0.8rem]">@{userData?.username} </span>
               </a>
             </div>
           </div>
