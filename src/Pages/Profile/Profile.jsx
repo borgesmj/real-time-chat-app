@@ -20,7 +20,6 @@ const Profile = ({
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    setLoading(true)
     const fetchUserData = async () => {
       try {
         const userRef = collection(db, "users");
@@ -30,10 +29,7 @@ const Profile = ({
         setUserData(data);
       } catch (error) {
         console.log(error);
-      } finally {
-        setLoading(false)
-        console.log("finalizado");
-      }
+      } 
     };
     fetchUserData();
   }, []);
