@@ -1,0 +1,14 @@
+#profile-page{
+    width: calc(100dvw - 3rem);
+    position: absolute;
+    left: 3rem;
+    top: 0;
+    right: 0; 
+    bottom: 0;
+}
+
+@media (width >= 768px) {
+    #profile-page{
+        width: calc(100% - 3rem);
+    }
+}
