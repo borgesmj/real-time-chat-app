@@ -7,6 +7,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Process/Firebase";
 import { MapPin } from "@phosphor-icons/react";
 import { SocialIcon } from "react-social-icons";
+import Loader from "../../Components/Loader/Loader";
 
 const Profile = ({
   darkTheme,
@@ -18,10 +19,12 @@ const Profile = ({
   const username = useParams().username;
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-  const [friendList, setFriendList] = useState([])
+  const [friendList, setFriendList] = useState([]);
+  const [isLoading, setIsLoading] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
+      setIsLoading(true);
       try {
         const userRef = collection(db, "users");
         const q = query(userRef, where("username", "==", username));
@@ -30,15 +33,17 @@ const Profile = ({
         setUserData(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchUserData();
   }, []);
 
   useEffect(() => {
-    setFriendList(currentUser?.friendsList)
-  }, [currentUser])
-  console.log(friendList)
+    setFriendList(currentUser?.friendsList);
+  }, [currentUser]);
+  console.log(friendList);
   const rrssLinks = [
     {
       base: "https://www.instagram.com/",
@@ -58,8 +63,6 @@ const Profile = ({
     },
   ];
 
-  
-
   return (
     <PageTemplate
       darkTheme={darkTheme}
@@ -68,10 +71,10 @@ const Profile = ({
       currentUser={currentUser}
       setModalIsOpen={setModalIsOpen}
     >
-      {userData === null ? (
-        <>
-          <div>usuario no encontrado</div>
-        </>
+      {isLoading === true ? (
+        <Loader />
+      ) : userData === null ? (
+        <>Usuario no encontrado </>
       ) : (
         <div
           id="profile-page"
@@ -150,7 +153,7 @@ const Profile = ({
             Amigos: <span>{userData?.friendsList.length}</span>
           </p>
           <div className="w-full flex flex-col items-center justify-center my-2">
-            <p>Intereses</p>
+            <p className="py-4">Intereses</p>
             <p className="flex flex-wrap justify-center items-center w-full gap-4">
               {userData.interests.map((item) => (
                 <span
