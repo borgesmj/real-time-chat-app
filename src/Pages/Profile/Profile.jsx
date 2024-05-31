@@ -8,6 +8,7 @@ import { db } from "../../Process/Firebase";
 import { MapPin } from "@phosphor-icons/react";
 import { SocialIcon } from "react-social-icons";
 import Loader from "../../Components/Loader/Loader";
+import FriendStatus from "../../Components/FriendStatus/FriendStatus";
 
 const Profile = ({
   darkTheme,
@@ -21,6 +22,9 @@ const Profile = ({
   const [userData, setUserData] = useState(null);
   const [friendList, setFriendList] = useState([]);
   const [isLoading, setIsLoading] = useState([]);
+  const [isFriend, setIsFriend] = useState(false);
+  const [requestSent, setRequestSent] = useState(false);
+  const [requestReceived, setRequestReceived] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -31,6 +35,21 @@ const Profile = ({
         const querySnapShot = await getDocs(q);
         const data = querySnapShot.docs[0].data();
         setUserData(data);
+        setIsFriend(() => {
+          if (currentUser.friendsList.includes(data.userId)) {
+            return true;
+          }
+        })
+        setRequestSent(() => {
+          if (currentUser.friendRequests.sent.includes(data.userId)){
+            return true;
+          }
+        })
+        setRequestReceived(() => {
+          if (currentUser.friendRequests.recieved.includes(data.userId)){
+            return true;
+          }
+        })
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,7 +62,9 @@ const Profile = ({
   useEffect(() => {
     setFriendList(currentUser?.friendsList);
   }, [currentUser]);
-  console.log(friendList);
+
+  console.log(currentUser)
+
   const rrssLinks = [
     {
       base: "https://www.instagram.com/",
@@ -112,11 +133,11 @@ const Profile = ({
             </div>
           </div>
           {username !== currentUser.username && (
-            <div className="bio max-w-[300px] text-center my-4 mx-auto">
-              <button className="bg-red-200 w-[150px] h-[30px] rounded-md">
-                Agregar Amigo
-              </button>
-            </div>
+            <FriendStatus
+              isFriend={isFriend}
+              requestSent={requestSent}
+              requestReceived={requestReceived}
+            />
           )}
           <p className="bio max-w-[300px] text-center my-4 mx-auto">
             {userData?.bio}
