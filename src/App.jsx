@@ -5,7 +5,13 @@ import Favorites from "./Pages/Favorites/Favorites";
 import ContactList from "./Pages/ContactList/ContactList";
 import RegisterLogin from "./Pages/RegisterLogin/RegisterLogin";
 // React router
-import { Routes, Route, useLocation, Navigate, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 // Hooks
 import { useEffect, useState } from "react";
 // Components
@@ -18,7 +24,7 @@ import Loader from "./Components/Loader/Loader";
 // Modal
 import Modal from "./Components/Modal/Modal";
 // Process
-import { LogOut } from './Process/Auth';
+import { LogOut } from "./Process/Auth";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -35,12 +41,13 @@ function App() {
     }
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currectUserDocID, setCurrentUserDocID] = useState("");
+  const [currentUserFriendList, setCurrentUserFriendList] = useState([]);
 
-  const navigate = useNavigate(); 
-  const location = useLocation(); 
+  const navigate = useNavigate();
+  const location = useLocation();
 
-
-  useEffect(() => { 
+  useEffect(() => {
     const fetchUserByUserUID = async () => {
       setIsLoading(true);
       const usersRef = collection(db, "users");
@@ -49,6 +56,7 @@ function App() {
         const q = query(usersRef, where("userUID", "==", userUID));
         const querySnapShot = await getDocs(q);
         querySnapShot.forEach((doc) => {
+          setCurrentUserDocID(doc.id);
           filteredUser.push(doc.data());
         });
       } catch (error) {
@@ -64,9 +72,9 @@ function App() {
     } else {
       setIsLoading(false);
     }
-  }, [userUID]); 
+  }, [userUID]);
 
-  useEffect(() => { 
+  useEffect(() => {
     setSidebarOpen(false);
   }, [location.pathname]);
 
@@ -78,11 +86,11 @@ function App() {
     }, 500);
   };
 
+
   const handleLogOut = () => {
     closeModal();
     LogOut();
     setTimeout(() => {
-      
       navigate("/login");
     }, 500);
   };
@@ -91,7 +99,11 @@ function App() {
     return <Loader />;
   }
 
-  console.log('loading')
+  const addFriend = () => {
+    console.log(docID);
+  };
+
+
 
   return (
     <div
@@ -176,6 +188,7 @@ function App() {
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
                 setModalIsOpen={setModalIsOpen}
+                addFriend={addFriend}
               />
             }
           />
