@@ -1,13 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { addFriend } from "../../Process/handleFriendsList";
+import Loader from "../Loader/Loader";
 
 const FriendStatus = ({
   isFriend,
   requestSent,
   requestReceived,
+  currentUser,
+  currentUserDocID,
+  profileUser,
+  profileDocID,
 }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const handleAddfriend = () => {
-    addFriend()
+    setIsLoading(true)
+    try{
+      addFriend(currentUserDocID, profileUser.userId, profileDocID, currentUser.userId );
+    } catch(error){
+      console.log(error)
+    } finally{
+      setIsLoading(false)
+      alert("amigo agregado")
+    }
+  };
+
+  if (isLoading){
+    return <Loader/>
   }
 
   return (
@@ -22,7 +40,7 @@ const FriendStatus = ({
         <button
           className="bg-red-200 w-[150px] h-[30px] rounded-md"
           onClick={() => {
-            handleAddfriend()
+            handleAddfriend();
           }}
         >
           Agregar Amigo

@@ -41,7 +41,7 @@ function App() {
     }
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [currectUserDocID, setCurrentUserDocID] = useState("");
+  const [currentUserDocID, setCurrentUserDocID] = useState("");
   const [currentUserFriendList, setCurrentUserFriendList] = useState([]);
 
   const navigate = useNavigate();
@@ -182,7 +182,7 @@ function App() {
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
                 setModalIsOpen={setModalIsOpen}
-                currectUserDocID={currectUserDocID}
+                currentUserDocID={currentUserDocID}
               />
             }
           />

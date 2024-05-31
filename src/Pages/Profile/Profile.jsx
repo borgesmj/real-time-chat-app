@@ -16,7 +16,7 @@ const Profile = ({
   sidebarOpen,
   currentUser,
   setModalIsOpen,
-  currectUserDocID
+  currentUserDocID
 }) => {
   const username = useParams().username;
   const navigate = useNavigate();
@@ -26,6 +26,9 @@ const Profile = ({
   const [requestSent, setRequestSent] = useState(false);
   const [requestReceived, setRequestReceived] = useState(false);
   const [profileDocID, setProfileDocID] = useState("")
+
+
+  console.log(profileDocID)
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -137,6 +140,10 @@ const Profile = ({
               isFriend={isFriend}
               requestSent={requestSent}
               requestReceived={requestReceived}
+              currentUser = {currentUser}
+              currentUserDocID = {currentUserDocID}
+              profileUser = {profileUser}
+              profileDocID = {profileDocID}
             />
           )}
           <p className="bio max-w-[300px] text-center my-4 mx-auto">
