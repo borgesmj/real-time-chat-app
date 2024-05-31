@@ -21,7 +21,6 @@ const Profile = ({
   const username = useParams().username;
   const navigate = useNavigate();
   const [profileUser, setProfileUser] = useState(null);
-  const [friendList, setFriendList] = useState([]);
   const [isLoading, setIsLoading] = useState([]);
   const [isFriend, setIsFriend] = useState(false);
   const [requestSent, setRequestSent] = useState(false);
@@ -40,7 +39,6 @@ const Profile = ({
         });
         const data = querySnapShot.docs[0].data();
         setProfileUser(data);
-        setFriendList(data.friendsList);
         setIsFriend(() => {
           if (currentUser.friendsList.includes(data.userId)) {
             return true;
@@ -65,9 +63,6 @@ const Profile = ({
     fetchUserData();
   }, []);
 
-  useEffect(() => {
-    setFriendList(currentUser?.friendsList);
-  }, [currentUser]);
 
 
   const rrssLinks = [
@@ -142,13 +137,6 @@ const Profile = ({
               isFriend={isFriend}
               requestSent={requestSent}
               requestReceived={requestReceived}
-              currectUserDocID = {currectUserDocID}
-              currentUser = {currentUser}
-              profileUser = {profileUser}
-              profileDocID = {profileDocID}
-              friendList = {friendList}
-              setFriendList = {setFriendList}
-              setRequestSent = {setRequestSent}
             />
           )}
           <p className="bio max-w-[300px] text-center my-4 mx-auto">

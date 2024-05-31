@@ -5,26 +5,11 @@ const FriendStatus = ({
   isFriend,
   requestSent,
   requestReceived,
-  currectUserDocID,
-  currentUser,
-  profileUser,
-  profileDocID,
-  friendList,
-  setFriendList,
 }) => {
   const handleAddfriend = () => {
-    const newFriendsList = []
-    newFriendsList.push(profileUser.userId)
-    setFriendList(newFriendsList)
+    addFriend()
   }
 
-  useEffect(() => {
-    const addFriendAsync = async () => {
-      const friendAdded = await addFriend(currectUserDocID, friendList);
-    };
-
-    addFriendAsync();
-  }, [friendList])
   return (
     <div className="friend-status max-w-[300px] text-center my-4 mx-auto">
       {isFriend ? (
