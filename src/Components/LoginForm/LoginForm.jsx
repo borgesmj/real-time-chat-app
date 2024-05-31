@@ -2,16 +2,14 @@ import FormTemplate from "../../Templates/FormTemplate";
 import FormField from "../FormField/FormField";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import { At, Lock } from "@phosphor-icons/react";
-import { auth, db } from "../../Process/Firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 // Toastyfy
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// firebase
-import { collection, getDocs, query, where } from "firebase/firestore";
 // React router dom
 import { useNavigate } from 'react-router-dom';
+// Process
+import {logIn} from "../../Process/Auth.js"
 
 const LoginForm = ({
   id,
@@ -19,8 +17,6 @@ const LoginForm = ({
   setRegisterOpen,
   openToastError,
   setLoading,
-  setCurrentUser,
-  openToastSuccess,
 }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPW, setLoginPW] = useState("");
@@ -30,36 +26,12 @@ const LoginForm = ({
     const lowercaseEmail = loginEmail.toLowerCase();
     setLoading(true);
     try {
-      const results = await signInWithEmailAndPassword(
-        auth,
+      const results = await logIn(
         lowercaseEmail,
         loginPW
       );
       window.localStorage.setItem("userUID", results.user.uid)
-      const fetchUserDataByUsername = async () => {
-        const usersRef = collection(db, "users");
-        const q = query(usersRef, where("email", "==", lowercaseEmail));
-        const querySnapShot = await getDocs(q);
-        const filteredUser = [];
-        querySnapShot.forEach((doc) => {
-          filteredUser.push(doc.data());
-        });
-        if (filteredUser.length > 0) {
-          return filteredUser[0];
-        } else {
-          openToastError("Usuario no existe");
-          return null;
-        }
-      };
-
-      const userData = await fetchUserDataByUsername();
-      if (userData) {
-        setCurrentUser(userData);
-        openToastSuccess('Validación Exitosa');
-        navigate('/chats');
-      } else {
-        setLoading(false);
-      }
+      navigate("/chats")
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -72,6 +44,10 @@ const LoginForm = ({
       } else {
         openToastError("Ups!! Algo salió mal");
       }
+    } finally{
+      setLoading(false)
+      setLoginEmail("")
+      setLoginPW("")
     }
   };
 
