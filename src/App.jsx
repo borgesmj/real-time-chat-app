@@ -99,12 +99,6 @@ function App() {
     return <Loader />;
   }
 
-  const addFriend = () => {
-    console.log(docID);
-  };
-
-
-
   return (
     <div
       id="app"
@@ -188,7 +182,7 @@ function App() {
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
                 setModalIsOpen={setModalIsOpen}
-                addFriend={addFriend}
+                currectUserDocID={currectUserDocID}
               />
             }
           />
