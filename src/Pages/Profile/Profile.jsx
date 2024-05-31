@@ -16,16 +16,17 @@ const Profile = ({
   sidebarOpen,
   currentUser,
   setModalIsOpen,
-  addFriend,
+  currectUserDocID
 }) => {
   const username = useParams().username;
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
+  const [profileUser, setProfileUser] = useState(null);
   const [friendList, setFriendList] = useState([]);
   const [isLoading, setIsLoading] = useState([]);
   const [isFriend, setIsFriend] = useState(false);
   const [requestSent, setRequestSent] = useState(false);
   const [requestReceived, setRequestReceived] = useState(false);
+  const [profileDocID, setProfileDocID] = useState("")
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -34,8 +35,12 @@ const Profile = ({
         const userRef = collection(db, "users");
         const q = query(userRef, where("username", "==", username));
         const querySnapShot = await getDocs(q);
+        querySnapShot.forEach((doc) => {
+          setProfileDocID(doc.id);
+        });
         const data = querySnapShot.docs[0].data();
-        setUserData(data);
+        setProfileUser(data);
+        setFriendList(data.friendsList);
         setIsFriend(() => {
           if (currentUser.friendsList.includes(data.userId)) {
             return true;
@@ -64,24 +69,23 @@ const Profile = ({
     setFriendList(currentUser?.friendsList);
   }, [currentUser]);
 
-  console.log(currentUser)
 
   const rrssLinks = [
     {
       base: "https://www.instagram.com/",
-      username: userData?.rrssUsernames.instagram,
+      username: profileUser?.rrssUsernames.instagram,
     },
     {
       base: "https://www.facebook.com/",
-      username: userData?.rrssUsernames.facebook,
+      username: profileUser?.rrssUsernames.facebook,
     },
     {
       base: "https://www.tiktok.com/@",
-      username: userData?.rrssUsernames.tiktok,
+      username: profileUser?.rrssUsernames.tiktok,
     },
     {
       base: "https://www.twitter.com/",
-      username: userData?.rrssUsernames.twitter,
+      username: profileUser?.rrssUsernames.twitter,
     },
   ];
 
@@ -95,7 +99,7 @@ const Profile = ({
     >
       {isLoading === true ? (
         <Loader />
-      ) : userData === null ? (
+      ) : profileUser === null ? (
         <>Usuario no encontrado </>
       ) : (
         <div
@@ -117,19 +121,19 @@ const Profile = ({
             )}
           </div>
           <div className="profile-header w-full flex flex-row  justify-around items-center md:flex-col py-4 px-4 md:px-12">
-            <NavLink to={userData?.profile_pic}>
+            <NavLink to={profileUser?.profile_pic}>
               <img
-                src={userData?.profile_pic}
+                src={profileUser?.profile_pic}
                 alt=""
                 className="rounded-full h-20 w-20 md:w-40 md:h-auto"
               />
             </NavLink>
             <div className="flex flex-col items-start md:items-center">
               <h1 className="text-[1rem] md:text-[3rem] font-bold">
-                {userData?.fullname}
+                {profileUser?.fullname}
               </h1>
               <a href={`/user/${username}`}>
-                <span className="text-[0.8rem]">@{userData?.username} </span>
+                <span className="text-[0.8rem]">@{profileUser?.username} </span>
               </a>
             </div>
           </div>
@@ -138,17 +142,23 @@ const Profile = ({
               isFriend={isFriend}
               requestSent={requestSent}
               requestReceived={requestReceived}
-              addFriend={addFriend}
+              currectUserDocID = {currectUserDocID}
+              currentUser = {currentUser}
+              profileUser = {profileUser}
+              profileDocID = {profileDocID}
+              friendList = {friendList}
+              setFriendList = {setFriendList}
+              setRequestSent = {setRequestSent}
             />
           )}
           <p className="bio max-w-[300px] text-center my-4 mx-auto">
-            {userData?.bio}
+            {profileUser?.bio}
           </p>
           <p className="w-full text-center flex justify-center">
             <span>
               <MapPin size={32} color="#161616" weight="fill" />
             </span>
-            {userData?.location}
+            {profileUser?.location}
           </p>
           <p className="py-2 my-2 mx-auto w-[200px] flex justify-around items-center">
             {rrssLinks.map((item) => {
@@ -173,12 +183,12 @@ const Profile = ({
             })}
           </p>
           <p className="my-2 mx-auto">
-            Amigos: <span>{userData?.friendsList.length}</span>
+            Amigos: <span>{profileUser?.friendsList.length}</span>
           </p>
           <div className="w-full flex flex-col items-center justify-center my-2">
             <p className="py-4">Intereses</p>
             <p className="flex flex-wrap justify-center items-center w-full gap-4">
-              {userData.interests.map((item) => (
+              {profileUser.interests.map((item) => (
                 <span
                   className="p-2 rounded-full border-solid border-black border-[1px]"
                   key={item}
