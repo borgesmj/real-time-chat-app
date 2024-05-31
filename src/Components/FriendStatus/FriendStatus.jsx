@@ -1,6 +1,6 @@
 import React from "react";
 
-const FriendStatus = ({ isFriend, requestSent, requestReceived }) => {
+const FriendStatus = ({ isFriend, requestSent, requestReceived, addFriend }) => {
   return (
     <div className="friend-status max-w-[300px] text-center my-4 mx-auto">
       {isFriend ? (
@@ -10,7 +10,7 @@ const FriendStatus = ({ isFriend, requestSent, requestReceived }) => {
       ) : requestReceived ? (
         <p>Solicitud recibida</p>
       ) : (
-        <button className="bg-red-200 w-[150px] h-[30px] rounded-md">
+        <button className="bg-red-200 w-[150px] h-[30px] rounded-md" onClick={() => {addFriend()}}>
           Agregar Amigo
         </button>
       )}
