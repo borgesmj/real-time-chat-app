@@ -16,6 +16,7 @@ const Profile = ({
   sidebarOpen,
   currentUser,
   setModalIsOpen,
+  addFriend,
 }) => {
   const username = useParams().username;
   const navigate = useNavigate();
@@ -137,6 +138,7 @@ const Profile = ({
               isFriend={isFriend}
               requestSent={requestSent}
               requestReceived={requestReceived}
+              addFriend={addFriend}
             />
           )}
           <p className="bio max-w-[300px] text-center my-4 mx-auto">
