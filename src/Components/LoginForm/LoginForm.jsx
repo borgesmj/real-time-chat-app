@@ -31,7 +31,7 @@ const LoginForm = ({
         loginPW
       );
       window.localStorage.setItem("userUID", results.user.uid)
-      navigate("/chats")
+      window.location.href = "/chats"
     } catch (error) {
       console.log(error);
       setLoading(false);
