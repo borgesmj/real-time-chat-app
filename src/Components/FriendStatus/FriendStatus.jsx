@@ -7,15 +7,13 @@ const FriendStatus = ({
   requestSent,
   requestReceived,
   currentUser,
-  currentUserDocID,
   profileUser,
-  profileDocID,
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const handleAddfriend = () => {
     setIsLoading(true)
     try{
-      addFriend(currentUserDocID, profileUser.userId, profileDocID, currentUser.userId );
+      addFriend(currentUser, profileUser);
     } catch(error){
       console.log(error)
     } finally{

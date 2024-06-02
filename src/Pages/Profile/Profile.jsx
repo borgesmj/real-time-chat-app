@@ -28,8 +28,6 @@ const Profile = ({
   const [profileDocID, setProfileDocID] = useState("")
 
 
-  console.log(profileDocID)
-
   useEffect(() => {
     const fetchUserData = async () => {
       setIsLoading(true);
@@ -42,20 +40,19 @@ const Profile = ({
         });
         const data = querySnapShot.docs[0].data();
         setProfileUser(data);
+        // verificar que si son amigos
         setIsFriend(() => {
-          if (currentUser.friendsList.includes(data.userId)) {
-            return true;
-          }
+          return currentUser.friendsList.some(friend => friend.userId === data.userId)
         })
+        // Verificar que el usuario loggeado haya enviado una solicitud de amistad
+        // al usuario del perfil que visita
         setRequestSent(() => {
-          if (currentUser.friendRequests.sent.includes(data.userId)){
-            return true;
-          }
+          return currentUser.friendRequests.sent.some(friend => friend.userId === data.userId)
         })
+        // Verificar que el usuario loggeado haya recibido una solicitud de amistas
+        // desde el usuario del perfil que visita
         setRequestReceived(() => {
-          if (currentUser.friendRequests.recieved.includes(data.userId)){
-            return true;
-          }
+          return currentUser.friendRequests.recieved.some(friend => friend.userId === data.userId)
         })
       } catch (error) {
         console.log(error);
@@ -141,9 +138,7 @@ const Profile = ({
               requestSent={requestSent}
               requestReceived={requestReceived}
               currentUser = {currentUser}
-              currentUserDocID = {currentUserDocID}
               profileUser = {profileUser}
-              profileDocID = {profileDocID}
             />
           )}
           <p className="bio max-w-[300px] text-center my-4 mx-auto">
