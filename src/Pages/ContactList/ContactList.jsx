@@ -76,6 +76,9 @@ const ContactList = ({
             <FriendsList
               list={friendsList}
               message="Aun no tienes amigos agregados"
+              friends={friends}
+              requestReceived={requestReceived}
+              requestSent={requestSent}
             />
           )}
           {/* Lista de solicitudes enviadas*/}
@@ -83,6 +86,9 @@ const ContactList = ({
             <FriendsList
               list={requestList}
               message="No tienes has solicitado agregar amigos"
+              friends={friends}
+              requestReceived={requestReceived}
+              requestSent={requestSent}
             />
           )}
           {/* Lista de solicitudes recibidas*/}
@@ -90,6 +96,9 @@ const ContactList = ({
             <FriendsList
               list={recievedList}
               message="No tienes solicitudes pendientes"
+              friends={friends}
+              requestReceived={requestReceived}
+              requestSent={requestSent}
             />
           )}
         </div>
