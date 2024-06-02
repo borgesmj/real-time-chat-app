@@ -8,7 +8,7 @@ import { At, User, Lock } from "@phosphor-icons/react";
 // FIrebase
 import { auth, db } from "../../Process/Firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc } from "firebase/firestore";
 import { setUserProperties } from "firebase/analytics";
 import { toast } from "react-toastify";
 const RegisterForm = ({
@@ -17,7 +17,7 @@ const RegisterForm = ({
   setRegisterOpen,
   openToastSuccess,
   openToastError,
-  setLoading
+  setLoading,
 }) => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [username, setUsername] = useState("");
@@ -25,7 +25,6 @@ const RegisterForm = ({
   const [email, setEmail] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [allUsersList, setAllUserList] = useState([]);
-
 
   useEffect(() => {
     let strength = evalNewPassword(newPassword);
@@ -45,13 +44,6 @@ const RegisterForm = ({
     return strength;
   };
 
-  const createId = () => {
-    const numero = Math.random().toString(36).substring(2);
-    const fecha = Date.now().toString(36).substring(2);
-
-    return numero + fecha;
-  };
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -69,22 +61,24 @@ const RegisterForm = ({
   }, []);
   const validateUsername = (username) => {
     const usernameRegex = /^[a-zA-Z0-9_]+$/;
-    return usernameRegex.test(username)
-  }
+    return usernameRegex.test(username);
+  };
 
   const handleSubmit = async () => {
-    setLoading(true)
-    const registerUsername = username.toLowerCase().trim()
-    const registerEmail = email.toLocaleLowerCase().trim()
-    if (!validateUsername(registerUsername)){
-        openToastError(<>
-        El nombre de usuario no es válido
-        <br />
-        Solo puede contener letras, numeros y _
-        </>)
-        setLoading(false)
-        return
-    } else  if (allUsersList.includes(username)) {
+    setLoading(true);
+    const registerUsername = username.toLowerCase().trim();
+    const registerEmail = email.toLocaleLowerCase().trim();
+    if (!validateUsername(registerUsername)) {
+      openToastError(
+        <>
+          El nombre de usuario no es válido
+          <br />
+          Solo puede contener letras, numeros y _
+        </>
+      );
+      setLoading(false);
+      return;
+    } else if (allUsersList.includes(username)) {
       openToastError(
         <>
           Ese nombre de usuario ya está en uso
@@ -92,7 +86,7 @@ const RegisterForm = ({
           Intente con uno distinto
         </>
       );
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (passwordStrength < 3) {
       openToastError(
@@ -109,11 +103,11 @@ const RegisterForm = ({
           <br />* 1 carácter especial (.*/?&$+)
         </>
       );
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (newPassword !== repeatPassword) {
       openToastError("Las contraseñas deben coincidir");
-      setLoading(false)
+      setLoading(false);
       return;
     }
     try {
@@ -125,66 +119,58 @@ const RegisterForm = ({
       await updateProfile(results.user, {
         displayName: registerUsername,
       });
-      try {
-        const docRef = await addDoc(collection(db, "users"), {
-          userId: createId(),
-          username: registerUsername,
-          fullname: "",
-          profile_pic: "/default-pfp.png",
-          email: registerEmail,
-          bio: "",
-          rrssUsernames: {
-            twitter: "",
-            instagram: "",
-            tiktok: "",
-            facebook: "",
-          },
-          location: "",
-          dateOfBirth: "",
-          friendsList: [],
-          friendRequests: {
-            sent: [],
-            recieved: [],
-          },
-          interests: [],
-          active: false,
-          createAt: results.user.metadata.createdAt,
-          userUID: results.user.uid
-        });
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      };
-        setUsername("");
-        setNewPassword("");
-        setRepeatPassword("");
-        setEmail('')
-        setTimeout(() => {
-          setRegisterOpen(false);
-          setLoading(false);
-        }, 3000);
-      try {
-        openToastSuccess();
-      } catch (error) {
-        console.log("toast error: ", error);
-      }
+      const userDocRef = await addDoc(collection(db, "users"), {
+        userId: "",
+        username: registerUsername,
+        fullname: "",
+        profile_pic: "/default-pfp.png",
+        email: registerEmail,
+        bio: "",
+        rrssUsernames: {
+          twitter: "",
+          instagram: "",
+          tiktok: "",
+          facebook: "",
+        },
+        location: "",
+        dateOfBirth: "",
+        friendsList: [],
+        friendRequests: {
+          sent: [],
+          recieved: [],
+        },
+        interests: [],
+        active: false,
+        createAt: results.user.metadata.createdAt,
+        userUID: results.user.uid,
+      });
+      await updateDoc(userDocRef, { userId: userDocRef.id });
+      setUsername("");
+      setNewPassword("");
+      setRepeatPassword("");
+      setEmail("");
+      openToastSuccess();
+      setTimeout(() => {
+        setRegisterOpen(false);
+        setLoading(false);
+      }, 3000);
     } catch (error) {
+      console.error("Error adding document: ", e);
       if (error.code === "auth/email-already-in-use") {
         openToastError("Este correo ya esta en uso");
-        setLoading(false)
+        setLoading(false);
       } else if (error.code === "auth/invalid-email") {
         openToastError("El correo no es valido");
-        setLoading(false)
+        setLoading(false);
       } else if (error.code) {
         openToastError("Ups! Algo salió mal.");
-        setLoading(false)
+        setLoading(false);
       }
       console.log(error.code);
     }
   };
-  console.log(allUsersList);
   return (
     <FormTemplate id={id}>
-      
       <FormField>
         <div className="bg-[#1a5cf1] w-3/4 flex flex-row px-4 py-2 rounded-[10px]">
           <span>
@@ -258,10 +244,7 @@ const RegisterForm = ({
         </div>
       </FormField>
       <FormField>
-        <SubmitBtn
-          btnText={btnText}
-          handleSubmit={handleSubmit}
-        />
+        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} />
         <p className="ml-8 font-bold text-[#2a288f] cursor-pointer underline ">
           o{" "}
           <span
