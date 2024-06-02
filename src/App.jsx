@@ -4,6 +4,7 @@ import Chats from "./Pages/Chats/Chats";
 import Favorites from "./Pages/Favorites/Favorites";
 import ContactList from "./Pages/ContactList/ContactList";
 import RegisterLogin from "./Pages/RegisterLogin/RegisterLogin";
+import NotFound from "./Pages/NotFound/NotFound";
 // React router
 import {
   Routes,
@@ -196,6 +197,10 @@ function App() {
               currentUser={currentUser}
             />
           }
+        />
+        <Route
+          path="*"
+          element={<NotFound/>}
         />
       </Routes>
       {modalIsOpen && (
