@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addFriend } from "../../Process/handleFriendsList";
+import { addFriend, rejectRequest } from "../../Process/handleFriendsList";
 import Loader from "../Loader/Loader";
 
 const FriendStatus = ({
@@ -9,21 +9,33 @@ const FriendStatus = ({
   currentUser,
   profileUser,
 }) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const handleAddfriend = () => {
-    setIsLoading(true)
-    try{
+    setIsLoading(true);
+    try {
       addFriend(currentUser, profileUser);
-    } catch(error){
-      console.log(error)
-    } finally{
-      setIsLoading(false)
-      alert("amigo agregado")
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+      alert("amigo agregado");
     }
   };
 
-  if (isLoading){
-    return <Loader/>
+  const handleRejectRequest = () => {
+    setIsLoading(true);
+    try {
+      rejectRequest(currentUser, profileUser);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+      alert("solicitud rechazada");
+    }
+  };
+
+  if (isLoading) {
+    return <Loader />;
   }
 
   return (
@@ -33,7 +45,19 @@ const FriendStatus = ({
       ) : requestSent ? (
         <p>Solicitud enviada</p>
       ) : requestReceived ? (
-        <p>Solicitud recibida</p>
+        <div>
+          <button className="border-solid border-2 border-black">
+            Aceptar
+          </button>
+          <button
+            className="border-solid border-2 border-black"
+            onClick={() => {
+              handleRejectRequest(currentUser, profileUser);
+            }}
+          >
+            Rechazar
+          </button>
+        </div>
       ) : (
         <button
           className="bg-red-200 w-[150px] h-[30px] rounded-md"
