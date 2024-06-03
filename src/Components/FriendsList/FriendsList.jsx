@@ -6,13 +6,16 @@ const FriendsList = ({
   requestSent,
   requestReceived,
 }) => {
+  console.log(list)
   return (
     <div>
       {list.length > 0 ? (
         list.map((friend) => (
           <FriendCard
             key={friend.userId}
-            friend={friend}
+            name= {friend.name}
+            username={friend.username}
+            profilePic = {friend.profilePic}
             requestSent={requestSent}
             requestReceived={requestReceived}
             friends = {friends}

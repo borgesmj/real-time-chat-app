@@ -1,18 +1,25 @@
 import { Check } from "@phosphor-icons/react";
 
-const FriendCard = ({friends, requestSent, requestReceived}) => {
+const FriendCard = ({
+  friends,
+  requestSent,
+  requestReceived,
+  name,
+  username,
+  profilePic,
+}) => {
   return (
     <div className="bg-white shadow-2xl p-4 h-fit w-[300px] rounded-2xl my-2">
       <div className="card-header flex flex-row justify-start p-2">
         <img
-          src="https://www.w3schools.com/w3images/avatar2.png"
+          src={profilePic}
           alt=""
           className="h-12 w-auto rounded-full"
         />
         <div className="ml-2">
-          <h2 className="font-semibold">Miguel José</h2>
-          <a href="/user/borgesmj">
-            <span>@borgesmj</span>
+          <h2 className="font-semibold">{name}</h2>
+          <a href={`/user/${username}`}>
+            <span>{`@${username}`}</span>
           </a>
         </div>
       </div>
