@@ -99,7 +99,6 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
       return;
     }
     const userId = currentUser?.userId;
-    console.log("User ID:", userId);
     try {
       const userCollectionRef = collection(db, "users");
       const q = query(userCollectionRef, where("userId", "==", userId));
@@ -108,7 +107,6 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
       querySnapShot.forEach((doc) => {
         docId = doc.id;
       });
-      console.log(docId);
       const userRef = doc(db, "users", docId);
       const updateProfile = await updateDoc(userRef, {
         fullname: fullname,
@@ -131,7 +129,7 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
       openToastSuccess("Usuario actualizado con exito");
       setTimeout(() => {
         setLoading(false);
-        window.location.href = `/user/${newUsername}`
+        window.location.href = `/user/${newUsername}`;
       }, 3000);
     }
   };

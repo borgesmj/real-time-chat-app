@@ -1,9 +1,7 @@
 import PageTemplate from "../../Templates/PageTemplate";
 import Section from "../../Components/Section/Section";
 
-const Groups = ({darkTheme, setSidebarOpen, sidebarOpen}) => {
-
-  console.log(darkTheme)
+const Groups = ({ darkTheme, setSidebarOpen, sidebarOpen }) => {
   return (
     <PageTemplate
       darkTheme={darkTheme}

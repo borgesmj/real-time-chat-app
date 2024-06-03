@@ -63,7 +63,6 @@ function App() {
       } catch (error) {
         console.log(error);
       }
-      console.log(filteredUser[0]);
       setCurrentUser(filteredUser[0]);
       setIsLoading(false);
     };
@@ -86,7 +85,6 @@ function App() {
       setModalIsOpen(false);
     }, 500);
   };
-
 
   const handleLogOut = () => {
     closeModal();
@@ -198,10 +196,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="*"
-          element={<NotFound/>}
-        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {modalIsOpen && (
         <Modal>
