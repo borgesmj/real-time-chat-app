@@ -11,7 +11,7 @@ const FriendsList = ({
       {list.length > 0 ? (
         list.map((friend) => (
           <FriendCard
-            key={friend.id}
+            key={friend.userId}
             friend={friend}
             requestSent={requestSent}
             requestReceived={requestReceived}
