@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { addFriend, rejectRequest } from "../../Process/handleFriendsList";
+import {
+  addFriend,
+  rejectRequest,
+  acceptFriendRequest,
+} from "../../Process/handleFriendsList";
 import Loader from "../Loader/Loader";
 
 const FriendStatus = ({
@@ -46,7 +50,12 @@ const FriendStatus = ({
         <p>Solicitud enviada</p>
       ) : requestReceived ? (
         <div>
-          <button className="border-solid border-2 border-black">
+          <button
+            className="border-solid border-2 border-black"
+            onClick={() => {
+              acceptFriendRequest(currentUser, profileUser);
+            }}
+          >
             Aceptar
           </button>
           <button
