@@ -3,6 +3,7 @@ import {
   addFriend,
   rejectRequest,
   acceptFriendRequest,
+  removeRequest,
 } from "../../Process/handleFriendsList";
 import Loader from "../Loader/Loader";
 
@@ -47,7 +48,16 @@ const FriendStatus = ({
       {isFriend ? (
         <p>Es amigo</p>
       ) : requestSent ? (
-        <p>Solicitud enviada</p>
+        <div>
+          <button
+            className="border-soli border-2 border-black"
+            onClick={() => {
+              removeRequest(currentUser, profileUser);
+            }}
+          >
+            Cancelar solicitud
+          </button>
+        </div>
       ) : requestReceived ? (
         <div>
           <button
