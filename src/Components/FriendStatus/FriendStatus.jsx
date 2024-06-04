@@ -17,26 +17,18 @@ const FriendStatus = ({
   const [isLoading, setIsLoading] = useState(false);
   const handleAddfriend = () => {
     setIsLoading(true);
-    try {
-      addFriend(currentUser.userId, profileUser.userId);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-      alert("amigo agregado");
+    const addNewFriend = addFriend(currentUser.userId, profileUser.userId);
+    if (addNewFriend){
+      setIsLoading(false)
     }
   };
 
   const handleRejectRequest = () => {
     setIsLoading(true);
-    try {
-      rejectRequest(currentUser, profileUser);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-      alert("solicitud rechazada");
-    }
+    const rejectFriendRequest = rejectRequest(currentUser.userId, profileUser.userId);
+    if (rejectFriendRequest){
+      setIsLoading(false)
+    } 
   };
 
   if (isLoading) {

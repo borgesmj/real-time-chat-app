@@ -1,6 +1,10 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./Firebase";
 
+// Funciones para agregar, rechazar, aceptar y cancelar solicitudes de amistad
+// Reciben como parametro los id de cada usuario, que son los mismo id de los documentos
+// extraen la informacion con respecto al documento
+// y actualizan los datos en la base de datos
 export const addFriend = async (currentUserDocId, newFriendDocID) => {
   try {
     const currentUserDocRef = doc(db, "users", currentUserDocId)
@@ -32,72 +36,43 @@ export const addFriend = async (currentUserDocId, newFriendDocID) => {
       })
       return true
     }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    alert("amigo agregado");
+  }
+};
+// Funcion para rechazar la solicitus de amistad
+export const rejectRequest = async (currentUserDocId, newFriendDocID) => {
+  try {
+    const currentUserDocRef = doc(db, "users", currentUserDocId)
+    const newFriendDocRef = doc(db, "users", newFriendDocID)
+    const currentUserDocSnap = await getDoc(currentUserDocRef)
+    const newFriendDocSnap = await getDoc(newFriendDocRef)
+    if (currentUserDocSnap.exists() && newFriendDocSnap.exists()) {
+      const currentUSerData = await currentUserDocSnap.data()
+      const newFriendData = await newFriendDocSnap.data()
+      let recievedFriendRequest = currentUSerData.friendRequests.recieved
+      recievedFriendRequest = recievedFriendRequest.filter((request) => {
+        return request.userId !== newFriendDocID
+      })
+      let sentFriendRequest = newFriendData.friendRequests.sent
+      sentFriendRequest = sentFriendRequest.filter((request) => {
+        return request.userId !== currentUserDocId
+      })
+      await updateDoc(currentUserDocRef, {
+        "friendRequests.recieved": recievedFriendRequest
+      })
+      await updateDoc(newFriendDocRef, {
+        "friendRequests.sent": sentFriendRequest
+      })
+    }
     /* 
-    const docCurrentUserRef = doc(db, "users", currentUser.userId);
-    const docNewFriendRef = doc(db, "users", newFriend.userId);
-    const docSnap = await getDoc(docCurrentUserRef);
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      let requestSent = data.friendRequests.sent;
-      requestSent.push({
-        userId: newFriend.userId,
-        username: newFriend.username,
-        name: newFriend.fullname,
-        profilePic: newFriend.profile_pic,
-      });
-      await updateDoc(docCurrentUserRef, {
-        "friendRequests.sent": requestSent,
-      });
-    }
-    const docSnap2 = await getDoc(docNewFriendRef);
-    if (docSnap2.exists()) {
-      const data = docSnap2.data();
-      let requestReceived = data.friendRequests.recieved;
-      requestReceived.push({
-        userId: currentUser.userId,
-        username: currentUser.username,
-        name: currentUser.fullname,
-        profilePic: currentUser.profile_pic,
-      });
-      await updateDoc(docNewFriendRef, {
-        "friendRequests.recieved": requestReceived,
-      });
-    }
-    return true;
     */
   } catch (error) {
     console.log(error);
-  }
-};
-
-export const rejectRequest = async (currentUser, newFriend) => {
-  try {
-    const docCurrentUserRef = doc(db, "users", currentUser.userId);
-    const docNewFriendRef = doc(db, "users", newFriend.userId);
-    const docSnap = await getDoc(docCurrentUserRef);
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      let friendRequests = data.friendRequests.recieved;
-      friendRequests = friendRequests.filter((request) => {
-        return request.userId !== newFriend.userId;
-      });
-      await updateDoc(docCurrentUserRef, {
-        "friendRequests.recieved": friendRequests,
-      });
-    }
-    const docSnap2 = await getDoc(docNewFriendRef);
-    if (docSnap2.exists()) {
-      const data = docSnap2.data();
-      let friendRequests = data.friendRequests.sent;
-      friendRequests = friendRequests.filter((request) => {
-        return request.userId !== currentUser.userId;
-      });
-      await updateDoc(docNewFriendRef, {
-        "friendRequests.sent": friendRequests,
-      });
-    }
-  } catch (error) {
-    console.log(error);
+  } finally {
+    alert("solicitud rechazada");
   }
 };
 
