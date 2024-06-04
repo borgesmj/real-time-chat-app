@@ -1,8 +1,38 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./Firebase";
 
-export const addFriend = async (currentUser, newFriend) => {
+export const addFriend = async (currentUserDocId, newFriendDocID) => {
   try {
+    const currentUserDocRef = doc(db, "users", currentUserDocId)
+    const newFriendDocRef = doc(db, "users", newFriendDocID)
+    const currentUserDocSnap = await getDoc(currentUserDocRef)
+    const newFriendDocSnap = await getDoc(newFriendDocRef)
+    if (currentUserDocSnap.exists() && newFriendDocSnap.exists()) {
+      const currentUSerData = await currentUserDocSnap.data()
+      const newFriendData = await newFriendDocSnap.data()
+      const sentFriendRequests = currentUSerData.friendRequests.sent
+      const recievedFriendRequests = newFriendData.friendRequests.recieved
+      sentFriendRequests.push({
+        name: newFriendData.fullname,
+        profilePic: newFriendData.profile_pic,
+        userId: newFriendData.userId,
+        username: newFriendData.username,
+      })
+      recievedFriendRequests.push({
+        name: currentUSerData.fullname,
+        profilePic: currentUSerData.profile_pic,
+        userId: currentUSerData.userId,
+        username: currentUSerData.username,
+      })
+      await updateDoc(currentUserDocRef, {
+        "friendRequests.sent": sentFriendRequests
+      })
+      await updateDoc(newFriendDocRef, {
+        "friendRequests.recieved": recievedFriendRequests
+      })
+      return true
+    }
+    /* 
     const docCurrentUserRef = doc(db, "users", currentUser.userId);
     const docNewFriendRef = doc(db, "users", newFriend.userId);
     const docSnap = await getDoc(docCurrentUserRef);
@@ -34,6 +64,7 @@ export const addFriend = async (currentUser, newFriend) => {
       });
     }
     return true;
+    */
   } catch (error) {
     console.log(error);
   }

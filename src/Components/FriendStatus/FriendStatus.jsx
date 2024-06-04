@@ -18,7 +18,7 @@ const FriendStatus = ({
   const handleAddfriend = () => {
     setIsLoading(true);
     try {
-      addFriend(currentUser, profileUser);
+      addFriend(currentUser.userId, profileUser.userId);
     } catch (error) {
       console.log(error);
     } finally {
