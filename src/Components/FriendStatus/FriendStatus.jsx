@@ -31,6 +31,14 @@ const FriendStatus = ({
     } 
   };
 
+  const handleAcceptRequest = () => {
+    setIsLoading(true);
+    const acceptedFriendRequest = acceptFriendRequest(currentUser.userId, profileUser.userId);
+    if (acceptedFriendRequest){
+      setIsLoading(false)
+    }
+  }
+
   if (isLoading) {
     return <Loader />;
   }
@@ -42,7 +50,7 @@ const FriendStatus = ({
       ) : requestSent ? (
         <div>
           <button
-            className="border-soli border-2 border-black"
+            className="border-solid border-2 border-black"
             onClick={() => {
               removeRequest(currentUser, profileUser);
             }}
@@ -55,7 +63,7 @@ const FriendStatus = ({
           <button
             className="border-solid border-2 border-black"
             onClick={() => {
-              acceptFriendRequest(currentUser, profileUser);
+             handleAcceptRequest();
             }}
           >
             Aceptar
@@ -63,7 +71,7 @@ const FriendStatus = ({
           <button
             className="border-solid border-2 border-black"
             onClick={() => {
-              handleRejectRequest(currentUser, profileUser);
+              handleRejectRequest();
             }}
           >
             Rechazar
