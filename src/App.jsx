@@ -26,6 +26,7 @@ import Loader from "./Components/Loader/Loader";
 import Modal from "./Components/Modal/Modal";
 // Process
 import { LogOut } from "./Process/Auth";
+import { chatListener } from "./Process/ChatListener";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -43,7 +44,7 @@ function App() {
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentUserDocID, setCurrentUserDocID] = useState("");
-  const [chatsList, setChatsList] = useState([])
+  const [currentUserChats, setCurrentUserChats] = useState([])
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,8 +65,6 @@ function App() {
         console.log(error);
       }
       setCurrentUser(filteredUser[0]);
-      await setChatsList(currentUser.chats)
-      await console.log(chatsList)
       setIsLoading(false);
     };
 
@@ -80,6 +79,17 @@ function App() {
     setSidebarOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    let unsubscribe;
+    if (currentUser){
+      unsubscribe = chatListener(currentUser, setCurrentUserChats)
+    }
+    return () => {
+      if (unsubscribe){
+        unsubscribe();
+      }
+    }
+  }, [currentUser])
 
   const closeModal = () => {
     const modal = document.querySelector(".modalContent");
@@ -100,6 +110,7 @@ function App() {
   if (isLoading) {
     return <Loader />;
   }
+
 
   return (
     <div
@@ -135,7 +146,7 @@ function App() {
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
                 setModalIsOpen={setModalIsOpen}
-                chatsList={chatsList}
+                currentUserChats = {currentUserChats}
               />
             }
           />

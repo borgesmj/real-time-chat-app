@@ -5,8 +5,16 @@ import ChatSection from "../../Components/ChatSection/ChatSection";
 import { useState } from "react";
 import PageTemplate from "../../Templates/PageTemplate";
 
-const Chats = ({ darkTheme, setSidebarOpen, sidebarOpen, currentUser, setModalIsOpen }) => {
+const Chats = ({
+  darkTheme,
+  setSidebarOpen,
+  sidebarOpen,
+  currentUser,
+  setModalIsOpen,
+  currentUserChats,
+}) => {
   const [chatOpened, setChatOpened] = useState(false);
+  const [chatId, setChatId] = useState("")
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
@@ -14,7 +22,8 @@ const Chats = ({ darkTheme, setSidebarOpen, sidebarOpen, currentUser, setModalIs
     }
   });
 
-  const openChat = () => {
+  const openChat = (chatID) => {
+    setChatId(chatID)
     setChatOpened(true);
   };
   return (
@@ -22,11 +31,16 @@ const Chats = ({ darkTheme, setSidebarOpen, sidebarOpen, currentUser, setModalIs
       darkTheme={darkTheme}
       setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
-      currentUser = {currentUser}
+      currentUser={currentUser}
       setModalIsOpen={setModalIsOpen}
     >
       <Section>
-        <ChatsList darkTheme={darkTheme} openChat={openChat} />
+        <ChatsList
+          darkTheme={darkTheme}
+          openChat={openChat}
+          currentUserChats={currentUserChats}
+          currentUser={currentUser}
+        />
       </Section>
       <input
         type="checkbox"
@@ -36,7 +50,13 @@ const Chats = ({ darkTheme, setSidebarOpen, sidebarOpen, currentUser, setModalIs
         readOnly
         className="hidden"
       />
-      <ChatSection setChatOpened={setChatOpened} darkTheme={darkTheme} chatOpened = {chatOpened}/>
+      <ChatSection
+        setChatOpened={setChatOpened}
+        darkTheme={darkTheme}
+        chatOpened={chatOpened}
+        chatId={chatId}
+        currentUser={currentUser}
+      />
     </PageTemplate>
   );
 };
