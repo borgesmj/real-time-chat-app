@@ -155,7 +155,12 @@ const RegisterForm = ({
         participants: [registerUsername, registerUsername],
         createdAt: new Date(),
         lastMessage: {},
-        messages: []
+        messages: [],
+        chatId: ""
+      })
+      // PAso 6: establecemos un campo con el id del chat
+      await updateDoc(chatsDocRef, {
+        chatId: chatsDocRef.id
       })
       setUsername("");
       setNewPassword("");
