@@ -1,6 +1,6 @@
 import { ArrowCircleLeft, DotsThreeOutlineVertical } from "@phosphor-icons/react";
 
-const ProfileBar = ({ setChatOpened, darkTheme }) => {
+const ProfileBar = ({ setChatOpened, darkTheme, chatName }) => {
   return (
     <div className={`flex justify-between items-center w-full ${!darkTheme ? 'bg-[#479ae0]' : 'bg-[#3ce0bc]'} h-12 md:h-20 absolute top-0`}>
       <div className=" ml-2 flex justify-between items-center w-60 lg:w-44 lg:ml-4 ">
@@ -18,7 +18,7 @@ const ProfileBar = ({ setChatOpened, darkTheme }) => {
           alt=""
           className="rounded-full h-[50px] w-[50px]"
         />
-        <h3 className="font-bold">Roland Garros</h3>
+        <h3 className="font-bold">{chatName}</h3>
       </div>
       <DotsThreeOutlineVertical size={32} color="#ffffff" weight="duotone" />
     </div>

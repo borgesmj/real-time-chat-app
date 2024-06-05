@@ -33,7 +33,7 @@ const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
 
 
   const handleClick = () => {
-    openChat(chat.chatId);
+    openChat(chat.chatId, participantName);
   };
   return (
     <li

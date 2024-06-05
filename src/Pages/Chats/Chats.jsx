@@ -15,6 +15,7 @@ const Chats = ({
 }) => {
   const [chatOpened, setChatOpened] = useState(false);
   const [chatId, setChatId] = useState("")
+  const [chatName, setChatName] = useState("")
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
@@ -22,8 +23,9 @@ const Chats = ({
     }
   });
 
-  const openChat = (chatID) => {
+  const openChat = (chatID, participantName) => {
     setChatId(chatID)
+    setChatName(participantName)
     setChatOpened(true);
   };
   return (
@@ -56,6 +58,7 @@ const Chats = ({
         chatOpened={chatOpened}
         chatId={chatId}
         currentUser={currentUser}
+        chatName={chatName}
       />
     </PageTemplate>
   );
