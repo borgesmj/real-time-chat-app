@@ -146,30 +146,6 @@ export const removeRequest = async (currentUserDocId, newFriendDocID) => {
         "friendRequests.recieved": newFriendFriendRequest
       })
     }
-    /*
-    const docCurrentUserRef = doc(db, "users", currentUser.userId);
-    const docNewFriendRef = doc(db, "users", newFriend.userId);
-    const docSnap = await getDoc(docCurrentUserRef);
-    const docSnap2 = await getDoc(docNewFriendRef);
-    if (docSnap.exists() && docSnap2.exists()) {
-      const currentUserData = await docSnap.data();
-      const newFriendData = await docSnap2.data();
-      let sentFriendRequests = currentUserData.friendRequests.sent;
-      sentFriendRequests = sentFriendRequests.filter((request) => {
-        return request.userId !== newFriend.userId;
-      });
-      await updateDoc(docCurrentUserRef, {
-        "friendRequests.sent": sentFriendRequests,
-      });
-      let recievedFriendRequests = newFriendData.friendRequests.recieved;
-      recievedFriendRequests = recievedFriendRequests.filter((request) => {
-        return request.userId !== currentUser.userId;
-      });
-      await updateDoc(docNewFriendRef, {
-        "friendRequests.recieved": recievedFriendRequests,
-      });
-    }
-    */
   } catch (error) {
     console.log(error);
   }
