@@ -43,7 +43,7 @@ function App() {
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentUserDocID, setCurrentUserDocID] = useState("");
-  const [currentUserFriendList, setCurrentUserFriendList] = useState([]);
+  const [chatsList, setChatsList] = useState([])
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,6 +64,8 @@ function App() {
         console.log(error);
       }
       setCurrentUser(filteredUser[0]);
+      await setChatsList(currentUser.chats)
+      await console.log(chatsList)
       setIsLoading(false);
     };
 
@@ -77,6 +79,7 @@ function App() {
   useEffect(() => {
     setSidebarOpen(false);
   }, [location.pathname]);
+
 
   const closeModal = () => {
     const modal = document.querySelector(".modalContent");
@@ -132,6 +135,7 @@ function App() {
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
                 setModalIsOpen={setModalIsOpen}
+                chatsList={chatsList}
               />
             }
           />

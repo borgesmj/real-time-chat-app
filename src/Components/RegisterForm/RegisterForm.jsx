@@ -111,14 +111,17 @@ const RegisterForm = ({
       return;
     }
     try {
+      // Paso 1: registrar un uaurio nuevo a firebase/auth
       const results = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         newPassword
       );
+      // Paso 2: actualizar el nombre de usuario en firebase/auth
       await updateProfile(results.user, {
         displayName: registerUsername,
       });
+      // Paso 3: crear un usuario en firebse/firestore
       const userDocRef = await addDoc(collection(db, "users"), {
         userId: "",
         username: registerUsername,
@@ -143,8 +146,22 @@ const RegisterForm = ({
         active: false,
         createAt: results.user.metadata.createdAt,
         userUID: results.user.uid,
+        chats: [],
       });
+      // Paso 4: actualizamos el UID del usuario en firebase/firestore
       await updateDoc(userDocRef, { userId: userDocRef.id });
+      // Paso 5: creamos un documento de chats para el mismo usuario
+      const chatsDocRef = await addDoc(collection(db,"chats"), {
+        participants: [registerUsername, registerUsername],
+        createdAt: new Date(),
+        lastMessage: {},
+        messages: []
+      })
+      // Paso 6: actualizamos el campo de chats del usuario para colocar
+      // el id del chat que se acaba de crear
+      await updateDoc(userDocRef, {
+        chats: [chatsDocRef.id]
+      })
       setUsername("");
       setNewPassword("");
       setRepeatPassword("");
