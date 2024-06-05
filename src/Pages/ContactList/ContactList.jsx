@@ -79,6 +79,7 @@ const ContactList = ({
               friends={friends}
               requestReceived={requestReceived}
               requestSent={requestSent}
+              currentUserDocId = {currentUser.userId}
             />
           )}
           {/* Lista de solicitudes enviadas*/}
@@ -89,6 +90,7 @@ const ContactList = ({
               friends={friends}
               requestReceived={requestReceived}
               requestSent={requestSent}
+              currentUserDocId = {currentUser.userId}
             />
           )}
           {/* Lista de solicitudes recibidas*/}
@@ -99,6 +101,7 @@ const ContactList = ({
               friends={friends}
               requestReceived={requestReceived}
               requestSent={requestSent}
+              currentUserDocId = {currentUser.userId}
             />
           )}
         </div>

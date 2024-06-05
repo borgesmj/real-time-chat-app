@@ -5,6 +5,7 @@ const FriendsList = ({
   friends,
   requestSent,
   requestReceived,
+  currentUserDocId
 }) => {
   return (
     <div>
@@ -15,9 +16,11 @@ const FriendsList = ({
             name={friend.name}
             username={friend.username}
             profilePic={friend.profilePic}
+            newFriendID = {friend.userId}
             requestSent={requestSent}
             requestReceived={requestReceived}
             friends={friends}
+            currentUserDocId = {currentUserDocId}
           />
         ))
       ) : (
