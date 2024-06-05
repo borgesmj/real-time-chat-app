@@ -5,6 +5,8 @@ import { db } from "./Firebase";
 // Reciben como parametro los id de cada usuario, que son los mismo id de los documentos
 // extraen la informacion con respecto al documento
 // y actualizan los datos en la base de datos
+//
+// Funcion para enviar una solicitud de amistad
 export const addFriend = async (currentUserDocId, newFriendDocID) => {
   try {
     const currentUserDocRef = doc(db, "users", currentUserDocId);
@@ -42,7 +44,7 @@ export const addFriend = async (currentUserDocId, newFriendDocID) => {
     alert("amigo agregado");
   }
 };
-// Funcion para rechazar la solicitus de amistad
+// Funcion para rechazar la solicitud de amistad
 export const rejectRequest = async (currentUserDocId, newFriendDocID) => {
   try {
     const currentUserDocRef = doc(db, "users", currentUserDocId);
@@ -151,7 +153,7 @@ export const removeRequest = async (currentUserDocId, newFriendDocID) => {
   }
 };
 
-// Funcion para eliminar amigos
+// Funcion para eliminar amigos de la lista de amigos
 export const deleteFriend = async (currentUserDocId, newFriendDocID) => {
   try {
     const currentUserDocRef = doc(db, "users", currentUserDocId);
