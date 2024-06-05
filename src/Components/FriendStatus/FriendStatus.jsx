@@ -52,7 +52,7 @@ const FriendStatus = ({
           <button
             className="border-solid border-2 border-black"
             onClick={() => {
-              removeRequest(currentUser, profileUser);
+              removeRequest(currentUser.userId, profileUser.userId);
             }}
           >
             Cancelar solicitud

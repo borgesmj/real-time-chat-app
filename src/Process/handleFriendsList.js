@@ -121,9 +121,32 @@ export const acceptFriendRequest = async (currentUserDocId, newFriendDocID) => {
     console.log(error);
   }
 };
-
-export const removeRequest = async (currentUser, newFriend) => {
+// funcion para cancelar la solicitud de amistad
+export const removeRequest = async (currentUserDocId, newFriendDocID) => {
   try {
+    const currentUserDocRef = doc(db, "users", currentUserDocId);
+    const newFriendDocRef = doc(db, "users", newFriendDocID);
+    const currentUserDocSnap = await getDoc(currentUserDocRef);
+    const newFriendDocSnap = await getDoc(newFriendDocRef);
+    if (currentUserDocSnap.exists() && newFriendDocSnap.exists()) {
+      const currentUserData = await currentUserDocSnap.data();
+      const newFriendData = await newFriendDocSnap.data(); 
+      let currentUserFriendRequest = currentUserData.friendRequests.sent
+      currentUserFriendRequest = currentUserFriendRequest.filter((request) => {
+        return request.userId !== newFriendDocID
+      })
+      let newFriendFriendRequest = newFriendData.friendRequests.recieved
+      newFriendFriendRequest = newFriendFriendRequest.filter((request) => {
+        return request.userId !== currentUserDocId
+      })
+      await updateDoc(currentUserDocRef, {
+        "friendRequests.sent": currentUserFriendRequest
+      })
+      await updateDoc(newFriendDocRef, {
+        "friendRequests.recieved": newFriendFriendRequest
+      })
+    }
+    /*
     const docCurrentUserRef = doc(db, "users", currentUser.userId);
     const docNewFriendRef = doc(db, "users", newFriend.userId);
     const docSnap = await getDoc(docCurrentUserRef);
@@ -146,6 +169,7 @@ export const removeRequest = async (currentUser, newFriend) => {
         "friendRequests.recieved": recievedFriendRequests,
       });
     }
+    */
   } catch (error) {
     console.log(error);
   }
