@@ -130,23 +130,55 @@ export const removeRequest = async (currentUserDocId, newFriendDocID) => {
     const newFriendDocSnap = await getDoc(newFriendDocRef);
     if (currentUserDocSnap.exists() && newFriendDocSnap.exists()) {
       const currentUserData = await currentUserDocSnap.data();
-      const newFriendData = await newFriendDocSnap.data(); 
-      let currentUserFriendRequest = currentUserData.friendRequests.sent
+      const newFriendData = await newFriendDocSnap.data();
+      let currentUserFriendRequest = currentUserData.friendRequests.sent;
       currentUserFriendRequest = currentUserFriendRequest.filter((request) => {
-        return request.userId !== newFriendDocID
-      })
-      let newFriendFriendRequest = newFriendData.friendRequests.recieved
+        return request.userId !== newFriendDocID;
+      });
+      let newFriendFriendRequest = newFriendData.friendRequests.recieved;
       newFriendFriendRequest = newFriendFriendRequest.filter((request) => {
-        return request.userId !== currentUserDocId
-      })
+        return request.userId !== currentUserDocId;
+      });
       await updateDoc(currentUserDocRef, {
-        "friendRequests.sent": currentUserFriendRequest
-      })
+        "friendRequests.sent": currentUserFriendRequest,
+      });
       await updateDoc(newFriendDocRef, {
-        "friendRequests.recieved": newFriendFriendRequest
-      })
+        "friendRequests.recieved": newFriendFriendRequest,
+      });
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+// Funcion para eliminar amigos
+export const deleteFriend = async (currentUserDocId, newFriendDocID) => {
+  try {
+    const currentUserDocRef = doc(db, "users", currentUserDocId);
+    const newFriendDocRef = doc(db, "users", newFriendDocID);
+    const currentUserDocSnap = await getDoc(currentUserDocRef);
+    const newFriendDocSnap = await getDoc(newFriendDocRef);
+    if (currentUserDocSnap.exists() && newFriendDocSnap.exists()) {
+      const currentUserData = await currentUserDocSnap.data();
+      const newFriendData = await newFriendDocSnap.data();
+      let currentUserFriendList = await currentUserData.friendsList;
+      currentUserFriendList = currentUserFriendList.filter((friend) => {
+        return friend.userId !== newFriendDocID;
+      });
+      let newFriendFriendList = await newFriendData.friendsList;
+      newFriendFriendList = newFriendFriendList.filter((friend) => {
+        return friend.userId !== currentUserDocId;
+      });
+      await updateDoc(currentUserDocRef, {
+        friendsList: currentUserFriendList,
+      });
+      await updateDoc(newFriendDocRef, {
+        friendsList: newFriendFriendList,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    alert("amigo eliminado");
   }
 };

@@ -4,6 +4,7 @@ import {
   rejectRequest,
   acceptFriendRequest,
   removeRequest,
+  deleteFriend
 } from "../../Process/handleFriendsList";
 import Loader from "../Loader/Loader";
 
@@ -18,24 +19,38 @@ const FriendStatus = ({
   const handleAddfriend = () => {
     setIsLoading(true);
     const addNewFriend = addFriend(currentUser.userId, profileUser.userId);
-    if (addNewFriend){
-      setIsLoading(false)
+    if (addNewFriend) {
+      setIsLoading(false);
     }
   };
 
   const handleRejectRequest = () => {
     setIsLoading(true);
-    const rejectFriendRequest = rejectRequest(currentUser.userId, profileUser.userId);
-    if (rejectFriendRequest){
-      setIsLoading(false)
-    } 
+    const rejectFriendRequest = rejectRequest(
+      currentUser.userId,
+      profileUser.userId
+    );
+    if (rejectFriendRequest) {
+      setIsLoading(false);
+    }
   };
 
   const handleAcceptRequest = () => {
     setIsLoading(true);
-    const acceptedFriendRequest = acceptFriendRequest(currentUser.userId, profileUser.userId);
-    if (acceptedFriendRequest){
-      setIsLoading(false)
+    const acceptedFriendRequest = acceptFriendRequest(
+      currentUser.userId,
+      profileUser.userId
+    );
+    if (acceptedFriendRequest) {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteFriend = () => {
+    setIsLoading(true);
+    const deletedFriend = deleteFriend(currentUser.userId, profileUser.userId);
+    if (deletedFriend) {
+      setIsLoading(false);
     }
   }
 
@@ -46,7 +61,10 @@ const FriendStatus = ({
   return (
     <div className="friend-status max-w-[300px] text-center my-4 mx-auto">
       {isFriend ? (
-        <p>Es amigo</p>
+        <div className="flex flex-row justify-between items-center">
+          <p>Es amigo</p>
+          <button onClick={()=>{handleDeleteFriend()}}>Eliminar amigo</button>
+        </div>
       ) : requestSent ? (
         <div>
           <button
@@ -63,7 +81,7 @@ const FriendStatus = ({
           <button
             className="border-solid border-2 border-black"
             onClick={() => {
-             handleAcceptRequest();
+              handleAcceptRequest();
             }}
           >
             Aceptar
