@@ -146,21 +146,16 @@ const RegisterForm = ({
         active: false,
         createAt: results.user.metadata.createdAt,
         userUID: results.user.uid,
-        chats: [],
       });
       // Paso 4: actualizamos el UID del usuario en firebase/firestore
       await updateDoc(userDocRef, { userId: userDocRef.id });
       // Paso 5: creamos un documento de chats para el mismo usuario
+      // que funcionará para un chat de mensajes guardados
       const chatsDocRef = await addDoc(collection(db,"chats"), {
         participants: [registerUsername, registerUsername],
         createdAt: new Date(),
         lastMessage: {},
         messages: []
-      })
-      // Paso 6: actualizamos el campo de chats del usuario para colocar
-      // el id del chat que se acaba de crear
-      await updateDoc(userDocRef, {
-        chats: [chatsDocRef.id]
       })
       setUsername("");
       setNewPassword("");
