@@ -6,6 +6,7 @@
   idx.extensions = [
     "svelte.svelte-vscode"
     "vue.volar"
+    "dsznajder.es7-react-js-snippets"
   ];
   idx.previews = {
     previews = {
