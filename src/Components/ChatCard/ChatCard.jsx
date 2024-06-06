@@ -29,7 +29,7 @@ const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
   }
   
 
-  
+  const previewText = chat.lastMessage.text.length > 20 ? `${chat.lastMessage.text.slice(0,20)}...` : `${chat.lastMessage.text}`
 
 
   const handleClick = () => {
@@ -49,7 +49,7 @@ const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
       />
       <div className="ml-2 h-full flex flex-col justify-evenly w-4/5">
         <h3 className="font-bold">{participantName}</h3>
-        <p>{chat.lastMessage.text}</p>
+        <p>{previewText}</p>
       </div>
       <p className="absolute bottom-0 right-2 text-[8px]">{formatTimestampToTime(chat?.lastMessage?.createdAt)}</p>
       <span className="unread-point absolute right-4 rounded-full w-[10px] h-[10px] bg-[#00ff00]"></span>
