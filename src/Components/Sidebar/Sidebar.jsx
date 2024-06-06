@@ -34,17 +34,6 @@ const Sidebar = ({
       text: "Chats",
     },
     {
-      href: "/favorites",
-      icon: (
-        <HeartStraight
-          size={32}
-          weight="regular"
-          color={!darkTheme ? "#FFFFFF" : "#00997a"}
-        />
-      ),
-      text: "Favoritos",
-    },
-    {
       href: "/friends",
       icon: (
         <UsersThree
@@ -103,9 +92,9 @@ const Sidebar = ({
       </button>
       <section className="flex flex-col justify-between h-40 md:h-60 lg:h-[12rem]">
         {links.map((item, index) => (
-          <NavLink
+          <a
             key={`link_${index}`}
-            to={item.href}
+            href={item.href}
             className="flex flex-row w-full items-center justify-start hover:font-bold"
           >
             {item.icon}{" "}
@@ -122,7 +111,7 @@ const Sidebar = ({
                 {item.text}
               </span>
             )}
-          </NavLink>
+          </a>
         ))}
       </section>
       <div className="flex flex-col justify-between md:h-20">
