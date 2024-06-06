@@ -29,7 +29,13 @@ const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
   }
   
 
-  const previewText = chat.lastMessage.text.length > 20 ? `${chat.lastMessage.text.slice(0,20)}...` : `${chat.lastMessage.text}`
+  const previewText = () => {
+    if (chat.lastMessage.text){
+     return  chat.lastMessage.text.length > 20 ? `${chat.lastMessage.text.slice(0,20)}...` : `${chat.lastMessage.text}`
+    } else{
+      return ""
+    }
+  }
 
 
   const handleClick = () => {
