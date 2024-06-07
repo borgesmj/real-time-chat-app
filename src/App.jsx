@@ -29,7 +29,7 @@ import { LogOut } from "./Process/Auth";
 import { chatListener } from "./Process/ChatListener";
 
 function App() {
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -124,10 +124,10 @@ function App() {
   return (
     <div
       id="app"
-      className={`w-dvw h-dvh md:p-2 flex justify-center items-center bg-[var(--bg-100)] ${
+      className={`w-dvw h-dvh md:p-2 flex justify-center items-center bg-[var(--bg-300)] dark-theme ${
         !darkTheme
           ? "ligth-theme"
-          : "dark-theme"
+          : null
       }`}
     >
       <Routes>
@@ -217,6 +217,8 @@ function App() {
             <RegisterLogin
               setCurrentUser={setCurrentUser}
               currentUser={currentUser}
+              darkTheme={darkTheme}
+              setDarkTheme={setDarkTheme}
             />
           }
         />

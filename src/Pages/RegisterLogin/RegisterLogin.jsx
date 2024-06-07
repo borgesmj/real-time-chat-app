@@ -6,7 +6,7 @@ import Loader from "../../Components/Loader/Loader";
 // Toastyfy
 import { ToastContainer, toast, Bounce } from "react-toastify";
 
-const RegisterLogin = ({setCurrentUser, currentUser}) => {
+const RegisterLogin = ({setCurrentUser, currentUser, darktheme, setDarkTheme}) => {
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loading, setLoading] = useState(false)
 
@@ -50,7 +50,10 @@ const RegisterLogin = ({setCurrentUser, currentUser}) => {
       <div className="flex justify-center items-center w-[120px] h-[120px]bg-transparent md:absolute md:top-1/4 md:left-1/4 md:w-[250px] md:h-[250px] xl:w-[350px] xl:h-[350px] 2xl:w-[250px] 2xl:h-[250px]">
         <img src="/chatmob_logo.webp" alt="" className="w-full h-full" />
       </div>
-      <div className="flex flex-col justify-between items-center bg-gray-600 h-[450px] w-[90%] rounded-xl md:absolute md:bottom-4 md:right-4 md:w-[450px] md:h-[450px] lg:w-[400px] 2xl:w-[520px] 2xl:h-[520px]  2xl:bottom-40 2xl:right-40">
+      {/*
+
+       */}
+      <div className="flex flex-col justify-between items-center backdrop-blur-lg bg-[var(--transparent-bg)]  h-[450px] w-[90%] rounded-xl md:absolute md:bottom-4 md:right-4 md:w-[450px] md:h-[450px] lg:w-[400px] 2xl:w-[520px] 2xl:h-[520px]  2xl:bottom-40 2xl:right-40">
         <input
           type="checkbox"
           name="registerOpen"

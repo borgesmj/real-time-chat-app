@@ -8,6 +8,7 @@
     "vue.volar"
     "dsznajder.es7-react-js-snippets"
     "bradlc.vscode-tailwindcss"
+    "esbenp.prettier-vscode"
   ];
   idx.previews = {
     previews = {
