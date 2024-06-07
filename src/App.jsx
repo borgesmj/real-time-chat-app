@@ -124,7 +124,7 @@ function App() {
   return (
     <div
       id="app"
-      className={`w-dvw h-dvh md:p-2 flex justify-center items-center bg-[var(--bg-300)] dark-theme ${
+      className={`w-dvw h-dvh md:p-2 flex justify-center items-center bg-[var(--bg-100)] ligth-theme ${
         !darkTheme
           ? "ligth-theme"
           : null

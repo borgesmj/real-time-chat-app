@@ -75,6 +75,7 @@ const RegisterLogin = ({setCurrentUser, currentUser, darktheme, setDarkTheme}) =
           setCurrentUser = {setCurrentUser}
           currentUser={currentUser}
           openToastSuccess={openToastSuccess}
+          darktheme={darktheme}
         />
         <RegisterForm
           id="RegisterForm"
@@ -83,6 +84,7 @@ const RegisterLogin = ({setCurrentUser, currentUser, darktheme, setDarkTheme}) =
           openToastError={openToastError}
           openToastSuccess={openToastSuccess}
           setLoading = {setLoading}
+          darktheme={darktheme}
         />
         <ToastContainer
           position="bottom-right"

@@ -18,6 +18,7 @@ const RegisterForm = ({
   openToastSuccess,
   openToastError,
   setLoading,
+  darkTheme
 }) => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [username, setUsername] = useState("");
@@ -189,15 +190,15 @@ const RegisterForm = ({
   return (
     <FormTemplate id={id}>
       <FormField>
-        <div className="bg-[#1a5cf1] w-3/4 flex flex-row px-4 py-2 rounded-[10px]">
+        <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <User size={32} />
+            <User size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
           </span>
           <input
             type="text"
             name=""
             id="username"
-            className="bg-transparent focus:outline-none ml-4"
+            className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-200)] placeholder:text-[var(--text-200)] placeholder:text-bold"
             placeholder="Username"
             required
             value={username}
@@ -206,15 +207,15 @@ const RegisterForm = ({
         </div>
       </FormField>
       <FormField>
-        <div className="bg-[#1a5cf1] w-3/4 flex flex-row px-4 py-2 rounded-[10px]">
+        <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <At size={32} />
+            <At size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
           </span>
           <input
             type="text"
             name="register-email"
             id="register-email"
-            className="bg-transparent focus:outline-none ml-4"
+            className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-200)] placeholder:text-[var(--text-200)] placeholder:text-bold"
             placeholder="Email"
             required
             value={email}
@@ -223,15 +224,15 @@ const RegisterForm = ({
         </div>
       </FormField>
       <FormField>
-        <div className="bg-[#1a5cf1] w-3/4 flex flex-row px-4 py-2 rounded-[10px]">
+        <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <Lock size={32} />
+            <Lock size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
           </span>
           <input
             type="password"
             name=""
             id="register-password"
-            className="bg-transparent focus:outline-none ml-4"
+            className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-200)] placeholder:text-[var(--text-200)] placeholder:text-bold"
             placeholder="Contraseña"
             value={newPassword}
             onChange={(e) => {
@@ -242,15 +243,15 @@ const RegisterForm = ({
         </div>
       </FormField>
       <FormField>
-        <div className="bg-[#1a5cf1] w-3/4 flex flex-row px-4 py-2 rounded-[10px]">
+        <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <Lock size={32} />
+            <Lock size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
           </span>
           <input
             type="password"
             name=""
             id="register-newPassword"
-            className="bg-transparent focus:outline-none ml-4"
+            className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-200)] placeholder:text-[var(--text-200)] placeholder:text-bold"
             placeholder="Repita su contraseña"
             required
             value={repeatPassword}
@@ -262,7 +263,7 @@ const RegisterForm = ({
       </FormField>
       <FormField>
         <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} />
-        <p className="ml-8 font-bold text-[#2a288f] cursor-pointer underline ">
+        <p className="ml-8 font-bold text-[var(--text-200)] cursor-pointer underline ">
           o{" "}
           <span
             onClick={() => {

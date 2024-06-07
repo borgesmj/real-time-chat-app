@@ -17,6 +17,7 @@ const LoginForm = ({
   setRegisterOpen,
   openToastError,
   setLoading,
+  darkTheme,
 }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPW, setLoginPW] = useState("");
@@ -54,15 +55,15 @@ const LoginForm = ({
   return (
     <FormTemplate id={id}>
       <FormField>
-        <div className="bg-[#1a5cf1] w-3/4 flex flex-row px-4 py-2 rounded-[10px]">
+        <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <At size={32} />
+            <At size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
           </span>
           <input
             type="text"
             name=""
             id="login-email"
-            className="bg-transparent focus:outline-none ml-4"
+            className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-200)] placeholder:text-[var(--text-200)] placeholder:text-bold"
             placeholder="Email"
             required
             value={loginEmail}
@@ -71,15 +72,15 @@ const LoginForm = ({
         </div>
       </FormField>
       <FormField>
-        <div className="bg-[#1a5cf1] w-3/4 flex flex-row px-4 py-2 rounded-[10px]">
+      <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <Lock size={32} />
+            <Lock size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
           </span>
           <input
             type="password"
             name=""
             id="login-password"
-            className="bg-transparent focus:outline-none ml-4"
+            className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-200)] placeholder:text-[var(--text-200)] placeholder:text-bold"
             placeholder="Password"
             required
             value={loginPW}
@@ -89,7 +90,7 @@ const LoginForm = ({
       </FormField>
       <FormField>
         <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} />
-        <p className="ml-8 font-bold text-[#2a288f] cursor-pointer underline ">
+        <p className="ml-8 font-bold text-[var(--text-200)] cursor-pointer underline ">
           o{" "}
           <span
             onClick={() => {
@@ -102,7 +103,7 @@ const LoginForm = ({
       </FormField>
       <a
         href=""
-        className="w-full text-center font-bold text-[#2a288f] cursor-pointer underline"
+        className="w-full text-center text-md text-[var(--text-200)] cursor-pointer underline"
       >
         Olvidé mi contraseña
       </a>
