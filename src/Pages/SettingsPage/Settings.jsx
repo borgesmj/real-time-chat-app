@@ -20,6 +20,7 @@ const Settings = ({
 }) => {
   const handleChange = () => {
     setDarkTheme(!darkTheme);
+    window.localStorage.setItem("darkTheme", !darkTheme)
   };
   const [openPWSettings, setOpenPWSettings] = useState(false);
   const [openProfileSettings, setOpenProfileSettings] = useState(false);

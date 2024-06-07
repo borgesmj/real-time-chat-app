@@ -48,7 +48,16 @@ function App() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  
 
+  useEffect(() => {
+    const darkTheme = window.localStorage.getItem("darkTheme")
+    if (darkTheme){
+      setDarkTheme(darkTheme)
+    } else{
+      setDarkTheme(false)
+    }
+  })
   useEffect(() => {
     const fetchUserByUserUID = async () => {
       setIsLoading(true);
@@ -115,10 +124,10 @@ function App() {
   return (
     <div
       id="app"
-      className={`w-dvw h-dvh md:p-2 flex justify-center items-center ${
+      className={`w-dvw h-dvh md:p-2 flex justify-center items-center bg-[var(--bg-100)] ${
         !darkTheme
-          ? "bg-gradient-to-tr from-[#EEEEEE] from-80% via-[#f5f5f5] to-[#c7c7c7]"
-          : "bg-gradient-to-tr from-[#263238] from-10% via-[#455a64] to-[#fafafa]"
+          ? "ligth-theme"
+          : "dark-theme"
       }`}
     >
       <Routes>

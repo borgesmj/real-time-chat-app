@@ -7,6 +7,7 @@
     "svelte.svelte-vscode"
     "vue.volar"
     "dsznajder.es7-react-js-snippets"
+    "bradlc.vscode-tailwindcss"
   ];
   idx.previews = {
     previews = {
