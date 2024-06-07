@@ -15,6 +15,7 @@
   --bg-200: #ebe2cd;
   --bg-300: #c2baa6;
   --transparent-bg: #f5ecd730;
+  --form-shadow:#f18f0150;
   background-image: radial-gradient(
       at 47% 33%,
       var(--primary-100) 0,
@@ -36,6 +37,7 @@
   --bg-200: #292a2d;
   --bg-300: #404245;
   --transparent-bg: #40424550;
+  --form-shadow: #e0e0e050;
   background-image: radial-gradient(
       at 47% 33%,
       var(--primary-100) 0,

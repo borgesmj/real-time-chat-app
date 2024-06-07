@@ -52,9 +52,8 @@ const RegisterLogin = ({setCurrentUser, currentUser, darkTheme, setDarkTheme}) =
         <img src="/chatmob_logo.webp" alt="" className="w-full h-full" />
       </div>
       {/*
-
        */}
-      <div className="flex flex-col justify-between items-center backdrop-blur-lg bg-[var(--transparent-bg)]  h-[450px] w-[90%] rounded-xl md:absolute md:bottom-4 md:right-4 md:w-[450px] md:h-[450px] lg:w-[400px] 2xl:w-[520px] 2xl:h-[520px]  2xl:bottom-40 2xl:right-40">
+      <div className="flex flex-col justify-between items-center backdrop-blur-lg bg-[var(--transparent-bg)]  h-[450px] w-[90%] rounded-xl md:absolute md:bottom-4 md:right-4 md:w-[450px] md:h-[450px] lg:w-[400px] 2xl:w-[520px] 2xl:h-[520px]  2xl:bottom-40 2xl:right-40 shadow-[0px_0px_47px_5px_var(--form-shadow)]">
         <input
           type="checkbox"
           name="registerOpen"
