@@ -5,8 +5,9 @@ import RegisterForm from "../../Components/RegisterForm/RegisterForm";
 import Loader from "../../Components/Loader/Loader";
 // Toastyfy
 import { ToastContainer, toast, Bounce } from "react-toastify";
+import {Moon, Sun} from '@phosphor-icons/react'
 
-const RegisterLogin = ({setCurrentUser, currentUser, darktheme, setDarkTheme}) => {
+const RegisterLogin = ({setCurrentUser, currentUser, darkTheme, setDarkTheme}) => {
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loading, setLoading] = useState(false)
 
@@ -75,7 +76,7 @@ const RegisterLogin = ({setCurrentUser, currentUser, darktheme, setDarkTheme}) =
           setCurrentUser = {setCurrentUser}
           currentUser={currentUser}
           openToastSuccess={openToastSuccess}
-          darktheme={darktheme}
+          darkTheme={darkTheme}
         />
         <RegisterForm
           id="RegisterForm"
@@ -84,7 +85,7 @@ const RegisterLogin = ({setCurrentUser, currentUser, darktheme, setDarkTheme}) =
           openToastError={openToastError}
           openToastSuccess={openToastSuccess}
           setLoading = {setLoading}
-          darktheme={darktheme}
+          darkTheme={darkTheme}
         />
         <ToastContainer
           position="bottom-right"
@@ -100,6 +101,11 @@ const RegisterLogin = ({setCurrentUser, currentUser, darktheme, setDarkTheme}) =
           transition={Bounce}
         />
       </div>
+      <button className="fixed bottom-12 left-12 h-fit w-fit rounded-full" onClick={() => {setDarkTheme(!darkTheme)}}>
+        <span>{
+          darkTheme ? <Moon size={32} color="#ffffff" weight="fill"/> : <Sun size={32} color="#f8ed21"  weight="fill"/>
+          }</span>
+      </button>
     </div>
   );
 };

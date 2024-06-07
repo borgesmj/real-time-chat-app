@@ -55,9 +55,9 @@ function App() {
     if (darkTheme){
       setDarkTheme(darkTheme)
     } else{
-      setDarkTheme(false)
+      setDarkTheme(true)
     }
-  })
+  }, [])
   useEffect(() => {
     const fetchUserByUserUID = async () => {
       setIsLoading(true);
@@ -100,6 +100,10 @@ function App() {
     }
   }, [currentUser])
 
+  useEffect(() => {
+    window.localStorage.setItem("darkTheme", darkTheme)
+  }, [darkTheme] )
+
   const closeModal = () => {
     const modal = document.querySelector(".modalContent");
     modal.classList.add("scale-out-vertical");
@@ -124,10 +128,10 @@ function App() {
   return (
     <div
       id="app"
-      className={`w-dvw h-dvh md:p-2 flex justify-center items-center bg-[var(--bg-100)] ligth-theme ${
+      className={`w-dvw h-dvh md:p-2 flex justify-center items-center bg-[var(--bg-100)] ${
         !darkTheme
           ? "ligth-theme"
-          : null
+          : "dark-theme"
       }`}
     >
       <Routes>
