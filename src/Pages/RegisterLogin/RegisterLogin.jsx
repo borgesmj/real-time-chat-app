@@ -5,6 +5,8 @@ import RegisterForm from "../../Components/RegisterForm/RegisterForm";
 import Loader from "../../Components/Loader/Loader";
 // Toastyfy
 import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// icons
 import {Moon, Sun} from '@phosphor-icons/react'
 
 const RegisterLogin = ({setCurrentUser, currentUser, darkTheme, setDarkTheme}) => {

@@ -9,7 +9,6 @@ import { At, User, Lock } from "@phosphor-icons/react";
 import { auth, db } from "../../Process/Firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, getDocs, addDoc, updateDoc } from "firebase/firestore";
-import { setUserProperties } from "firebase/analytics";
 import { toast } from "react-toastify";
 const RegisterForm = ({
   id,
@@ -17,8 +16,7 @@ const RegisterForm = ({
   setRegisterOpen,
   openToastSuccess,
   openToastError,
-  setLoading,
-  darkTheme
+  darkTheme,
 }) => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [username, setUsername] = useState("");
@@ -26,7 +24,8 @@ const RegisterForm = ({
   const [email, setEmail] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [allUsersList, setAllUserList] = useState([]);
-  const [btnIsActive, setBtnIsActive] = useState(false)
+  const [btnIsActive, setBtnIsActive] = useState(false);
+  const [userLoading, setUserLoading] = useState(false);
 
   useEffect(() => {
     let strength = evalNewPassword(newPassword);
@@ -68,14 +67,14 @@ const RegisterForm = ({
     } else {
       setBtnIsActive(false);
     }
-  }, [email, username, newPassword, repeatPassword])
+  }, [email, username, newPassword, repeatPassword]);
   const validateUsername = (username) => {
     const usernameRegex = /^[a-zA-Z0-9_]+$/;
     return usernameRegex.test(username);
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
+    setUserLoading(true);
     const registerUsername = username.toLowerCase().trim();
     const registerEmail = email.toLocaleLowerCase().trim();
     if (!validateUsername(registerUsername)) {
@@ -86,7 +85,7 @@ const RegisterForm = ({
           Solo puede contener letras, numeros y _
         </>
       );
-      setLoading(false);
+      setUserLoading(false);
       return;
     } else if (allUsersList.includes(username)) {
       openToastError(
@@ -96,7 +95,7 @@ const RegisterForm = ({
           Intente con uno distinto
         </>
       );
-      setLoading(false);
+      setUserLoading(false);
       return;
     } else if (passwordStrength < 3) {
       openToastError(
@@ -113,11 +112,11 @@ const RegisterForm = ({
           <br />* 1 carácter especial (.*/?&$+)
         </>
       );
-      setLoading(false);
+      setUserLoading(false);
       return;
     } else if (newPassword !== repeatPassword) {
       openToastError("Las contraseñas deben coincidir");
-      setLoading(false);
+      setUserLoading(false);
       return;
     }
     try {
@@ -161,17 +160,17 @@ const RegisterForm = ({
       await updateDoc(userDocRef, { userId: userDocRef.id });
       // Paso 5: creamos un documento de chats para el mismo usuario
       // que funcionará para un chat de mensajes guardados
-      const chatsDocRef = await addDoc(collection(db,"chats"), {
+      const chatsDocRef = await addDoc(collection(db, "chats"), {
         participants: [registerUsername, registerUsername],
         createdAt: new Date(),
         lastMessage: {},
         messages: [],
-        chatId: ""
-      })
+        chatId: "",
+      });
       // PAso 6: establecemos un campo con el id del chat
       await updateDoc(chatsDocRef, {
-        chatId: chatsDocRef.id
-      })
+        chatId: chatsDocRef.id,
+      });
       setUsername("");
       setNewPassword("");
       setRepeatPassword("");
@@ -179,19 +178,19 @@ const RegisterForm = ({
       openToastSuccess();
       setTimeout(() => {
         setRegisterOpen(false);
-        setLoading(false);
+        setUserLoading(false);
       }, 3000);
     } catch (error) {
       console.error("Error adding document: ", e);
       if (error.code === "auth/email-already-in-use") {
         openToastError("Este correo ya esta en uso");
-        setLoading(false);
+        setUserLoading(false);
       } else if (error.code === "auth/invalid-email") {
         openToastError("El correo no es valido");
-        setLoading(false);
+        setUserLoading(false);
       } else if (error.code) {
         openToastError("Ups! Algo salió mal.");
-        setLoading(false);
+        setUserLoading(false);
       }
       console.log(error.code);
     }
@@ -201,7 +200,11 @@ const RegisterForm = ({
       <FormField>
         <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <User size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
+            <User
+              size={32}
+              color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+              weight="bold"
+            />
           </span>
           <input
             type="text"
@@ -218,7 +221,11 @@ const RegisterForm = ({
       <FormField>
         <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <At size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
+            <At
+              size={32}
+              color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+              weight="bold"
+            />
           </span>
           <input
             type="text"
@@ -235,7 +242,11 @@ const RegisterForm = ({
       <FormField>
         <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <Lock size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
+            <Lock
+              size={32}
+              color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+              weight="bold"
+            />
           </span>
           <input
             type="password"
@@ -254,7 +265,11 @@ const RegisterForm = ({
       <FormField>
         <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
           <span>
-            <Lock size={32}  color={darkTheme ? "#FFFFFF" : "#0b0a0a" } weight="bold" />
+            <Lock
+              size={32}
+              color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+              weight="bold"
+            />
           </span>
           <input
             type="password"
@@ -271,7 +286,12 @@ const RegisterForm = ({
         </div>
       </FormField>
       <FormField>
-        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} btnIsActive={btnIsActive} />
+        <SubmitBtn
+          btnText={btnText}
+          handleSubmit={handleSubmit}
+          btnIsActive={btnIsActive}
+          userLoading={userLoading}
+        />
         <p className="ml-8 font-bold text-[var(--text-200)] cursor-pointer underline ">
           o{" "}
           <span

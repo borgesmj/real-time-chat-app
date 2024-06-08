@@ -1,4 +1,5 @@
-const SubmitBtn = ({ btnText, handleSubmit, btnIsActive }) => {
+import ButtonLoader from "../Loader/ButtonLoader";
+const SubmitBtn = ({ btnText, handleSubmit, btnIsActive, userLoading }) => {
   const handleButton = (e) => {
     e.preventDefault();
     if (!btnIsActive) {
@@ -16,7 +17,7 @@ const SubmitBtn = ({ btnText, handleSubmit, btnIsActive }) => {
       }`}
       onClick={handleButton}
     >
-      {btnText}
+      {userLoading ? <ButtonLoader /> : btnText}
     </button>
   );
 };
