@@ -2,7 +2,7 @@ import FormTemplate from "../../Templates/FormTemplate";
 import FormField from "../FormField/FormField";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
 import { At, Lock } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Toastyfy
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,8 +21,16 @@ const LoginForm = ({
 }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPW, setLoginPW] = useState("");
+  const [btnIsActive, setBtnIsActive] = useState(false)
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (loginEmail && loginPW) {
+      setBtnIsActive(true);
+    } else {
+      setBtnIsActive(false);
+    }
+  }, [loginEmail, loginPW])
   const handleSubmit = async () => {
     const lowercaseEmail = loginEmail.toLowerCase();
     setLoading(true);
@@ -38,12 +46,16 @@ const LoginForm = ({
       setLoading(false);
       if (error.code === "auth/invalid-credential") {
         openToastError("Email y/o contraseña incorrecto");
+        return
       } else if (error.code === "auth/user-not-found") {
         openToastError("Usuario no existe");
+        return
       } else if (error.code === "auth/user-disabled") {
         openToastError("Usuario Inhabilitado");
+        return
       } else {
         openToastError("Ups!! Algo salió mal");
+        return
       }
     } finally{
       setLoading(false)
@@ -89,7 +101,7 @@ const LoginForm = ({
         </div>
       </FormField>
       <FormField>
-        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} />
+        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} btnIsActive= {btnIsActive}/>
         <p className="ml-8 font-bold text-[var(--text-200)] cursor-pointer underline ">
           o{" "}
           <span

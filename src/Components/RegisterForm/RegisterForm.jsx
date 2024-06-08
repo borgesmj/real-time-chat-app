@@ -26,6 +26,7 @@ const RegisterForm = ({
   const [email, setEmail] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [allUsersList, setAllUserList] = useState([]);
+  const [btnIsActive, setBtnIsActive] = useState(false)
 
   useEffect(() => {
     let strength = evalNewPassword(newPassword);
@@ -60,6 +61,14 @@ const RegisterForm = ({
     };
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (repeatPassword && newPassword && username && email) {
+      setBtnIsActive(true);
+    } else {
+      setBtnIsActive(false);
+    }
+  }, [email, username, newPassword, repeatPassword])
   const validateUsername = (username) => {
     const usernameRegex = /^[a-zA-Z0-9_]+$/;
     return usernameRegex.test(username);
@@ -262,7 +271,7 @@ const RegisterForm = ({
         </div>
       </FormField>
       <FormField>
-        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} />
+        <SubmitBtn btnText={btnText} handleSubmit={handleSubmit} btnIsActive={btnIsActive} />
         <p className="ml-8 font-bold text-[var(--text-200)] cursor-pointer underline ">
           o{" "}
           <span
