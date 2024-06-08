@@ -100,7 +100,7 @@ const RegisterLogin = ({setCurrentUser, currentUser, darkTheme, setDarkTheme}) =
           transition={Bounce}
         />
       </div>
-      <button className="fixed top-12 left-12 h-[40px] w-[40px] rounded-full bg-[#111] p-2 flex justify-center items-center border-solid border-[#fefefe] border-2 shadow-[4px_4px_0px_0px_#fefefe] active:shadow-[0px_0px_0px_0px_#fefefe] active:translate-x-2 active:translate-y-2" onClick={() => {setDarkTheme(!darkTheme)}}>
+      <button className="fixed top-12 left-12 h-[40px] w-[40px] rounded-full bg-[#111] p-2 flex justify-center items-center border-solid border-[#fefefe] border-2 shadow-[4px_4px_0px_0px_#fefefe] transition-all active:shadow-[0px_0px_0px_0px_#fefefe] active:translate-x-2 active:translate-y-2" onClick={() => {setDarkTheme(!darkTheme)}}>
         <span>{
           darkTheme ? <Moon size={32} color="#ffffff" weight="fill"/> : <Sun size={32} color="#ffffff"  weight="fill"/>
           }</span>
