@@ -21,6 +21,8 @@ const Sidebar = ({
     setSidebarOpen(!sidebarOpen);
   };
 
+ const btnColor = darkTheme ? "#FFFFFF" : "#0b0a0a";
+
   const links = [
     {
       href: "/chats",
@@ -28,7 +30,7 @@ const Sidebar = ({
         <EnvelopeSimple
           size={32}
           weight="regular"
-          color={!darkTheme ? "#FFFFFF" : "#00997a"}
+          color={btnColor}
         />
       ),
       text: "Chats",
@@ -39,7 +41,7 @@ const Sidebar = ({
         <UsersThree
           size={32}
           weight="regular"
-          color={!darkTheme ? "#FFFFFF" : "#00997a"}
+          color={btnColor}
         />
       ),
       text: "Contactos",
@@ -50,7 +52,7 @@ const Sidebar = ({
         <User
           size={32}
           weight="regular"
-          color={!darkTheme ? "#FFFFFF" : "#00997a"}
+          color={btnColor}
         />
       ),
       text: "Mi perfil",
@@ -63,9 +65,7 @@ const Sidebar = ({
         !sidebarOpen
           ? "nav-width transition-all duration-[0.5s] md:w-12 z-0"
           : "transition-all duration-[0.5s] w-[65dvw] md:w-[30%] lg:w-[13rem] z-20"
-      } h-full sidebar-bg flex flex-col justify-evenly px-2 absolute left-0 top-0 bottom-0 ${
-        !darkTheme ? "bg-[#5c5c5c]" : "bg-[#0A192F]"
-      } items-start lg:hover:cursor-pointer`}
+      } h-full sidebar-bg flex flex-col justify-evenly px-2 absolute left-0 top-0 bottom-0 bg-[var(--bg-200)] items-start lg:hover:cursor-pointer`}
     >
       <button
         type="button"
@@ -80,17 +80,17 @@ const Sidebar = ({
           <List
             size={32}
             weight="regular"
-            color={!darkTheme ? "#FFFFFF" : "#00997a"}
+            color={btnColor}
           />
         ) : (
           <X
             size={32}
             weight="regular"
-            color={!darkTheme ? "#FFFFFF" : "#00997a"}
+            color={btnColor}
           />
         )}
       </button>
-      <section className="flex flex-col justify-between h-40 md:h-60 lg:h-[12rem]">
+      <section className="flex flex-col justify-between h-40 md:h-40 lg:h-[8rem]">
         {links.map((item, index) => (
           <a
             key={`link_${index}`}
@@ -100,9 +100,7 @@ const Sidebar = ({
             {item.icon}{" "}
             {sidebarOpen && (
               <span
-                className={`ml-4 text-[1.3rem] ${
-                  !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-                } ${
+                className={`ml-4 text-[1.3rem] text-[var(--text-200)] ${
                   !sidebarOpen
                     ? "opacity-0 transition-all duration-[0.5s]"
                     : "opacity-100 transition-all duration-[0.5s]"
@@ -122,13 +120,11 @@ const Sidebar = ({
           <GearSix
             size={32}
             weight="regular"
-            color={!darkTheme ? "#FFFFFF" : "#00997a"}
+            color={btnColor}
           />{" "}
           {sidebarOpen && (
             <span
-              className={`ml-4 text-[1.3rem] ${
-                !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-              } ${
+              className={`ml-4 text-[1.3rem] text-[var(--text-200)] ${
                 !sidebarOpen
                   ? "opacity-0 transition-all duration-[0.5s]"
                   : "opacity-100 transition-all duration-[0.5s]"
@@ -147,13 +143,11 @@ const Sidebar = ({
           <SignOut
             size={32}
             weight="regular"
-            color={!darkTheme ? "#FFFFFF" : "#00997a"}
+            color={btnColor}
           />{" "}
           {sidebarOpen && (
             <span
-              className={`ml-4 text-[1.3rem] ${
-                !darkTheme ? "text-[#e0e0e0]" : "text-[#00997a]"
-              } ${
+              className={`ml-4 text-[1.3rem] text-[var(--text-200)] ${
                 !sidebarOpen
                   ? "opacity-0 transition-all duration-[0.5s]"
                   : "opacity-100 transition-all duration-[0.5s]"
