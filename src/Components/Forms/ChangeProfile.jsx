@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import FormTemplate from "../../Templates/FormTemplate";
 import FormField from "../FormField/FormField";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
-import { At, Biohazard, Cake, MapPin, Pen, User } from "@phosphor-icons/react";
-import "./ChangeProfile.css";
+import { At, Cake, MapPin, Pen, User } from "@phosphor-icons/react";
 import {
   collection,
   doc,
@@ -56,6 +55,8 @@ const ChangeProfile = ({
     "Moda",
     "Salud y Bienestar",
   ]);
+  const [btnIsActive, setBtnIsActive] = useState(false);
+  const [userLoading, setUserLoading] = useState(false);
 
   useEffect(() => {
     const filteredList = interestsList.filter((item) => {
@@ -63,6 +64,14 @@ const ChangeProfile = ({
     });
     setInterestsList(filteredList);
   }, []);
+
+  useEffect(() => {
+    if (username !== ""){
+      setBtnIsActive(true);
+    } else {
+      setBtnIsActive(false);
+    }
+  }, [])
 
   const navigate = useNavigate();
 
@@ -92,7 +101,7 @@ const ChangeProfile = ({
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
+    setUserLoading(true);
     const newUsername = username.toLowerCase().trim();
     if (!validateUsername(newUsername)) {
       openToastError(
@@ -102,7 +111,7 @@ const ChangeProfile = ({
           Solo puede contener letras, numeros y _
         </>
       );
-      setLoading(false);
+      setUserLoading(false);
       return;
     }
     const userId = currentUser?.userId;
@@ -391,7 +400,7 @@ const ChangeProfile = ({
         </div>
 
         <FormField>
-          <SubmitBtn btnText="Guardar" handleSubmit={handleSubmit} />
+          <SubmitBtn btnText="Guardar" handleSubmit={handleSubmit} btnIsActive={btnIsActive} userLoading={userLoading} />
         </FormField>
       </FormTemplate>
     </div>
