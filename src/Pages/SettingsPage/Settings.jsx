@@ -111,12 +111,14 @@ const Settings = ({
           <ChangePassword
             openToastError={openToastError}
             openToastSuccess={openToastSuccess}
+            darkTheme={darkTheme}
           />
         ) : (
           <ChangeProfile
             currentUser={currentUser}
             openToastSuccess={openToastSuccess}
             openToastError={openToastError}
+            darkTheme = {darkTheme}
           />
         )}
       </SettingsSection>

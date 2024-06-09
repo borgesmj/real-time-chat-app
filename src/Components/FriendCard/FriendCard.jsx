@@ -11,7 +11,6 @@ const FriendCard = ({
   currentUserDocId,
   newFriendID
 }) => {
-  console.log(newFriendID)
   return (
     <div className="bg-white shadow-2xl p-4 h-fit w-[300px] rounded-2xl my-2">
       <div className="card-header flex flex-row justify-start p-2">

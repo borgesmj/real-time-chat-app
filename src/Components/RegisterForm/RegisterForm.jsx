@@ -192,7 +192,6 @@ const RegisterForm = ({
         openToastError("Ups! Algo salió mal.");
         setUserLoading(false);
       }
-      console.log(error.code);
     }
   };
   return (

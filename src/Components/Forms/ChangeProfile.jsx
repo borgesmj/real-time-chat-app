@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FormTemplate from "../../Templates/FormTemplate";
 import FormField from "../FormField/FormField";
 import SubmitBtn from "../SubmitBtn/SubmitBtn";
+import { At, Biohazard, Cake, MapPin, Pen, User } from "@phosphor-icons/react";
 import "./ChangeProfile.css";
 import {
   collection,
@@ -15,8 +16,14 @@ import {
 import { db } from "../../Process/Firebase";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import { SocialIcon } from "react-social-icons";
 
-const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
+const ChangeProfile = ({
+  currentUser,
+  openToastSuccess,
+  openToastError,
+  darkTheme,
+}) => {
   const [loading, setLoading] = useState(false);
   const [profile_pic, setProfilePic] = useState(currentUser?.profile_pic ?? "");
   const [fullname, setFullname] = useState(currentUser?.fullname ?? "");
@@ -135,158 +142,208 @@ const ChangeProfile = ({ currentUser, openToastSuccess, openToastError }) => {
   };
 
   return (
-    <div className="w-full absolute top-12 md:top-20 bottom-12 bg-white flex flex-col pb-10 overflow-y-auto">
+    <div className="w-full md:w-1/2 absolute top-12 md:top-20 bottom-12 bg-[var(--primary-100)] flex flex-col pb-10 overflow-y-auto">
       {loading && <Loader />}
       <FormTemplate>
         <FormField>
-          <img src={profile_pic} alt="" />
+          <img src={profile_pic} alt="" className="rounded-full" />
         </FormField>
-        <p className="form-field">
-          <input
-            type="text"
-            name="username"
-            id="fullname"
-            className="input-field"
-            placeholder=" "
-            value={fullname}
-            onChange={(e) => {
-              setFullname(e.target.value);
-            }}
-          />
-          <label htmlFor="fullname" className="label-field">
-            Nombre Completo:
-          </label>
-        </p>
-        <p className="form-field">
-          <input
-            type="text"
-            name="username"
-            id="username"
-            className="input-field"
-            placeholder=" "
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-            required
-          />
-          <label htmlFor="username" className="label-field requerido">
-            Username:
-          </label>
-        </p>
-        <p className="form-field h-[180px]">
-          <textarea
-            type="text"
-            name="username"
-            id="userbio"
-            className="input-field"
-            placeholder=" "
-            value={bio}
-            onChange={(e) => {
-              setBio(e.target.value);
-            }}
-          />
-          <label htmlFor="userbio" className="label-field requerido">
-            Biografía:
-          </label>
-        </p>
-        <p className="form-field">
-          <input
-            type="text"
-            name="location"
-            id="location"
-            className="input-field"
-            placeholder=" "
-            value={location}
-            onChange={(e) => {
-              setLocation(e.target.value);
-            }}
-          />
-          <label htmlFor="location" className="label-field requerido">
-            Ubicación:
-          </label>
-        </p>
-        <p className="form-field">
-          <input
-            type="date"
-            name="birthdate"
-            id="birthdate"
-            className="input-field"
-            placeholder=" "
-            value={birthdate}
-            onChange={(e) => {
-              setBirthdate(e.target.value);
-            }}
-          />
-          <label htmlFor="birthdate" className="label-field requerido">
-            Fecha de nacimiento:
-          </label>
-        </p>
-        <h3>Redes Sociales</h3>
-        <p className="rrss-form-field">
-          <label htmlFor="instagram" className="rrss-field">
-            instragram.com/
-          </label>
-          <input
-            type="text"
-            name="instagram"
-            id="instagram"
-            className="rrss-field"
-            placeholder=" "
-            value={instagram}
-            onChange={(e) => {
-              setInstagram(e.target.value);
-            }}
-          />
-        </p>
-        <p className="rrss-form-field">
-          <label htmlFor="facebook" className="rrss-field">
-            facebook.com/
-          </label>
-          <input
-            type="text"
-            name="facebook"
-            id="facebook"
-            className="rrss-field"
-            placeholder=" "
-            value={facebook}
-            onChange={(e) => {
-              setFacebook(e.target.value);
-            }}
-          />
-        </p>
-        <p className="rrss-form-field">
-          <label htmlFor="tiktok" className="rrss-field">
-            tiktok.com/
-          </label>
-          <input
-            type="text"
-            name="tiktok"
-            id="tiktok"
-            className="rss-field"
-            placeholder=" "
-            value={tiktok}
-            onChange={(e) => {
-              setTiktok(e.target.value);
-            }}
-          />
-        </p>
-        <p className="rrss-form-field">
-          <label htmlFor="twitter" className="rrss-field">
-            twitter.com/
-          </label>
-          <input
-            type="text"
-            name="twitter"
-            id="twitter"
-            className="rss-field"
-            placeholder=" "
-            value={twitter}
-            onChange={(e) => {
-              setTwitter(e.target.value);
-            }}
-          />
-        </p>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <span>
+              <User
+                size={32}
+                color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+                weight="bold"
+              />
+            </span>
+            <input
+              type="text"
+              name=""
+              id=""
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold"
+              placeholder="Nombre Completo"
+              value={fullname}
+              onChange={(e) => {
+                setFullname(e.target.value);
+              }}
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <span>
+              <At
+                size={32}
+                color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+                weight="bold"
+              />
+            </span>
+            <input
+              type="text"
+              name=""
+              id=""
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold"
+              placeholder="Nombre de usuario"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              required
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <span>
+              <Pen
+                size={32}
+                color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+                weight="bold"
+              />
+            </span>
+            <textarea
+              name=""
+              id=""
+              cols="15"
+              rows="5"
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold resize-none"
+              placeholder="Biografía"
+              value={bio}
+              onChange={(e) => {
+                setBio(e.target.value);
+              }}
+            ></textarea>
+          </div>
+        </FormField>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <span>
+              <MapPin
+                size={32}
+                color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+                weight="bold"
+              />
+            </span>
+            <input
+              type="text"
+              name=""
+              id=""
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold"
+              placeholder="Ubicación"
+              value={location}
+              onChange={(e) => {
+                setLocation(e.target.value);
+              }}
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <span>
+              <Cake
+                size={32}
+                color={darkTheme ? "#FFFFFF" : "#0b0a0a"}
+                weight="bold"
+              />
+            </span>
+            <input
+              type="date"
+              name=""
+              id=""
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold"
+              value={birthdate}
+              onChange={(e) => {
+                setBirthdate(e.target.value);
+              }}
+            />
+          </div>
+        </FormField>
+        <h3 className="text-[var(--text-100)]">Redes Sociales</h3>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <SocialIcon
+              url="https://www.instagram.com/"
+              aria-label="Instagram"
+              as="span"
+              style={{ width: "36px", height: "36px" }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold"
+              placeholder="instagram"
+              value={instagram}
+              onChange={(e) => {
+                setInstagram(e.target.value);
+              }}
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <SocialIcon
+              url="https://www.facebook.com/"
+              aria-label="Facebook"
+              as="span"
+              style={{ width: "36px", height: "36px" }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold"
+              placeholder="Facebook"
+              value={facebook}
+              onChange={(e) => {
+                setFacebook(e.target.value);
+              }}
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <SocialIcon
+              url="https://www.tiktok.com/"
+              aria-label="TikTok"
+              as="span"
+              style={{ width: "36px", height: "36px" }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold"
+              placeholder="Tiktok"
+              value={tiktok}
+              onChange={(e) => {
+                setTiktok(e.target.value);
+              }}
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div className="w-3/4 flex flex-row px-4 py-2 border-b-solid border-b-[2px] border-b-transparent focus-within:border-b-[var(--accent-100)]">
+            <SocialIcon
+              url="https://www.twitter.com/"
+              aria-label="Twitter"
+              as="span"
+              style={{ width: "36px", height: "36px" }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              className="bg-transparent focus:outline-none ml-4 w-3/4 text-[var(--text-100)] placeholder:text-[var(--text-200)] placeholder:text-bold"
+              placeholder="Twitter"
+              value={twitter}
+              onChange={(e) => {
+                setTwitter(e.target.value);
+              }}
+            />
+          </div>
+        </FormField>
         <h3>Intereses</h3>
         <div className="w-full p-4 flex flex-wrap justify-center gap-5">
           {userInterests.length > 0 &&

@@ -7,6 +7,7 @@
   align-items: center;
   position: relative;
   margin-block: 10px;
+  background-color: transparent;
 }
 
 .rrss-form-field {

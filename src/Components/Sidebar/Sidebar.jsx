@@ -65,7 +65,7 @@ const Sidebar = ({
         !sidebarOpen
           ? "nav-width transition-all duration-[0.5s] md:w-12 z-0"
           : "transition-all duration-[0.5s] w-[65dvw] md:w-[30%] lg:w-[13rem] z-20"
-      } h-full sidebar-bg flex flex-col justify-evenly px-2 absolute left-0 top-0 bottom-0 bg-[var(--bg-200)] items-start lg:hover:cursor-pointer`}
+      } h-full flex flex-col justify-evenly px-2 absolute left-0 top-0 bottom-0 bg-[var(--bg-200)] items-start lg:hover:cursor-pointer`}
     >
       <button
         type="button"

@@ -51,13 +51,13 @@ function App() {
   
 
   useEffect(() => {
-    const darkTheme = window.localStorage.getItem("darkTheme")
-    if (darkTheme){
-      setDarkTheme(darkTheme)
-    } else{
-      setDarkTheme(true)
+    const darkTheme = window.localStorage.getItem("darkTheme");
+    if (darkTheme) {
+      setDarkTheme(JSON.parse(darkTheme)); // Convertir el string a booleano
+    } else {
+      setDarkTheme(true);
     }
-  }, [])
+  }, []);
   useEffect(() => {
     const fetchUserByUserUID = async () => {
       setIsLoading(true);
@@ -101,8 +101,9 @@ function App() {
   }, [currentUser])
 
   useEffect(() => {
-    window.localStorage.setItem("darkTheme", darkTheme)
-  }, [darkTheme] )
+    window.localStorage.setItem("darkTheme", JSON.stringify(darkTheme)); // Convertir el booleano a string
+  }, [darkTheme]);
+  
 
   const closeModal = () => {
     const modal = document.querySelector(".modalContent");
