@@ -36,6 +36,8 @@ const LoginForm = ({
       const results = await logIn(lowercaseEmail, loginPW);
       window.localStorage.setItem("userUID", results.user.uid);
       window.location.href = "/chats";
+      setLoginEmail("");
+      setLoginPW("");
     } catch (error) {
       console.log(error);
       setUserLoading(false);
@@ -52,10 +54,8 @@ const LoginForm = ({
         openToastError("Ups!! Algo salió mal");
         return;
       }
-    } finally {
-      setUserLoading(false);
-      setLoginEmail("");
-      setLoginPW("");
+    } finally{
+      setUserLoading(false)
     }
   };
 
