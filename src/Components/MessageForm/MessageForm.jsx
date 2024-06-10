@@ -50,33 +50,36 @@ const MessageForm = ({ chatId, currentUser }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setText("")
+      setText("");
     }
   };
+
   return (
     <form
-      className="absolute bottom-0 w-full bg-gray-100 flex items-center py-3 px-4 shadow-lg"
+      className="absolute bottom-0 w-full md:w-3/4 bg-gray-200 flex flex-col-reverse items-center justify-end py-3 px-4 shadow-lg"
       onSubmit={sendMessage}
     >
-      <div className="flex-grow mr-4">
+      <div className="w-full flex flex-row items-end justify-around">
         <textarea
           name="message"
           id="message"
           ref={textareaRef}
           value={text}
           onChange={handleChange}
-          className="w-full max-h-32 resize-none border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500 overflow-y-scroll"
+          className="w-full max-h-20 resize-none border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:border-blue-500 overflow-y-scroll"
           placeholder="Escribe tu mensaje..."
           rows={1}
+          style={{ position: 'relative', bottom: 0 }}
         ></textarea>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded-r-lg flex justify-center items-center hover:bg-blue-600 transition-colors"
+          
+          aria-label="Enviar mensaje"
+        >
+          <PaperPlaneTilt size={24} />
+        </button>
       </div>
-      <button
-        type="submit"
-        className="bg-blue-500 text-white p-2 rounded-full flex justify-center items-center hover:bg-blue-600 transition-colors"
-        aria-label="Enviar mensaje"
-      >
-        <PaperPlaneTilt size={24} />
-      </button>
     </form>
   );
 };
