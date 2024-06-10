@@ -66,14 +66,13 @@ const ChangeProfile = ({
   }, []);
 
   useEffect(() => {
-    if (username !== ""){
+    if (username !== "") {
       setBtnIsActive(true);
     } else {
       setBtnIsActive(false);
     }
-  }, [])
+  }, [username]);
 
-  const navigate = useNavigate();
 
   const handleAddInterest = (interest) => {
     if (userInterests.length < 5) {
@@ -151,7 +150,7 @@ const ChangeProfile = ({
   };
 
   return (
-    <div className="w-full md:w-1/2 absolute top-12 md:top-20 bottom-12 bg-[var(--primary-100)] flex flex-col pb-10 overflow-y-auto">
+    <div className="w-full md:w-3/4 absolute top-12 md:top-20 bottom-12 bg-[var(--primary-100)] flex flex-col pb-10 overflow-y-auto">
       {loading && <Loader />}
       <FormTemplate>
         <FormField>
@@ -359,7 +358,7 @@ const ChangeProfile = ({
             userInterests.map((interest) => (
               <div key={interest}>
                 <label htmlFor={interest}>
-                  <span className="cursor-pointer rounded-2xl bg-blue-500 p-2 ">
+                  <span className="cursor-pointer rounded-2xl bg-[var(--accent-100)] text-white p-2 ">
                     {interest}
                   </span>
                 </label>
@@ -381,7 +380,7 @@ const ChangeProfile = ({
           {interestsList.map((interest) => (
             <div key={interest}>
               <label htmlFor={interest} key={interest}>
-                <span className="cursor-pointer rounded-2xl bg-blue-500 p-2 ">
+                <span className="cursor-pointer rounded-2xl bg-[var(--bg-400)] border-solid border-[1px] border-[var(--primary-200)] p-2 transition-all duration-300 ease-in lg:opacity-90 lg:hover:opacity-100">
                   {interest}
                 </span>
               </label>
@@ -400,7 +399,12 @@ const ChangeProfile = ({
         </div>
 
         <FormField>
-          <SubmitBtn btnText="Guardar" handleSubmit={handleSubmit} btnIsActive={btnIsActive} userLoading={userLoading} />
+          <SubmitBtn
+            btnText="Guardar"
+            handleSubmit={handleSubmit}
+            btnIsActive={btnIsActive}
+            userLoading={userLoading}
+          />
         </FormField>
       </FormTemplate>
     </div>
