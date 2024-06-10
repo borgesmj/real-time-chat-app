@@ -15,14 +15,16 @@
   --bg-200: #ebe2cd;
   --bg-300: #c2baa6;
   --transparent-bg: #f5ecd730;
-  --form-shadow:#0b0a0a50;
+  --form-shadow: #0b0a0a50;
+  --transparent-accent: #f18f0120;
+  --message-sent: #b2dfbf;
+  --message-received: #f9c99e;
   background-image: radial-gradient(
       at 47% 33%,
       var(--primary-100) 0,
       transparent 59%
     ),
     radial-gradient(at 82% 65%, hsl(218, 39%, 11%) 0, transparent 55%);
-  --transparent-accent: #f18f0120;
 }
 
 .dark-theme {
@@ -39,14 +41,17 @@
   --bg-400: #E2DFD2;
   --transparent-bg: #40424550;
   --form-shadow: #e0e0e050;
+  --transparent-accent: #3498db20;
+  --message-sent: #27ae60;
+  --message-received: #2980b9;
   background-image: radial-gradient(
       at 47% 33%,
       var(--primary-100) 0,
       transparent 59%
     ),
     radial-gradient(at 82% 65%, hsl(218, 39%, 11%) 0, transparent 55%);
-  --transparent-accent: #3498db20;
 }
+
 
 .form-backdrop-filter {
   backdrop-filter: blur(16px) saturate(180%);
