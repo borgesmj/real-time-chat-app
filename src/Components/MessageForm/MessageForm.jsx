@@ -51,6 +51,7 @@ const MessageForm = ({ chatId, currentUser }) => {
       console.log(error);
     } finally {
       setText("");
+      adjustTextareaHeight();
     }
   };
 

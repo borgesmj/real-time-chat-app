@@ -50,7 +50,7 @@ const ChatBubbles = ({ chatId, currentUser }) => {
           if (message.sentBy === currentUser.username) {
             return (
               <MessageSent key={message.messageId}>
-                <p>{message.text}</p>
+                <p className="w-full break-words">{message.text}</p>
                 <span className="text-[10px] absolute -bottom-4 right-0">
                   {formatTimestampToTime(message?.createdAt)}
                 </span>
