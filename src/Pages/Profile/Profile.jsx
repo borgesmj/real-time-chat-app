@@ -99,7 +99,7 @@ const Profile = ({
       ) : (
         <div
           id="profile-page"
-          className="flex flex-col justify-start overflow-y-auto"
+          className="flex flex-col justify-start overflow-y-auto bg-[var(--transparent-bg)] backdrop-blur-lg"
         >
           <div className="  w-full py-4 flex justify-end px-12">
             {username === currentUser.username && (
@@ -124,11 +124,11 @@ const Profile = ({
               />
             </NavLink>
             <div className="flex flex-col items-start md:items-center">
-              <h1 className="text-[1rem] md:text-[3rem] font-bold">
+              <h1 className="text-[1rem] md:text-[3rem] font-bold text-[var(--text-100)]">
                 {profileUser?.fullname}
               </h1>
               <a href={`/user/${username}`}>
-                <span className="text-[0.8rem]">@{profileUser?.username} </span>
+                <span className="text-[0.8rem] text-[var(--text-100)]">@{profileUser?.username} </span>
               </a>
             </div>
           </div>
@@ -141,12 +141,12 @@ const Profile = ({
               profileUser = {profileUser}
             />
           )}
-          <p className="bio max-w-[300px] text-center my-4 mx-auto">
+          <p className="bio max-w-[300px] text-center my-4 mx-auto text-[var(--text-100)]">
             {profileUser?.bio}
           </p>
-          <p className="w-full text-center flex justify-center">
+          <p className="w-full text-center flex justify-center text-[var(--text-100)]">
             <span>
-              <MapPin size={32} color="#161616" weight="fill" />
+              <MapPin size={32} color={darkTheme ? "white" : "black"} weight="fill" />
             </span>
             {profileUser?.location}
           </p>
@@ -172,15 +172,15 @@ const Profile = ({
               }
             })}
           </p>
-          <p className="my-2 mx-auto">
+          <p className="my-2 mx-auto text-[var(--text-100)]">
             Amigos: <span>{profileUser?.friendsList.length}</span>
           </p>
           <div className="w-full flex flex-col items-center justify-center my-2">
-            <p className="py-4">Intereses</p>
+            <p className="py-4 text-[var(--text-100)]">Intereses</p>
             <p className="flex flex-wrap justify-center items-center w-full gap-4">
               {profileUser.interests.map((item) => (
                 <span
-                  className="p-2 rounded-full border-solid border-black border-[1px]"
+                  className="rounded-2xl bg-[var(--accent-200)] text-white p-2 font-semibold"
                   key={item}
                 >
                   {item}
