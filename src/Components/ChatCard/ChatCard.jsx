@@ -1,6 +1,7 @@
 import React from "react";
 
 const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
+  console.log(chat);
   const participantName = chat.participants.filter(
     (name) => name !== currentUser.username
   );
@@ -11,33 +12,34 @@ const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
 
   const formatTimestampToTime = (timestamp) => {
     // Convertir el timestamp a milisegundos
-    if (!timestamp){
-      return "00:00"
-    } else{
-      const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
-    
-    // Obtener horas y minutos
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-  
-    // Añadir un 0 delante si es necesario
-    hours = hours < 10 ? '0' + hours : hours;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-  
-    return `${hours}:${minutes}`;
+    if (!timestamp) {
+      return "00:00";
+    } else {
+      const date = new Date(
+        timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+      );
+
+      // Obtener horas y minutos
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+
+      // Añadir un 0 delante si es necesario
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+
+      return `${hours}:${minutes}`;
     }
-  }
-  
+  };
+
+  const sentBy = chat.lastMessage.sentBy === currentUser.username ? "Tu" : chat.lastMessage.sentBy
 
   const previewText = (text) => {
-    if (text){
-     return  text.length > 20 ? `${text.slice(0,20)}...` : `${text}`
-    } else{
-      return ""
+    if (text) {
+      return text.length > 20 ? `${text.slice(0, 20)}...` : `${text}`;
+    } else {
+      return "";
     }
-  }
-
-
+  };
 
   const handleClick = () => {
     openChat(chat.chatId, participantName);
@@ -45,9 +47,7 @@ const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
   return (
     <li
       onClick={handleClick}
-      className={`w-full h-[70px] transition-[background-color] ease-linear ${
-        !darkTheme ? "bg-[#f5f5f5]" : "bg-[#1b283f]"
-      } flex flex-row items-center justify-start rounded-[5px] relative hover:cursor-pointer p-2 mr-4 hover:bg-[#ffffff10]`}
+      className={`w-full h-fit transition-[background-color] ease-linear bg-transparent flex flex-row items-center justify-start rounded-[5px] relative hover:cursor-pointer p-2 py-2 mr-4 hover:bg-[#ffffff10]`}
     >
       <img
         src="/default-pfp.png"
@@ -55,11 +55,17 @@ const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
         className="rounded-full h-[50px] w-[50px]"
       />
       <div className="ml-2 h-full flex flex-col justify-evenly w-4/5">
-        <h3 className="font-bold">{participantName}</h3>
-        <p>{previewText(chat.lastMessage.text)}</p>
+        <h3 className="font-bold my-2">{participantName}</h3>
+        <p className="my-2">
+        <span>{sentBy}</span>:{" "}<span>{previewText(chat.lastMessage.text)}</span>
+          </p>
       </div>
-      <p className="absolute bottom-0 right-2 text-[8px]">{formatTimestampToTime(chat?.lastMessage?.createdAt)}</p>
+      <p className="absolute bottom-0 right-2 text-[8px]">
+        {formatTimestampToTime(chat?.lastMessage?.createdAt)}
+      </p>
+      {/*
       <span className="unread-point absolute right-4 rounded-full w-[10px] h-[10px] bg-[#00ff00]"></span>
+    */}
     </li>
   );
 };
