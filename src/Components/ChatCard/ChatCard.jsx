@@ -1,7 +1,6 @@
 import React from "react";
 
 const ChatCard = ({ darkTheme, openChat, currentUser, chat }) => {
-  console.log(chat);
   const participantName = chat.participants.filter(
     (name) => name !== currentUser.username
   );
