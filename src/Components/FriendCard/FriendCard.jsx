@@ -9,8 +9,16 @@ const FriendCard = ({
   username,
   profilePic,
   currentUserDocId,
-  newFriendID
+  newFriendID,
+  openModal
 }) => {
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    openModal(username)
+  }
+
+
   return (
     <div className="bg-white shadow-2xl p-4 h-fit w-[300px] rounded-2xl my-2">
       <div className="card-header flex flex-row justify-start p-2">
@@ -30,9 +38,9 @@ const FriendCard = ({
         {/* Amigo agregado*/}
         {friends && (
           <>
-            <span className="w-1/2 flex flex-row items-center">
-              <Check /> Agregado
-            </span>
+            <button className="w-1/2 flex flex-row items-center" onClick={(e)=> {handleClick(e)}}>
+              Enviar mensaje
+            </button>
             <button className="w-1/2 p-4 bg-red-500 rounded-2xl" onClick={() => {deleteFriend(currentUserDocId, newFriendID)}}>
               Eliminar
             </button>

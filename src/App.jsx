@@ -193,6 +193,7 @@ function App() {
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
                 setModalIsOpen={setModalIsOpen}
+                currentUserChats={currentUserChats}
               />
             }
           />

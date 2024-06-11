@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import FriendsList from "../../Components/FriendsList/FriendsList";
 import Section from "../../Components/Section/Section";
 import PageTemplate from "../../Templates/PageTemplate";
+import NewChatModal from "../../Components/NewChatModal/NewChatModal";
 const ContactList = ({
   darkTheme,
   setSidebarOpen,
   sidebarOpen,
   currentUser,
   setModalIsOpen,
+  currentUserChats
 }) => {
   const [friends, setFriends] = useState(true);
   const [requestSent, setRequestSent] = useState(false);
@@ -15,6 +17,9 @@ const ContactList = ({
   const [friendsList, setFriendsList] = useState([]);
   const [recievedList, setRecievedList] = useState([]);
   const [requestList, setRequestList] = useState([]);
+  const [newChatModal, setNewChatModal] = useState(false);
+  const [newMessageTo, setNewMessageTo] = useState('')
+
   useEffect(() => {
     if (currentUser) {
       setFriendsList(currentUser.friendsList);
@@ -22,6 +27,10 @@ const ContactList = ({
       setRequestList(currentUser.friendRequests.sent);
     }
   }, []);
+  const openModal = (username) => {
+    setNewMessageTo(username);
+    setNewChatModal(true)
+  };
   return (
     <PageTemplate
       darkTheme={darkTheme}
@@ -79,7 +88,8 @@ const ContactList = ({
               friends={friends}
               requestReceived={requestReceived}
               requestSent={requestSent}
-              currentUserDocId = {currentUser.userId}
+              currentUserDocId={currentUser.userId}
+              openModal={openModal}
             />
           )}
           {/* Lista de solicitudes enviadas*/}
@@ -90,7 +100,8 @@ const ContactList = ({
               friends={friends}
               requestReceived={requestReceived}
               requestSent={requestSent}
-              currentUserDocId = {currentUser.userId}
+              currentUserDocId={currentUser.userId}
+              openModal={openModal}
             />
           )}
           {/* Lista de solicitudes recibidas*/}
@@ -101,11 +112,19 @@ const ContactList = ({
               friends={friends}
               requestReceived={requestReceived}
               requestSent={requestSent}
-              currentUserDocId = {currentUser.userId}
+              currentUserDocId={currentUser.userId}
+              openModal={openModal}
             />
           )}
         </div>
       </Section>
+      <NewChatModal
+        newChatModal={newChatModal}
+        setNewChatModal={setNewChatModal}
+        newMessageTo={newMessageTo}
+        currentUser={currentUser}
+        currentUserChats={currentUserChats}
+      />
     </PageTemplate>
   );
 };

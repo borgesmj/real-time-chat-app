@@ -5,7 +5,8 @@ const FriendsList = ({
   friends,
   requestSent,
   requestReceived,
-  currentUserDocId
+  currentUserDocId,
+  openModal
 }) => {
   return (
     <div>
@@ -21,6 +22,7 @@ const FriendsList = ({
             requestReceived={requestReceived}
             friends={friends}
             currentUserDocId = {currentUserDocId}
+            openModal={openModal}
           />
         ))
       ) : (
