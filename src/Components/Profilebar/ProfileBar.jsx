@@ -14,7 +14,7 @@ const ProfileBar = ({ setChatOpened, darkTheme, chatName }) => {
           className="lg:hidden"
         />
         <img
-          src="https://thumbs.wbm.im/pw/medium/769696e34b3e45081d14212795d01414.avif"
+          src="default-pfp.png"
           alt=""
           className="rounded-full h-[50px] w-[50px]"
         />
