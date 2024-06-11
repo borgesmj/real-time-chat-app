@@ -3,8 +3,7 @@ import SearchBAr from "../SearchBar/SearchBar";
 
 const ChatsList = ({ darkTheme, openChat, currentUser, currentUserChats }) => {
   return (
-    <div className="w-full">
-      <SearchBAr />
+    <div className="w-full bg-red-700">
       <ul
         id="chatslist"
         className="w-full overflow-y-auto absolute overflow-x-hidden"
