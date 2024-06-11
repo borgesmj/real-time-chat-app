@@ -44,11 +44,10 @@ function App() {
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentUserDocID, setCurrentUserDocID] = useState("");
-  const [currentUserChats, setCurrentUserChats] = useState([])
+  const [currentUserChats, setCurrentUserChats] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
-  
 
   useEffect(() => {
     const darkTheme = window.localStorage.getItem("darkTheme");
@@ -90,20 +89,19 @@ function App() {
 
   useEffect(() => {
     let unsubscribe;
-    if (currentUser){
-      unsubscribe = chatListener(currentUser, setCurrentUserChats)
+    if (currentUser) {
+      unsubscribe = chatListener(currentUser, setCurrentUserChats);
     }
     return () => {
-      if (unsubscribe){
+      if (unsubscribe) {
         unsubscribe();
       }
-    }
-  }, [currentUser])
+    };
+  }, [currentUser]);
 
   useEffect(() => {
     window.localStorage.setItem("darkTheme", JSON.stringify(darkTheme)); // Convertir el booleano a string
   }, [darkTheme]);
-  
 
   const closeModal = () => {
     const modal = document.querySelector(".modalContent");
@@ -125,14 +123,11 @@ function App() {
     return <Loader />;
   }
 
-
   return (
     <div
       id="app"
       className={`w-dvw h-dvh md:p-2 flex justify-center items-center bg-[var(--bg-100)] ${
-        !darkTheme
-          ? "ligth-theme"
-          : "dark-theme"
+        !darkTheme ? "ligth-theme" : "dark-theme"
       }`}
     >
       <Routes>
@@ -160,7 +155,7 @@ function App() {
                 sidebarOpen={sidebarOpen}
                 currentUser={currentUser}
                 setModalIsOpen={setModalIsOpen}
-                currentUserChats = {currentUserChats}
+                currentUserChats={currentUserChats}
               />
             }
           />
@@ -231,17 +226,19 @@ function App() {
       </Routes>
       {modalIsOpen && (
         <Modal>
-          <div className="modalContent scale-in-ver-center bg-white w-[350px] p-8 flex flex-col justify-center items-center shadow-xl">
-            <p className="text-[28px] font-medium">¿Desea cerrar sesión?</p>
+          <div className="modalContent scale-in-ver-center bg-[var(--bg-100)] w-[350px] p-8 flex flex-col justify-center items-center shadow-xl rounded-lg">
+            <p className="text-[28px] font-medium text-[var(--text-100)]">
+              ¿Desea cerrar sesión?
+            </p>
             <div className="w-full flex justify-between mt-4">
               <button
-                className="w-[100px] bg-white p-4 rounded-xl border-solid border-2 border-[#FF0000]"
+                className="w-[100px] bg-transparent-accent p-4 rounded-xl border-2 border-[var(--accent-100)] text-[var(--accent-100)] transition duration-300 ease-in-out transform hover:bg-[var(--accent-100)] hover:text-[var(--text-100)] hover:scale-105"
                 onClick={handleLogOut}
               >
                 Aceptar
               </button>
               <button
-                className="w-[100px] bg-red-400 p-4 rounded-xl border-solid border-2 border-[#FF0000] text-white font-semibold"
+                className="w-[100px] bg-[var(--accent-200)] p-4 rounded-xl border-2 border-[var(--accent-200)] text-white font-semibold transition duration-300 ease-in-out transform hover:bg-[var(--transparent-accent)] hover:text-[var(--accent-200)] hover:scale-105"
                 onClick={closeModal}
               >
                 Cancelar
