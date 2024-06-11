@@ -44,7 +44,7 @@ const ChatBubbles = ({ chatId, currentUser }) => {
   
 
   return (
-    <div className="w-full md:w-3/4 absolute top-12 md:top-20 bottom-12 bg-[var(--transparent-accent)] flex flex-col pb-10">
+    <div className="w-full md:w-3/4 absolute top-12 md:top-20 bottom-12 bg-[var(--bg-300)] md:bg-[var(--transparent-accent)] flex flex-col pb-10">
       <div className="read-messages h-fit flex flex-col absolute bottom-8 left-0 right-0  overflow-y-auto max-h-[90%] px-3">
         {chatMessages.map((message) => {
           if (message.sentBy === currentUser.username) {
